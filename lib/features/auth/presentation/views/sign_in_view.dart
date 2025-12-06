@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
+import 'package:fruits_hub/features/auth/presentation/views/widgets/sign_in_view_body.dart';
 
 class SignInView extends StatelessWidget {
   const SignInView({super.key});
@@ -6,6 +8,14 @@ class SignInView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: buildAppBar(
+        context,
+        title: 'تسجيل الدخول',
+      ),
+      body: SignInViewBody(),
+    );
   }
+
+  
 }
