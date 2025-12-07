@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
+import 'package:fruits_hub/features/auth/presentation/views/sign_up_view.dart';
 // import 'package:fruits_hub/features/best_selling_fruits/presentation/views/best_selling_view.dart';
 // import 'package:fruits_hub/features/home/domain/entites/cart_entity.dart';
 // import 'package:fruits_hub/features/home/presentation/views/main_view.dart';
@@ -22,8 +23,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     //   return MaterialPageRoute(builder: (context) => const BestSellingView());
     case SignInView.routeName:
       return MaterialPageRoute(builder: (context) => const SignInView());
-    // case SignupView.routeName:
-    //   return MaterialPageRoute(builder: (context) => const SignupView());
+    case SignUpView.routeName:
+      return MaterialPageRoute(builder: (context) => const SignUpView());
     // case MainView.routeName:
     //   return MaterialPageRoute(builder: (context) => const MainView());
     case OnBoardingView.routeName:
