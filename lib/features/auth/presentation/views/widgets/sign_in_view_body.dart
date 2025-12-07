@@ -64,7 +64,7 @@ class SignInViewBody extends StatelessWidget {
                     height: 33,
                   ),
         
-                   DontHaveAnAccountWidget(),
+                   DontHaveAccountWidget(),
                   
                   const SizedBox(
                     height: 33,
