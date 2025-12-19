@@ -4,7 +4,7 @@ import 'package:fruits_hub/features/auth/presentation/views/widgets/sign_up_view
 
 class SignUpView extends StatelessWidget {
   const SignUpView({super.key});
-  static const routeName = "signUpView";
+  static const routeName = "/signUpView";
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:get/get.dart';
 
 class HaveAnAccountWidget extends StatelessWidget {
   const HaveAnAccountWidget({super.key});
@@ -19,7 +20,7 @@ class HaveAnAccountWidget extends StatelessWidget {
                     ),
                     TextSpan(
                       recognizer: TapGestureRecognizer()..onTap = (){
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       text: 'تسجيل الدخول',
                       style:
