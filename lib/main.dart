@@ -1,12 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:fruits_hub/core/helper_functions/on_generate_routes.dart';
 import 'package:fruits_hub/core/services/shared_preferences_singleton.dart';
 import 'package:fruits_hub/features/splash/presentation/views/splash_view.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/firebase_options.dart';
 import 'generated/l10n.dart';
+import 'package:get/get.dart';
+import 'package:fruits_hub/core/routing/app_pages.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -21,13 +22,20 @@ class FruitHub extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+
+      // 🎨 Theme
       theme: ThemeData(
           fontFamily: 'Cairo',
           scaffoldBackgroundColor: Colors.white,
           colorScheme: ColorScheme.fromSeed(
             seedColor: AppColors.primaryColor,
-          )),
+          ),
+          ),
+
+
+          // 🌍 Localization (كما هي)
       localizationsDelegates: [
                 S.delegate,
                 GlobalMaterialLocalizations.delegate,
@@ -38,8 +46,9 @@ class FruitHub extends StatelessWidget {
             locale: const Locale('ar'),
         
   
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: onGenerateRoute,
+
+      // 🚦 GetX Routing
+      getPages: AppPages.routes,
       initialRoute: SplashView.routeName,
     );
   }
