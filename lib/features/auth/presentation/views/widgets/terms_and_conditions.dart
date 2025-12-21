@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/custom_check_box.dart';
+import 'package:get/get.dart';
 
 class TermsAndConditions extends StatefulWidget {
   const TermsAndConditions({super.key, required this.onChanged});
@@ -46,30 +48,33 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                   ),
                 ),
                 TextSpan(
-                  text: 'الشروط والأحكام',
+                  // recognizer: TapGestureRecognizer()..onTap = (){
+                  //       Get.back(); 
+                  //     },
+                  text: 'الشروط والأحكام الخاصة بنا',
                   style: TextStyles.semiBold13.copyWith(
                     color: AppColors.lightPrimaryColor,
                   ),
                 ),
-                const TextSpan(
-                  text: ' ',
-                  style: TextStyles.semiBold13,
-                ),
-                TextSpan(
-                  text: 'الخاصة',
-                  style: TextStyles.semiBold13.copyWith(
-                    color: AppColors.lightPrimaryColor,
-                  ),
-                ),
-                const TextSpan(
-                  text: ' ',
-                  style: TextStyles.semiBold13,
-                ),
-                TextSpan(
-                  text: 'بنا',
-                  style: TextStyles.semiBold13
-                      .copyWith(color: AppColors.lightPrimaryColor),
-                ),
+                // const TextSpan(
+                //   text: ' ',
+                //   style: TextStyles.semiBold13,
+                // ),
+                // TextSpan(
+                //   text: 'الخاصة ',
+                //   style: TextStyles.semiBold13.copyWith(
+                //     color: AppColors.lightPrimaryColor,
+                //   ),
+                // ),
+                // const TextSpan(
+                //   text: ' ',
+                //   style: TextStyles.semiBold13,
+                // ),
+                // TextSpan(
+                //   text: 'بنا',
+                //   style: TextStyles.semiBold13
+                //       .copyWith(color: AppColors.lightPrimaryColor),
+                // ),
               ],
             ),
           ),
