@@ -1,3 +1,7 @@
+import 'dart:async';
+import 'package:dartz/dartz.dart';
+import 'package:fruits_hub/core/errors/failures.dart';
+import 'package:fruits_hub/features/auth/domin/entites/user_entity.dart';
 import 'package:fruits_hub/features/auth/domin/repos/auth_repo.dart';
 import 'package:get/get.dart';
 class AuthController extends GetxController{
@@ -16,27 +20,44 @@ final AuthRepo authRepo;
 
       isLoading.value = false;
 
-        return  result.fold(
-            (failure) {
-        Get.snackbar(
-          'خطأ',
-          failure.message,
-          snackPosition: SnackPosition.BOTTOM,
-        );
-        return false;
-      },
-           (user) {
-        Get.snackbar(
-          'نجاح',
-          'تم إنشاء الحساب بنجاح',
-          snackPosition: SnackPosition.BOTTOM,
-        );
-        return true;
-
-        // Get.offAllNamed('/home');
-      },
-           );
+        return  handleAuthResult(result,successMessage: 'تم إنشاء الحساب بنجاح');
            
+  }
+
+  Future<bool> signInWithEmailAndPassword({
+    required String email, required String password,}) async{
+
+      isLoading.value = true;
+
+      final result = 
+            await authRepo.signInWithEmailAndPassword(email, password,);
+
+      isLoading.value = false;
+
+        return  handleAuthResult(result,successMessage: 'تم تسجيل الدخول بنجاح');
+           
+  }
+
+  Future<bool> handleAuthResult(Either<Failure, UserEntity> result,{required String successMessage}) async{
+    return result.fold(
+          (failure) {
+      Get.snackbar(
+        'خطأ',
+        failure.message,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    },
+         (user) {
+      Get.snackbar(
+        'نجاح',
+        successMessage,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return true;
+
+    },
+         );
   }
 
 }
