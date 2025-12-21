@@ -4,6 +4,12 @@ import 'package:fruits_hub/features/auth/domin/entites/user_entity.dart';
 class UserModel extends UserEntity {
   UserModel({required super.name, required super.email, required super.uId});
 
+// Firebase Auth (fromFirebaseUser)
+
+// Firestore (toMap, fromJson)
+
+// Domain Layer (fromEntity)
+
   factory UserModel.fromFirebaseUser(User user) {
     return UserModel(
       name: user.displayName ?? '',
@@ -14,9 +20,9 @@ class UserModel extends UserEntity {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      name: json['name'],
-      email: json['email'],
-      uId: json['uId'],
+      name: json['name'] ?? '',
+      email: json['email'] ?? '',
+      uId: json['uId'] ?? '',
     );
   }
 
@@ -28,7 +34,7 @@ class UserModel extends UserEntity {
     );
   }
 
-  toMap() {
+  Map<String, dynamic> toMap() {
     return {
       'name': name,
       'email': email,
