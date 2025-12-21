@@ -1,3 +1,4 @@
+import 'package:fruits_hub/features/home/presentation/views/home_view.dart';
 import 'package:get/get.dart';
 import 'package:fruits_hub/features/auth/bindings/auth_binding.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
@@ -27,6 +28,11 @@ class AppPages {
     GetPage(
       name: OnBoardingView.routeName,
       page: () => const OnBoardingView(),
+    ),
+
+    GetPage(
+      name: HomeView.routeName,
+      page: () => const HomeView(),
     ),
   ];
 }
