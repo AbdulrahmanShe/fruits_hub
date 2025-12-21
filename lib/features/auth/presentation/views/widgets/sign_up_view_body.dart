@@ -76,30 +76,32 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 onPressed: controller.isLoading.value 
                 ? (){return;}
                 : () async { 
-                  if (formKey.currentState!.validate()) { 
-                    formKey.currentState!.save(); 
-                    if (isTermsAccepted) { 
-                      bool success = await controller.signUpWithEmailAndPassword(
-                         email: email,
-                          password: password, 
-                          name: userName, 
-                          ); 
-                          if (success) { 
-                            Get.offNamed(SignInView.routeName); 
-                            } 
-                            }else { 
-                              Get.snackbar(
-                                 'تنبيه', 'يجب الموافقة على الشروط والأحكام', 
-                                 snackPosition: SnackPosition.BOTTOM, 
-                                 ); 
-                                 return; 
-                                 } 
-                                 }else{ 
-                                  setState(() {
-                                    autovalidateMode = AutovalidateMode.always;
-                                  }); 
-                                  } 
-                                  } 
+                  if (!formKey.currentState!.validate()) {
+                      setState(() => autovalidateMode = AutovalidateMode.always);
+                      return;
+                    }
+
+                    if (!isTermsAccepted) {
+                      Get.snackbar(
+                        'تنبيه',
+                        'يجب الموافقة على الشروط والأحكام',
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                      return;
+                    }
+
+                    formKey.currentState!.save();
+
+                    bool success = await controller.signUpWithEmailAndPassword(
+                      email: email,
+                      password: password,
+                      name: userName,
+                    );
+
+                    if (success) {
+                      Get.offNamed(SignInView.routeName);
+                    }
+                  }, 
                                   ); 
                                   }, 
                                   ),
