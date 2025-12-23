@@ -1,11 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_button.dart';
-import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
 import 'package:fruits_hub/core/widgets/email_field.dart';
 import 'package:fruits_hub/core/widgets/password_field.dart';
 import 'package:fruits_hub/features/auth/presentation/controller/auth_controller.dart';

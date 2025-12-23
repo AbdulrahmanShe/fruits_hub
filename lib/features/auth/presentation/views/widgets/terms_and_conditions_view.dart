@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
-import 'package:fruits_hub/features/auth/presentation/views/sign_up_view.dart';
-import 'package:get/get.dart';
 
 class TermsAndConditionsView extends StatelessWidget {
   const TermsAndConditionsView({super.key});
