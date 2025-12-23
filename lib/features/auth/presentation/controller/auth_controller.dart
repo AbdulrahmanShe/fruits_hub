@@ -38,6 +38,25 @@ final AuthRepo authRepo;
            
   }
 
+         //Email Reset
+
+  Future<bool> sendPasswordResetEmail({
+  required String email,
+}) async {
+  isLoading.value = true;
+
+  final result = await authRepo.sendPasswordResetEmail(email);
+
+  isLoading.value = false;
+
+  return handleUnitResult(
+    result,
+    successMessage: 'تم إرسال رابط إعادة تعيين كلمة المرور',
+  );
+}
+
+
+
   Future<bool> handleAuthResult(Either<Failure, UserEntity> result,{required String successMessage}) async{
     return result.fold(
           (failure) {
@@ -49,6 +68,28 @@ final AuthRepo authRepo;
       return false;
     },
          (user) {
+      Get.snackbar(
+        'نجاح',
+        successMessage,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return true;
+
+    },
+         );
+  }
+
+  Future<bool> handleUnitResult(Either<Failure, Unit> result,{required String successMessage}) async{
+    return result.fold(
+          (failure) {
+      Get.snackbar(
+        'خطأ',
+        failure.message,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    },
+         (_) {
       Get.snackbar(
         'نجاح',
         successMessage,
