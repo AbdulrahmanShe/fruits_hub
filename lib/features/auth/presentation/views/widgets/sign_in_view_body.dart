@@ -2,14 +2,15 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
-import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_button.dart';
 import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
+import 'package:fruits_hub/core/widgets/email_field.dart';
 import 'package:fruits_hub/core/widgets/password_field.dart';
 import 'package:fruits_hub/features/auth/presentation/controller/auth_controller.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/dont_have_account_widget.dart';
+import 'package:fruits_hub/features/auth/presentation/views/widgets/forgot_password_view.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/or_divider.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/social_login_button.dart';
 import 'package:fruits_hub/features/home/presentation/views/home_view.dart';
@@ -44,30 +45,37 @@ class _SignInViewBodyState extends State<SignInViewBody> {
           child: Column(
             children: [
               SizedBox(height: 24,),
-              CustomTextFormField(
-                hintText: 'البريد الالكتروني', 
-                textInputType: TextInputType.emailAddress,
+
+              EmailField(
                 onChanged: (value) {
                   email = value;
                 },
                 ),
+
                 SizedBox(height: 16,),
+
               PasswordField(
                 obscureText: true,
                 onChanged: (value){
                   password = value;
                 },
               ),
+              
                 const SizedBox(
                     height: 16,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
+                      TextButton(
+                        onPressed: (){
+                          Get.toNamed(ForgotPasswordView.routeName);
+                        },
+                        child: Text(
                         'نسيت كلمة المرور؟',
                         style: TextStyles.semiBold13.copyWith(
-                          color: AppColors.lightPrimaryColor,
+                          color: const Color.fromARGB(255, 51, 186, 107),
+                        ),
                         ),
                       ),
                     ],

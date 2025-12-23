@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/widgets/custom_button.dart';
 import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
+import 'package:fruits_hub/core/widgets/email_field.dart';
 import 'package:fruits_hub/core/widgets/password_field.dart';
 import 'package:fruits_hub/features/auth/presentation/controller/auth_controller.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
@@ -45,11 +46,29 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   onChanged: (value) {
                     userName = value;
                   },
+                  validator: (value) {
+  if (value == null || value.trim().isEmpty) {
+    return 'الاسم الكامل مطلوب';
+  }
+
+  final name = value.trim();
+
+  if (name.length < 3) {
+    return 'الاسم قصير جدًا';
+  }
+
+  // يسمح بحروف عربية وإنجليزية ومسافات فقط
+  final nameRegex = RegExp(r'^[a-zA-Z\u0600-\u06FF ]+$');
+
+  if (!nameRegex.hasMatch(name)) {
+    return 'الاسم يجب أن يحتوي على حروف فقط';
+  }
+
+  return null; // ✅ صحيح
+},
                 ),
               SizedBox(height: 16,),
-              CustomTextFormField(
-                hintText: 'البريد الإلكتروني', 
-                textInputType: TextInputType.emailAddress,
+              EmailField(
                   onChanged: (value) {
                     email = value;
                   },
