@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/custom_check_box.dart';
+import 'package:fruits_hub/features/auth/presentation/views/widgets/terms_and_conditions_view.dart';
 import 'package:get/get.dart';
 
 class TermsAndConditions extends StatefulWidget {
@@ -48,9 +49,9 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                   ),
                 ),
                 TextSpan(
-                  // recognizer: TapGestureRecognizer()..onTap = (){
-                  //       Get.back(); 
-                  //     },
+                  recognizer: TapGestureRecognizer()..onTap = (){
+                        Get.toNamed(TermsAndConditionsView.routeName);
+                      },
                   text: 'الشروط والأحكام الخاصة بنا',
                   style: TextStyles.semiBold13.copyWith(
                     color: AppColors.lightPrimaryColor,
