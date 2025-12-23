@@ -41,34 +41,78 @@ class FirebaseAuthService {
   }
 
   // Login
-  Future<User> signInWithEmailAndPassword(
-      {required String email, required String password,}) async {
-    try {
-      final credential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      /////////
+  Future<User> signInWithEmailAndPassword({
+  required String email,
+  required String password,
+}) async {
+  try {
+    final credential =
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
 
     return credential.user ?? FirebaseAuth.instance.currentUser!;
-    ////////
-    } on FirebaseAuthException catch (e) {
-      log("Exception in FirebaseAuthService.signInWithEmailAndPassword: ${e.toString()} and code is ${e.code}");
-      
-      if (['user-not-found','wrong-password','invalid-credential'].contains(e.code)) {
-        throw CustomException(message: 'الرقم السري او البريد الالكتروني غير صحيح.');
-      } else if (e.code == 'network-request-failed') {
-        throw CustomException(message: 'تاكد من اتصالك بالانترنت.');
-      } else {
-        throw CustomException(
-            message: 'لقد حدث خطأ ما. الرجاء المحاولة مرة اخرى.');
-      }
-    } catch (e) {
-      log("Exception in FirebaseAuthService.signInWithEmailAndPassword: ${e.toString()}");
+  } on FirebaseAuthException catch (e) {
+    log(
+      "FirebaseAuthException in signInWithEmailAndPassword: ${e.message}, code: ${e.code}",
+    );
 
-      throw CustomException(
-          message: 'لقد حدث خطأ ما. الرجاء المحاولة مرة اخرى.');
+    switch (e.code) {
+      case 'invalid-email':
+        throw CustomException(
+          message: 'صيغة البريد الإلكتروني غير صحيحة.',
+        );
+
+      case 'user-not-found':
+        throw CustomException(
+          message: 'البريد الإلكتروني غير مسجل مسبقًا.',
+        );
+
+      case 'wrong-password':
+        throw CustomException(
+          message: 'كلمة المرور غير صحيحة.',
+        );
+
+      case 'invalid-credential':
+        throw CustomException(
+          message: 'بيانات تسجيل الدخول غير صحيحة.',
+        );
+
+      case 'network-request-failed':
+        throw CustomException(
+          message: 'تأكد من اتصالك بالإنترنت.',
+        );
+
+      default:
+        throw CustomException(
+          message: 'حدث خطأ غير متوقع، الرجاء المحاولة لاحقًا.',
+        );
+    }
+  } catch (e) {
+    log(
+      "Exception in signInWithEmailAndPassword: ${e.toString()}",
+    );
+
+    throw CustomException(
+      message: 'حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى.',
+    );
+  }
+}
+
+
+  /* ================= Email Reset ================= */
+
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        throw CustomException(message: 'هذا البريد غير مسجل.');
+      } else {
+        throw CustomException(message: 'فشل إرسال رابط إعادة التعيين.');
+      }
     }
   }
+
 }
