@@ -12,6 +12,7 @@ class SignInView extends StatelessWidget {
       appBar: buildAppBar(
         context,
         title: 'تسجيل الدخول',
+        isVisible: false
       ),
       body: SignInViewBody(),
     );
