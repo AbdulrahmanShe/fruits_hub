@@ -1,3 +1,5 @@
+import 'package:fruits_hub/features/auth/presentation/views/widgets/forgot_password_view.dart';
+import 'package:fruits_hub/features/auth/presentation/views/widgets/terms_and_conditions_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/home_view.dart';
 import 'package:get/get.dart';
 import 'package:fruits_hub/features/auth/bindings/auth_binding.dart';
@@ -34,5 +36,20 @@ class AppPages {
       name: HomeView.routeName,
       page: () => const HomeView(),
     ),
+
+    GetPage(
+  name: TermsAndConditionsView.routeName,
+  page: () => const TermsAndConditionsView(),
+),
+
+    GetPage(
+      name: ForgotPasswordView.routeName, 
+      page: () => const ForgotPasswordView(),
+      binding: AuthBinding(),
+      ),
+
+   
+
+
   ];
 }
