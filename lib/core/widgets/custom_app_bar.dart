@@ -1,15 +1,18 @@
-
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:get/get.dart';
 
-AppBar buildAppBar(context, {required String title}) {
+AppBar buildAppBar(context, {required String title, bool isVisible = true,}) {
     return AppBar(
       backgroundColor: AppColors.white,
-      leading: IconButton(
-        onPressed: ()=> Navigator.pop(context),
-       icon: Icon(Icons.arrow_back_ios_new),
-       ),
+      leading: Visibility(
+        visible: isVisible,
+        child: IconButton(
+          onPressed: ()=> Get.back(),
+         icon: Icon(Icons.arrow_back_ios_new),
+         ),
+      ),
       centerTitle: true,
       title: Text(
         title,
