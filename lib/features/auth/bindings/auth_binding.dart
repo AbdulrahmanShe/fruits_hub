@@ -15,3 +15,25 @@ class AuthBinding extends Bindings {
     );
   }
 }
+// class AuthBinding extends Bindings {
+//   @override
+//   void dependencies() {
+//     // FirebaseAuthService يبقى دائمًا طوال عمر التطبيق
+//     Get.put<FirebaseAuthService>(
+//       FirebaseAuthService(),
+//       permanent: true, // ⭐ مهم جدًا
+//     );
+
+//     // Repo و Controller أيضًا يمكن أن تبقى دائمًا
+//     Get.put<AuthRepo>(
+//       AuthRepoImpl(firebaseAuthService: Get.find()),
+//       permanent: true,
+//     );
+
+//     Get.put<AuthController>(
+//       AuthController(authRepo: Get.find()),
+//       permanent: true,
+//     );
+//   }
+// }
+
