@@ -1,9 +1,46 @@
 import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fruits_hub/core/errors/exceptions.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
+
+  static const List<String> _scopes = <String>[
+  'email',
+];
+
+final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
+bool _isGoogleSignInInitialized = false;
+
+Future<void> _initializeGoogleSignIn() async {
+  await _googleSignIn.initialize();
+  _isGoogleSignInInitialized = true;
+}
+
+Future<void> _ensureGoogleSignInInitialized() async {
+  if (!_isGoogleSignInInitialized) {
+    await _initializeGoogleSignIn();
+  }
+}
+
+Future<GoogleSignInAccount?> _getGoogleAccount() async {
+  await _ensureGoogleSignInInitialized();
+
+  try {
+    return await _googleSignIn.authenticate(
+      scopeHint: _scopes,
+    );
+  } on GoogleSignInException catch (e) {
+    log('Google Sign In error: $e');
+    return null;
+  } catch (e) {
+    log('Unexpected Google Sign-In error: $e');
+    return null;
+  }
+}
+
+  
 //////////
   Future<User> createUserWithEmailAndPassword(
       {required String email, required String password,required String name,}) async {
@@ -21,9 +58,7 @@ class FirebaseAuthService {
     ////////
     } on FirebaseAuthException catch (e) {
       log("Exception in FirebaseAuthService.createUserWithEmailAndPassword: ${e.toString()} and code is ${e.code}");
-      if (e.code == 'weak-password') {
-        throw CustomException(message: 'الرقم السري ضعيف جداً.');
-      } else if (e.code == 'email-already-in-use') {
+      if (e.code == 'email-already-in-use') {
         throw CustomException(
             message: 'لقد قمت بالتسجيل مسبقاً. الرجاء تسجيل الدخول.');
       } else if (e.code == 'network-request-failed') {
@@ -59,19 +94,9 @@ class FirebaseAuthService {
     );
 
     switch (e.code) {
-      case 'invalid-email':
-        throw CustomException(
-          message: 'صيغة البريد الإلكتروني غير صحيحة.',
-        );
-
       case 'user-not-found':
         throw CustomException(
           message: 'البريد الإلكتروني غير مسجل مسبقًا.',
-        );
-
-      case 'wrong-password':
-        throw CustomException(
-          message: 'كلمة المرور غير صحيحة.',
         );
 
       case 'invalid-credential':
@@ -114,5 +139,48 @@ class FirebaseAuthService {
       }
     }
   }
+
+  Future<User> signInWithGoogle() async {
+  final account = await _getGoogleAccount();
+
+  if (account == null) {
+    throw CustomException(message: 'تم إلغاء تسجيل الدخول');
+  }
+
+  final googleAuth =  account.authentication;
+
+  final credential = GoogleAuthProvider.credential(
+    idToken: googleAuth.idToken,
+  );
+
+  final userCredential =
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+  return userCredential.user!;
+}
+
+
+Future<User> signInWithFacebook() async {
+  try {
+    final LoginResult result = await FacebookAuth.instance.login();
+
+    if (result.status != LoginStatus.success) {
+      throw CustomException(message: 'فشل تسجيل الدخول عبر فيسبوك');
+    }
+
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(
+          result.accessToken!.tokenString,
+        );
+
+    final userCredential =
+        await FirebaseAuth.instance
+            .signInWithCredential(facebookAuthCredential);
+
+    return userCredential.user!;
+  } catch (e) {
+    throw CustomException(message: 'فشل تسجيل الدخول عبر فيسبوك');
+  }
+}
 
 }

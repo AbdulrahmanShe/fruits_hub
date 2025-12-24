@@ -125,8 +125,12 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                   height: 16,
                   ),
                   SocialLoginButton(
-                  onPressed: () {
-                
+                  onPressed: () async{
+                    bool success = await controller.signInWithGoogle();
+                                  
+                    if (success) {
+                      Get.toNamed(HomeView.routeName);
+                    }
                   },
                   image: Assets.imagesGoogleIcon,
                   title: 'تسجيل بواسطة جوجل',
@@ -134,25 +138,14 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                 const SizedBox(
                   height: 16,
                 ),
-                Platform.isIOS
-                    ? Column(
-                        children: [
-                          SocialLoginButton(
-                            onPressed: () {
                 
-                            },
-                            image: Assets.imagesApplIcon,
-                            title: 'تسجيل بواسطة أبل',
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                        ],
-                      )
-                    : const SizedBox(),
                 SocialLoginButton(
-                  onPressed: () {
-                    
+                  onPressed: ()  async{
+                    bool success = await controller.signInWithFacebook();
+                                  
+                    if (success) {
+                      Get.toNamed(HomeView.routeName);
+                    }
                   },
                   image: Assets.imagesFacebookIcon,
                   title: 'تسجيل بواسطة فيسبوك',

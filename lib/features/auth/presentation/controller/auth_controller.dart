@@ -38,6 +38,32 @@ final AuthRepo authRepo;
            
   }
 
+Future<bool> signInWithGoogle() async {
+  isLoading.value = true;
+
+  final result = await authRepo.signInWithGoogle();
+
+  isLoading.value = false;
+
+  return handleAuthResult(
+    result,
+    successMessage: 'تم تسجيل الدخول باستخدام Google',
+  );
+}
+
+Future<bool> signInWithFacebook() async {
+  isLoading.value = true;
+
+  final result = await authRepo.signInWithFacebook();
+
+  isLoading.value = false;
+
+  return handleAuthResult(
+    result,
+    successMessage: 'تم تسجيل الدخول باستخدام Facebook',
+  );
+}
+
          //Email Reset
 
   Future<bool> sendPasswordResetEmail({
