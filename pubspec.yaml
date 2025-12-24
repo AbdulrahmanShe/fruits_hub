@@ -35,9 +35,11 @@ dependencies:
   firebase_core: ^4.3.0
   flutter:
     sdk: flutter
+  flutter_facebook_auth: ^7.1.2
   flutter_localizations:
     sdk: flutter
   get: ^4.7.3
+  google_sign_in: ^7.2.0
   shared_preferences: ^2.5.3
   svg_flutter: ^0.0.1
 
