@@ -122,7 +122,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                   ),
                   const OrDivider(),
                   const SizedBox(
-                  height: 16,
+                  height: 32,
                   ),
                   SocialLoginButton(
                   onPressed: () async{
@@ -135,21 +135,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                   image: Assets.imagesGoogleIcon,
                   title: 'تسجيل بواسطة جوجل',
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
                 
-                SocialLoginButton(
-                  onPressed: ()  async{
-                    bool success = await controller.signInWithFacebook();
-                                  
-                    if (success) {
-                      Get.toNamed(HomeView.routeName);
-                    }
-                  },
-                  image: Assets.imagesFacebookIcon,
-                  title: 'تسجيل بواسطة فيسبوك',
-                ),
             ],
           ),
         ),

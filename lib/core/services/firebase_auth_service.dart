@@ -160,27 +160,4 @@ Future<GoogleSignInAccount?> _getGoogleAccount() async {
 }
 
 
-Future<User> signInWithFacebook() async {
-  try {
-    final LoginResult result = await FacebookAuth.instance.login();
-
-    if (result.status != LoginStatus.success) {
-      throw CustomException(message: 'فشل تسجيل الدخول عبر فيسبوك');
-    }
-
-    final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(
-          result.accessToken!.tokenString,
-        );
-
-    final userCredential =
-        await FirebaseAuth.instance
-            .signInWithCredential(facebookAuthCredential);
-
-    return userCredential.user!;
-  } catch (e) {
-    throw CustomException(message: 'فشل تسجيل الدخول عبر فيسبوك');
-  }
-}
-
 }

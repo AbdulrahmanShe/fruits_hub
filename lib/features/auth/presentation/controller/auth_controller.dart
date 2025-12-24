@@ -51,19 +51,6 @@ Future<bool> signInWithGoogle() async {
   );
 }
 
-Future<bool> signInWithFacebook() async {
-  isLoading.value = true;
-
-  final result = await authRepo.signInWithFacebook();
-
-  isLoading.value = false;
-
-  return handleAuthResult(
-    result,
-    successMessage: 'تم تسجيل الدخول باستخدام Facebook',
-  );
-}
-
          //Email Reset
 
   Future<bool> sendPasswordResetEmail({
