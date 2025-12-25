@@ -1,44 +1,15 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fruits_hub/core/errors/exceptions.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
 
-  static const List<String> _scopes = <String>[
-  'email',
-];
-
-final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
-bool _isGoogleSignInInitialized = false;
-
-Future<void> _initializeGoogleSignIn() async {
-  await _googleSignIn.initialize();
-  _isGoogleSignInInitialized = true;
-}
-
-Future<void> _ensureGoogleSignInInitialized() async {
-  if (!_isGoogleSignInInitialized) {
-    await _initializeGoogleSignIn();
+  Future deleteUser() async {
+    await FirebaseAuth.instance.currentUser!.delete();
   }
-}
 
-Future<GoogleSignInAccount?> _getGoogleAccount() async {
-  await _ensureGoogleSignInInitialized();
-
-  try {
-    return await _googleSignIn.authenticate(
-      scopeHint: _scopes,
-    );
-  } on GoogleSignInException catch (e) {
-    log('Google Sign In error: $e');
-    return null;
-  } catch (e) {
-    log('Unexpected Google Sign-In error: $e');
-    return null;
-  }
-}
+  
 
   
 //////////
@@ -141,7 +112,7 @@ Future<GoogleSignInAccount?> _getGoogleAccount() async {
   }
 
   Future<User> signInWithGoogle() async {
-  final account = await _getGoogleAccount();
+  final account = await GetGoogleAccount()._getGoogleAccount();
 
   if (account == null) {
     throw CustomException(message: 'تم إلغاء تسجيل الدخول');
@@ -160,4 +131,39 @@ Future<GoogleSignInAccount?> _getGoogleAccount() async {
 }
 
 
+}
+ class GetGoogleAccount {
+  static const List<String> _scopes = <String>[
+  'email',
+];
+
+final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
+bool _isGoogleSignInInitialized = false;
+
+Future<void> _initializeGoogleSignIn() async {
+  await _googleSignIn.initialize();
+  _isGoogleSignInInitialized = true;
+}
+
+Future<void> _ensureGoogleSignInInitialized() async {
+  if (!_isGoogleSignInInitialized) {
+    await _initializeGoogleSignIn();
+  }
+}
+
+Future<GoogleSignInAccount?> _getGoogleAccount() async {
+  await _ensureGoogleSignInInitialized();
+
+  try {
+    return await _googleSignIn.authenticate(
+      scopeHint: _scopes,
+    );
+  } on GoogleSignInException catch (e) {
+    log('Google Sign In error: $e');
+    return null;
+  } catch (e) {
+    log('Unexpected Google Sign-In error: $e');
+    return null;
+  }
+}
 }
