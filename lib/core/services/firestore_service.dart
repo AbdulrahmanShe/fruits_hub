@@ -6,9 +6,14 @@ class FireStoreService implements DatabaseService{
   @override
   Future<void> addData({
     required String collectionName, 
-    required Map<String, dynamic> data
+    required Map<String, dynamic> data,
+    String? docuementId,
     }) async{
-    await firestore.collection(collectionName).add(data);
+    if (docuementId != null) {
+  await firestore.collection(collectionName).doc(docuementId).set(data);
+}else{
+  await firestore.collection(collectionName).add(data);
+}
   }
 
   @override
@@ -18,6 +23,14 @@ class FireStoreService implements DatabaseService{
     }) async{
     var data = await firestore.collection(collectionName).doc(docuementId).get();
       return data.data() as Map<String, dynamic>;
+  }
+  
+  @override
+  Future<bool> checkIfDataExists({
+    required String collectionName, 
+    required String docuementId}) async{
+    var data = await firestore.collection(collectionName).doc(docuementId).get();
+    return data.exists;
   }
 
 }
