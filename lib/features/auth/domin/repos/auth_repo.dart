@@ -1,9 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:fruits_hub/core/errors/failures.dart';
 import 'package:fruits_hub/features/auth/domin/entites/user_entity.dart';
-import 'package:dartz/dartz.dart';
-import 'package:fruits_hub/core/errors/failures.dart';
-import 'package:fruits_hub/features/auth/domin/entites/user_entity.dart';
 
 abstract class AuthRepo {
 
@@ -28,4 +25,6 @@ abstract class AuthRepo {
   Future<Either<Failure, Unit>> sendPasswordResetEmail(
     String email,
   );
+
+  Future addUserData({required UserEntity user});
 }
