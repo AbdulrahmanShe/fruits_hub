@@ -11,7 +11,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CustomBottomNavigationBar(onItemTapped: (int value) {  },),
-      appBar: buildAppBar(context, title: 'الصفحة الرئيسية',isVisible: false),
+      // appBar: buildAppBar(context, title: 'الصفحة الرئيسية',isVisible: false),
       body: SafeArea(child: HomeViewBody()),
     );
   }
