@@ -1,6 +1,7 @@
 import 'package:fruits_hub/features/auth/presentation/views/widgets/forgot_password_view.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/terms_and_conditions_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/home_view.dart';
+import 'package:fruits_hub/features/home/presentation/views/widgets/best_selling_view.dart';
 import 'package:get/get.dart';
 import 'package:fruits_hub/features/auth/bindings/auth_binding.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
@@ -35,6 +36,11 @@ class AppPages {
     GetPage(
       name: HomeView.routeName,
       page: () => const HomeView(),
+    ),
+
+    GetPage(
+      name: BestSellingView.routeName,
+      page: () => const BestSellingView(),
     ),
 
     GetPage(
