@@ -6,7 +6,7 @@ import 'package:fruits_hub/features/auth/presentation/controller/auth_controller
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
 import 'package:get/get.dart';
 import 'package:fruits_hub/core/constants.dart';
-import 'package:fruits_hub/core/widgets/custom_button.dart';
+import 'package:fruits_hub/core/widgets/custom_bottom.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
@@ -48,7 +48,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               ),
               const SizedBox(height: 16),
               Obx(() {
-  return CustomButton(
+  return CustomBottom(
     text: controller.isLoading.value
         ? 'جاري الإرسال...'
         : 'نسيت كلمة المرور',

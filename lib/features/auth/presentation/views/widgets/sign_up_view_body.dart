@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
-import 'package:fruits_hub/core/widgets/custom_button.dart';
+import 'package:fruits_hub/core/widgets/custom_bottom.dart';
 import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
 import 'package:fruits_hub/core/widgets/email_field.dart';
 import 'package:fruits_hub/core/widgets/password_field.dart';
@@ -88,7 +88,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   ),
               SizedBox(height: 30,),
             Obx((){
-              return CustomButton(
+              return CustomBottom(
                 text: controller.isLoading.value
                     ? 'جاري إنشاء الحساب...'
                     : 'إنشاء حساب جديد',
