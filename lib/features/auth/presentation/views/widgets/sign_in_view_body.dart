@@ -10,7 +10,7 @@ import 'package:fruits_hub/features/auth/presentation/views/widgets/dont_have_ac
 import 'package:fruits_hub/features/auth/presentation/views/widgets/forgot_password_view.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/or_divider.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/social_login_button.dart';
-import 'package:fruits_hub/features/home/presentation/views/home_view.dart';
+import 'package:fruits_hub/features/home/presentation/views/main_view.dart';
 import 'package:get/get.dart';
 
 class SignInViewBody extends StatefulWidget {
@@ -103,7 +103,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                     );
                                   
                     if (success) {
-                      Get.toNamed(HomeView.routeName);
+                      Get.toNamed(MainView.routeName);
                     }
                                     },
                       
@@ -128,7 +128,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                     bool success = await controller.signInWithGoogle();
                                   
                     if (success) {
-                      Get.toNamed(HomeView.routeName);
+                      Get.toNamed(MainView.routeName);
                     }
                   },
                   image: Assets.imagesGoogleIcon,

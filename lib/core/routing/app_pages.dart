@@ -1,6 +1,7 @@
+import 'package:fruits_hub/core/bindings/products_binding.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/forgot_password_view.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/terms_and_conditions_view.dart';
-import 'package:fruits_hub/features/home/presentation/views/home_view.dart';
+import 'package:fruits_hub/features/home/presentation/views/main_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/best_selling_view.dart';
 import 'package:get/get.dart';
 import 'package:fruits_hub/features/auth/bindings/auth_binding.dart';
@@ -8,7 +9,7 @@ import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_up_view.dart';
 import 'package:fruits_hub/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:fruits_hub/features/splash/presentation/views/splash_view.dart';
-
+// import 'package:fruits_hub/features/home/presentation/views/widgets/home_view.dart';
 class AppPages {
   static final routes = [
     GetPage(
@@ -34,9 +35,16 @@ class AppPages {
     ),
 
     GetPage(
-      name: HomeView.routeName,
-      page: () => const HomeView(),
+      name: MainView.routeName,
+      page: () => const MainView(),
+      binding: ProductsBinding(),
     ),
+
+    // GetPage(
+    //   name: HomeView.routeName,
+    //   page: () => const HomeView(),
+    //   binding: ProductsBinding(),
+    // ),
 
     GetPage(
       name: BestSellingView.routeName,

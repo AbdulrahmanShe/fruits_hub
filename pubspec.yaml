@@ -43,6 +43,7 @@ dependencies:
   get: ^4.7.3
   google_sign_in: ^7.2.0
   shared_preferences: ^2.5.3
+  skeletonizer: ^2.1.2
   svg_flutter: ^0.0.1
 
 dev_dependencies:
