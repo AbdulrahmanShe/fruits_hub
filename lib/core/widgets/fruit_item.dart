@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/entities/product_entity.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/core/widgets/custom_network_image.dart';
 // import 'package:fruits_hub/core/widgets/custom_network_image.dart';
 // import 'package:fruits_hub/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 // import 'package:fruits_hub/features/home/presentation/views/products_view.dart';
 // import 'package:svg_flutter/svg.dart';
 
 class FruitItem extends StatelessWidget {
-  const FruitItem({super.key});
+  const FruitItem({super.key, required this.productEntity});
 
-  // final ProductEntity productEntity;
+  final ProductEntity productEntity;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,28 +40,23 @@ class FruitItem extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                // productEntity.imageUrl != null
-                //     ? Flexible(
-                //         child: CustomNetworkImage(
-                //             imageUrl: productEntity.imageUrl!),
-                //       )
-                //     : 
+                productEntity.imageUrl != null
+                    ? Flexible(
+                        child: CustomNetworkImage(
+                            imageUrl: productEntity.imageUrl!),
+                      )
+                    : 
 
                 Image.asset(
                   Assets.imagesWatermelonTest,
                 ),
-                //     Container(
-                //         color: Colors.grey,
-                //         height: 100,
-                //         width: 100,
-                //       ),
                 const SizedBox(
                   height: 24,
                 ),
                 ListTile(
                   title: Text(
-                    'بطيخ',
-                    // productEntity.name,
+                    // 'بطيخ',
+                    productEntity.name,
                     textAlign: TextAlign.right,
                     style: TextStyles.semiBold16,
                   ),
@@ -67,8 +64,8 @@ class FruitItem extends StatelessWidget {
                     TextSpan(
                       children: [
                         TextSpan(
-                          // text: '${productEntity.price}جنية ',
-                          text: '120 شيكل',
+                          text: '${productEntity.price}جنية ',
+                          // text: '120 شيكل',
                           style: TextStyles.bold13.copyWith(
                             color: AppColors.secondaryColor,
                           ),
