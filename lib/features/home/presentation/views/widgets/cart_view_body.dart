@@ -3,7 +3,6 @@ import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar_notification.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/car_items_list.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/cart_header.dart';
-import 'package:fruits_hub/features/home/presentation/views/widgets/cart_item.dart';
 import 'custom_cart_button.dart';
 
 class CartViewBody extends StatelessWidget {
