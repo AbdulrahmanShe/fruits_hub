@@ -1,42 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/features/home/domain/entites/car_item_entity.dart';
+import 'package:get/get.dart';
 
 class CartItemActionButtons extends StatelessWidget {
-  const CartItemActionButtons({super.key});
+    const CartItemActionButtons({super.key, required this.cartItemEntity});
+  final CartItemEntity cartItemEntity;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CartItemActionButton(
-          iconColor: Colors.white,
-          icon: Icons.add,
-          color: AppColors.primaryColor,
-          onPressed: () {
-            // cartItemEntity.increasQuantity();
-            // context.read<CartItemCubit>().updateCartItem(cartItemEntity);
-          },
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(
-            '12',
-            // cartItemEntity.quanitty.toString(),
-            textAlign: TextAlign.center,
-            style: TextStyles.bold16,
+    return Obx((){
+      return Row(
+        children: [
+          CartItemActionButton(
+            iconColor: Colors.white,
+            icon: Icons.add,
+            color: AppColors.primaryColor,
+            onPressed: () => cartItemEntity.increaseQuantity(),
           ),
-        ),
-        CartItemActionButton(
-          iconColor: Colors.grey,
-          icon: Icons.remove,
-          color: const Color(0xFFF3F5F7),
-          onPressed: () {
-            // cartItemEntity.decreasQuantity();
-            // context.read<CartItemCubit>().updateCartItem(cartItemEntity);
-          },
-        )
-      ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              // '12',
+              cartItemEntity.quantity.value.toString(),
+              textAlign: TextAlign.center,
+              style: TextStyles.bold16,
+            ),
+          ),
+          CartItemActionButton(
+            iconColor: Colors.grey,
+            icon: Icons.remove,
+            color: const Color(0xFFF3F5F7),
+            onPressed: () => cartItemEntity.decreasQuantity(),
+          )
+        ],
+      );
+    }
     );
   }
 }
