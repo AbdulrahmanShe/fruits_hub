@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 AppBar buildAppBarNotification({required String title,  bool showBackBottom = true, bool showNotification = true,}) {
     return AppBar(
       backgroundColor: AppColors.white,
-      elevation: 0,
+      // elevation: 0,
       leading: Visibility(
         visible: showBackBottom,
         child: IconButton(
