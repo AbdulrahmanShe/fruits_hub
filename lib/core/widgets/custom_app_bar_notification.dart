@@ -4,7 +4,7 @@ import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/notification_widget.dart';
 import 'package:get/get.dart';
 
-AppBar buildAppBarNotification({required String title,  bool showBackBottom = true,}) {
+AppBar buildAppBarNotification({required String title,  bool showBackBottom = true, bool showNotification = true,}) {
     return AppBar(
       backgroundColor: AppColors.white,
       elevation: 0,
@@ -22,9 +22,12 @@ AppBar buildAppBarNotification({required String title,  bool showBackBottom = tr
           ),
       ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: NotificationWidget(),
+          Visibility(
+            visible: showNotification,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: NotificationWidget(),
+            ),
           ),
         ],
     );
