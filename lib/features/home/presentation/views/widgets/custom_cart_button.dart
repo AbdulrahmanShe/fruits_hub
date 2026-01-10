@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/widgets/custom_bottom.dart';
+import 'package:fruits_hub/features/checkout/presentation/views/checkout_view.dart';
 import 'package:fruits_hub/features/home/presentation/controller/cart_controller.dart';
 import 'package:get/get.dart';
 class CustomCartButton extends StatelessWidget {
@@ -23,6 +24,7 @@ class CustomCartButton extends StatelessWidget {
                 //   CheckoutView.routeName,
                 //   arguments: controller.cartEntity,
                 // );
+                Get.toNamed(CheckoutView.routeName);
               } else {
                 Get.snackbar(
           'تنبيه !',

@@ -1,6 +1,7 @@
 import 'package:fruits_hub/core/bindings/products_binding.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/forgot_password_view.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/terms_and_conditions_view.dart';
+import 'package:fruits_hub/features/checkout/presentation/views/checkout_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/main_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/best_selling_view.dart';
 import 'package:get/get.dart';
@@ -38,6 +39,12 @@ class AppPages {
       name: MainView.routeName,
       page: () => const MainView(),
       binding: ProductsBinding(),
+    ),
+
+    GetPage(
+      name: CheckoutView.routeName,
+      page: () => const CheckoutView(),
+      // binding: ProductsBinding(),
     ),
 
     // GetPage(
