@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/features/checkout/presentation/views/widgets/order_summry_widget.dart';
 
 class PaymentSection extends StatelessWidget {
   const PaymentSection({super.key, required this.pageController});
@@ -10,6 +11,11 @@ class PaymentSection extends StatelessWidget {
       children: [
         const SizedBox(
           height: 24,
+        ),
+        OrderSummryWidget(),
+        
+        const SizedBox(
+          height: 16,
         ),
         
       ],

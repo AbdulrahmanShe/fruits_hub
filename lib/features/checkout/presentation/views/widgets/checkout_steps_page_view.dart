@@ -1,5 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/features/checkout/presentation/views/widgets/address_input_section.dart';
+import 'package:fruits_hub/features/checkout/presentation/views/widgets/payment_section.dart';
+import 'package:fruits_hub/features/checkout/presentation/views/widgets/shipping_section.dart';
 
 class CheckoutStepsPageView extends StatelessWidget {
   const CheckoutStepsPageView({
@@ -22,17 +25,22 @@ class CheckoutStepsPageView extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: getPages().length,
         itemBuilder: (context, index) {
-          return SizedBox();
+          return getPages()[index];
         },
       ),
     );
   }
 
-  List<String> getPages() {
+  List<Widget> getPages() {
     return [
-      'الشحن',
-    'العنوان',
-    'الدفع',
+      const ShippingSection(),
+      AddressInputSection(
+        formKey: formKey,
+        valueListenable: valueListenable,
+      ),
+      PaymentSection(
+        pageController: pageController,
+      ),
     ];
   }
 }

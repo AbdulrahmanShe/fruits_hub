@@ -13,18 +13,15 @@ class CustomCartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return CustomBottom(onPressed: (){}, text: 'الدفع 52 جنيه');
     return Obx((){
       final isNotEmpty = controller.cartEntity.value.cartItems.isNotEmpty;
       return CustomBottom(
             onPressed: () {
               if (isNotEmpty) {
-                // Navigator.pushNamed(
-                //   context,
-                //   CheckoutView.routeName,
-                //   arguments: controller.cartEntity,
-                // );
-                Get.toNamed(CheckoutView.routeName);
+                Get.offNamed(
+                  CheckoutView.routeName,
+                  arguments: controller.cartEntity.value,
+                );
               } else {
                 Get.snackbar(
           'تنبيه !',

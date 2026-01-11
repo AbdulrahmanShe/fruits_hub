@@ -6,7 +6,7 @@ class CheckoutView extends StatelessWidget {
   static const routeName = '/checkoutView';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {      
     return CheckoutViewBody();
   }
 }

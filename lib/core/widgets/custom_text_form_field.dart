@@ -21,7 +21,12 @@ final String? Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-       validator: validator,
+       validator: validator ?? (value){
+        if (value == null || value.isEmpty) {
+          return 'هذا الحقل مطلوب';
+        }
+        return null;
+       },
       keyboardType: textInputType,
       obscureText: obscureText,
       onChanged: onChanged,
