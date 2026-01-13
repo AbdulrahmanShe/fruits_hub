@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/show_snack_bar.dart';
 import 'package:fruits_hub/core/widgets/custom_bottom.dart';
+import 'package:fruits_hub/features/checkout/presentation/controller/add_order_controller.dart';
 import 'package:fruits_hub/features/checkout/presentation/controller/checkout_controller.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/widgets/checkout_steps.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/widgets/checkout_steps_page_view.dart';
@@ -40,7 +41,10 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
 
   int currentPageIndex = 0;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final CheckoutController controller = Get.find<CheckoutController>();
+
+  final controllerCheckout = Get.find<CheckoutController>();
+  final controllerAddOrder = Get.find<AddOrderController>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +58,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             ),
             CheckoutSteps(
               onTap: (index) { 
-                if (controller.orderEntity.payWithCash != null) {
+                if (controllerCheckout.orderEntity.payWithCash != null) {
                     pageController.animateToPage(
                     index,
                     duration: Duration(milliseconds: 300), 
@@ -84,10 +88,10 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                   } else if (currentPageIndex == 1) {
                     handleAddressValidation();
                   } else {
-                    showSnackBar(
-                      'تنبيه !', 
-                      'يرجى تحديد طريقة الدفع'
-                      );
+                    // _processPayment(context);
+                    var orderEntity = controllerCheckout.orderEntity;
+                    controllerAddOrder.addOrder(order: orderEntity);
+
                   }
                   
                 },
@@ -102,7 +106,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   }
 
   void handleShippingSectionValidation(BuildContext context) {
-    if (controller.orderEntity.payWithCash != null) {
+    if (controllerCheckout.orderEntity.payWithCash != null) {
       pageController.animateToPage(currentPageIndex + 1,
           duration: const Duration(milliseconds: 300), curve: Curves.bounceIn);
     } else {
@@ -117,7 +121,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
       case 1:
         return 'التالي';
       case 2:
-        return 'الدفع عبر PayPal';
+        return 'الدفع عبر Stripe';
       default:
         return 'التالي';
     }
@@ -132,5 +136,4 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
       valueNotifier.value = AutovalidateMode.always;
     }
   }
-
-  }
+}
