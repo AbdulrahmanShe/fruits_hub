@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../core/utils/app_text_styles.dart';
+import 'package:fruits_hub/features/checkout/presentation/controller/checkout_controller.dart';
+import 'package:get/get.dart';
 import 'payment_item.dart';
 
 class OrderSummryWidget extends StatelessWidget {
@@ -10,6 +11,8 @@ class OrderSummryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CheckoutController controller = Get.find<CheckoutController>();
+
     return PaymentItem(
       tile: 'ملخص الطلب',
       child: Column(
@@ -24,10 +27,11 @@ class OrderSummryWidget extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                '20 USD',
+                controller.cartTotal.toStringAsFixed(0),
+                // '20 USD',
                 textAlign: TextAlign.right,
                 style: TextStyles.semiBold16,
-              )
+              ),
             ],
           ),
           const SizedBox(
@@ -69,9 +73,9 @@ class OrderSummryWidget extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                '30 USD',
+                (controller.cartTotal + 30).toStringAsFixed(0),
                 style: TextStyles.bold16,
-              )
+              ),
             ],
           ),
         ],
