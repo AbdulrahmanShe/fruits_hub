@@ -25,7 +25,7 @@ class AddressInputSection extends StatelessWidget {
                 height: 24,
               ),
               CustomTextFormField(
-                onChanged: (value) {
+                onSaved: (value) {
                   controller.orderEntity.shippingAddressEntity.name = value;
                 },
                 hintText: 'الاسم كامل',
@@ -35,7 +35,7 @@ class AddressInputSection extends StatelessWidget {
                 height: 16,
               ),
               CustomTextFormField(
-                onChanged: (value) {
+                onSaved: (value) {
                   controller.orderEntity.shippingAddressEntity.email = value;
                 },
                 hintText: 'البريد الإلكتروني',
@@ -45,7 +45,7 @@ class AddressInputSection extends StatelessWidget {
                 height: 16,
               ),
               CustomTextFormField(
-                onChanged: (value) {
+                onSaved: (value) {
                   controller.orderEntity.shippingAddressEntity.address = value;
                 },
                 hintText: 'العنوان',
@@ -55,7 +55,7 @@ class AddressInputSection extends StatelessWidget {
                 height: 16,
               ),
               CustomTextFormField(
-                onChanged: (value) {
+                onSaved: (value) {
                   controller.orderEntity.shippingAddressEntity.city = value;
                 },
                 hintText: 'المدينه',
@@ -65,7 +65,7 @@ class AddressInputSection extends StatelessWidget {
                 height: 16,
               ),
               CustomTextFormField(
-                onChanged: (value) {
+                onSaved: (value) {
                   controller.orderEntity.shippingAddressEntity.floor = value;
                 },
                 hintText: 'رقم الطابق , رقم الشقه ..',
@@ -75,7 +75,7 @@ class AddressInputSection extends StatelessWidget {
                 height: 16,
               ),
               CustomTextFormField(
-                onChanged: (value) {
+                onSaved: (value) {
                   controller.orderEntity.shippingAddressEntity.phone = value;
                 },
                 hintText: 'رقم الهاتف',

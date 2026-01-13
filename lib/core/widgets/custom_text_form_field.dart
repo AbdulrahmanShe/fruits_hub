@@ -8,10 +8,11 @@ class CustomTextFormField extends StatelessWidget {
   required this.textInputType, 
   this.suffixIcon,this.onChanged, 
   this.obscureText = false, 
-  this.validator, 
+  this.validator, this.onSaved, 
   });
 
 final String hintText;
+final Function(String?)? onSaved;
 final TextInputType textInputType;
 final Widget? suffixIcon;
 final ValueChanged<String>? onChanged;
@@ -29,6 +30,7 @@ final String? Function(String?)? validator;
        },
       keyboardType: textInputType,
       obscureText: obscureText,
+      onSaved: onSaved,
       onChanged: onChanged,
       decoration: InputDecoration(
         suffixIcon: suffixIcon,

@@ -19,7 +19,7 @@ class CheckoutController extends GetxController {
 
     orderEntity = OrderInputEntity(
       cartEntity,
-      uID: getUser().uId,
+      uID: getUser().uId, // لاحقًا من AuthController
       shippingAddressEntity: ShippingAddressEntity(),
     );
   }
