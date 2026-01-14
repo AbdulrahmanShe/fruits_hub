@@ -26,7 +26,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
     pageController = PageController();
     pageController.addListener(() {
       setState(() {
-        currentPageIndex = pageController.page!.toInt();
+        currentPageIndex = pageController.page!.round();
       });
     });
     super.initState();
@@ -58,18 +58,23 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             ),
             CheckoutSteps(
               onTap: (index) { 
-                if (controllerCheckout.orderEntity.payWithCash != null) {
-                    pageController.animateToPage(
-                    index,
-                    duration: Duration(milliseconds: 300), 
-                    curve: Curves.easeIn
-                    );
-                  } else {
-                    showSnackBar(
-                      'تنبيه !', 
-                      'يرجى تحديد طريقة الدفع'
-                      );
-                  }
+                // ⬅️ الرجوع للخلف دائمًا مسموح
+  if (index < currentPageIndex) {
+    pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeIn,
+    );
+    return;
+  }
+
+                // ⬆️ الحركة للأمام
+  if (currentPageIndex == 0) {
+    handleShippingSectionValidation(context);
+  } 
+  else if (currentPageIndex == 1) {
+    handleAddressValidation();
+  }
                },
               currentPageIndex: currentPageIndex, 
               pageController: pageController, 
