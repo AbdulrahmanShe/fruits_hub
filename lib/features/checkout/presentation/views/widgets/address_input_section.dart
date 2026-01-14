@@ -4,20 +4,28 @@ import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
 import 'package:fruits_hub/features/checkout/presentation/controller/checkout_controller.dart';
 import 'package:get/get.dart';
 
-class AddressInputSection extends StatelessWidget {
-   AddressInputSection(
+class AddressInputSection extends StatefulWidget{
+   const AddressInputSection(
       {super.key, required this.formKey, required this.valueListenable});
 
   final GlobalKey<FormState> formKey;
   final ValueListenable<AutovalidateMode> valueListenable;
+
+  @override
+  State<AddressInputSection> createState() => _AddressInputSectionState();
+}
+
+class _AddressInputSectionState extends State<AddressInputSection> with AutomaticKeepAliveClientMixin{
   final CheckoutController controller = Get.find<CheckoutController>();
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SingleChildScrollView(
       child: ValueListenableBuilder<AutovalidateMode>(
-        valueListenable: valueListenable,
+        valueListenable: widget.valueListenable,
         builder: (context, value, child) => Form(
-          key: formKey,
+          key: widget.formKey,
           autovalidateMode: value,
           child: Column(
             children: [
@@ -90,4 +98,7 @@ class AddressInputSection extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
