@@ -48,8 +48,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
@@ -106,7 +105,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             ),
           ],
         ),
-      ),
     );
   }
 
