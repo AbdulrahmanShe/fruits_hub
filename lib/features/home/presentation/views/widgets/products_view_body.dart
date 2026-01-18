@@ -46,11 +46,10 @@ class _ProductsViewBodyState extends State<ProductsViewBody> {
                 const SizedBox(
                   height: 12,
                 ),
-                ProductsViewHeader(
-                    productsLength: 
-                    controller.productsLength
-                        // context.read<ProductsCubit>().productsLength
-                        ),
+                Obx(() => ProductsViewHeader(
+                        productsLength: controller.products.length,
+                  ),
+                  ),
                 const SizedBox(
                   height: 8,
                 ),
