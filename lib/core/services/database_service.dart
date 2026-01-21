@@ -8,12 +8,17 @@ abstract class DatabaseService{
 
     Future<dynamic> getData({
       required String collectionName,
-       String docuementId,
+       String? docuementId,
       Map<String, dynamic>? query,
       });
 
       Future<bool> checkIfDataExists({
         required String collectionName, 
         required String docuementId
+        });
+
+        Future<void> deleteData({
+        required String collectionName,
+        required String docuementId,
         });
 }
