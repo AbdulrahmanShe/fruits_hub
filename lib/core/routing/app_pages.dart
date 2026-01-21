@@ -3,8 +3,10 @@ import 'package:fruits_hub/features/auth/presentation/views/widgets/forgot_passw
 import 'package:fruits_hub/features/auth/presentation/views/widgets/terms_and_conditions_view.dart';
 import 'package:fruits_hub/features/checkout/binding/checkout_binding%20.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/checkout_view.dart';
+import 'package:fruits_hub/features/home/bindings/favorit_binding.dart';
 import 'package:fruits_hub/features/home/presentation/views/main_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/best_selling_view.dart';
+import 'package:fruits_hub/features/home/presentation/views/widgets/favorit_view.dart';
 import 'package:get/get.dart';
 import 'package:fruits_hub/features/auth/bindings/auth_binding.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
@@ -36,10 +38,20 @@ class AppPages {
     ),
 
     GetPage(
-      name: MainView.routeName,
-      page: () => const MainView(),
-      binding: ProductsBinding(),
-    ),
+  name: MainView.routeName,
+  page: () => const MainView(),
+  bindings: [
+    ProductsBinding(),
+    FavoritBinding(), // ✅ هنا الحل
+  ],
+),
+
+
+    GetPage(
+      name: FavoritView.routeName, 
+      page: () => const FavoritView(),
+      binding: FavoritBinding(),
+      ),
 
     GetPage(
       name: CheckoutView.routeName,
