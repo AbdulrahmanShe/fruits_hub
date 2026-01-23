@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:fruits_hub/core/controller/voice_search_controller.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/errors/failures.dart';
 import 'package:fruits_hub/core/repos/products_repo/products_repo.dart';
@@ -74,8 +75,6 @@ class ProductsController extends GetxController {
         .toList();
   }
 
-  // bool get hasSearch => searchQuery.value.isNotEmpty;
-
   void addRecentSearch(String value) {
     if (value.isEmpty) return;
 
@@ -96,5 +95,25 @@ class ProductsController extends GetxController {
   }
   void clearRecentSearches() {
   recentSearches.clear();
+}
+
+// voice Search
+void setVoiceResult(String text) {
+  searchQuery.value = text;
+  search(text);
+}
+@override
+void onClose() {
+  clearSearch();
+  clearRecentSearches();
+  super.onClose();
+}
+
+@override
+void dispose() {
+  if (Get.isRegistered<VoiceSearchController>()) {
+    Get.find<VoiceSearchController>().stopListening();
+  }
+  super.dispose();
 }
 }
