@@ -12,6 +12,10 @@ class ProductsController extends GetxController {
   final isLoading = false.obs;
   final products = <ProductEntity>[].obs;
   final errorMessage = ''.obs;
+  // search
+  final filteredProducts = <ProductEntity>[].obs;
+  final recentSearches = <String>[].obs;
+  final searchQuery = ''.obs;
 
   Future<void> getProducts() async{
   isLoading.value = true;
@@ -54,4 +58,43 @@ class ProductsController extends GetxController {
     },
          );
   }
+
+  // Search
+  void search(String query) {
+    searchQuery.value = query;
+
+    if (query.isEmpty) {
+      filteredProducts.clear();
+      return;
+    }
+
+    filteredProducts.value = products
+        .where((product) =>
+            product.name.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+  }
+
+  // bool get hasSearch => searchQuery.value.isNotEmpty;
+
+  void addRecentSearch(String value) {
+    if (value.isEmpty) return;
+
+    recentSearches.remove(value);
+    recentSearches.insert(0, value);
+
+    if (recentSearches.length > 5) {
+      recentSearches.removeLast();
+    }
+  }
+
+  void removeRecent(String value) {
+    recentSearches.remove(value);
+  }
+  void clearSearch() {
+    searchQuery.value = '';
+  filteredProducts.clear();
+  }
+  void clearRecentSearches() {
+  recentSearches.clear();
+}
 }
