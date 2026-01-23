@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/features/home/presentation/views/widgets/search_view.dart';
 import 'package:svg_flutter/svg.dart';
+import 'package:get/get.dart';
+import 'package:fruits_hub/core/controller/products_controller.dart';
 
+// ignore: must_be_immutable
 class SearchTextField extends StatelessWidget {
-  const SearchTextField({super.key});
+   SearchTextField({super.key,this.readOnly});
+  bool? readOnly = false;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<ProductsController>();
     return Container(
       decoration: const BoxDecoration(
         boxShadow: [
@@ -20,6 +26,16 @@ class SearchTextField extends StatelessWidget {
         ],
       ),
       child: TextField(
+        onChanged: controller.search,
+    //     onChanged: (value) {
+    //     controller.searchQuery.value = value;
+    //     controller.search(value);
+    //  },
+     readOnly: readOnly ?? false,
+        onSubmitted: controller.addRecentSearch,
+      onTap: () {
+        Get.toNamed(SearchView.routeName);
+      },
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
           prefixIcon: SizedBox(
@@ -39,9 +55,9 @@ class SearchTextField extends StatelessWidget {
           hintStyle: TextStyles.regular13.copyWith(
             color: const Color(0xFF949D9E),
           ),
-          hintText: 'ابحث عن.......',
+          hintText: 'ابحث عن...',
           filled: true,
-          fillColor: Colors.white,
+          fillColor: Colors.grey.shade100, //Colors.white,
           border: buildBorder(),
           enabledBorder: buildBorder(),
           focusedBorder: buildBorder(),
