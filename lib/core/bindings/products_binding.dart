@@ -1,4 +1,5 @@
 import 'package:fruits_hub/core/controller/products_controller.dart';
+import 'package:fruits_hub/core/controller/voice_search_controller.dart';
 import 'package:fruits_hub/core/repos/products_repo/products_repo.dart';
 import 'package:fruits_hub/core/repos/products_repo/products_repo_impl.dart';
 import 'package:fruits_hub/core/services/database_service.dart';
@@ -22,6 +23,11 @@ class ProductsBinding extends Bindings {
     // Controller
     Get.lazyPut(
       () => ProductsController(productsRepo: Get.find()),
+    );
+
+    // 🔊 Voice Search Controller
+    Get.lazyPut(
+      () => VoiceSearchController(),
     );
   }
 }
