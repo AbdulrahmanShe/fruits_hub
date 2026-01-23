@@ -42,7 +42,7 @@ class _ProductsViewBodyState extends State<ProductsViewBody> {
                 const SizedBox(
                   height: 16,
                 ),
-                const SearchTextField(),
+                 SearchTextField(readOnly: true,),
                 const SizedBox(
                   height: 12,
                 ),

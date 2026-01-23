@@ -29,26 +29,26 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: const CustomScrollView(
+      child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: Column(
               children: [
-                SizedBox(height: kTopPaddding,),
-                CustomHomeAppBar(),
-                SizedBox(height: 16,),
-                SearchTextField(),
-                SizedBox(height: 12,),
-                FeaturedList(),
-                SizedBox(height: 12,),
-                BestSellingHeader(),
-                SizedBox(height: 12,),
+                const SizedBox(height: kTopPaddding,),
+                const CustomHomeAppBar(),
+                const SizedBox(height: 16,),
+                SearchTextField(readOnly: true,),
+                const SizedBox(height: 12,),
+                const FeaturedList(),
+                const SizedBox(height: 12,),
+                const BestSellingHeader(),
+                const SizedBox(height: 12,),
                 
                 
               ],
             ),
           ),
-          ProductsGridViewController(),
+          const ProductsGridViewController(),
         ],
       ),
     );
