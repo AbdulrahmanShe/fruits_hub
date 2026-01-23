@@ -10,3 +10,12 @@ class GlobalBinding extends Bindings {
     );
   }
 }
+// GlobalBinding نستخدمه فقط لأشياء مثل:
+
+// Cart
+
+// Auth
+
+// Theme
+
+// Language
