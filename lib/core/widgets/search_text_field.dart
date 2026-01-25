@@ -6,6 +6,7 @@ import 'package:fruits_hub/features/home/presentation/views/widgets/search_view.
 import 'package:svg_flutter/svg.dart';
 import 'package:get/get.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
+import 'package:fruits_hub/core/widgets/price_filter_bottom_sheet.dart';
 
 // ignore: must_be_immutable
 class SearchTextField extends StatefulWidget {
@@ -77,14 +78,24 @@ class _SearchTextFieldState extends State<SearchTextField> {
                 const SizedBox(width: 8),
         
                   /// 🔍 زر الفلترة (كما طلبت)
-                SizedBox(
-                  width: 20,
-                  child: Center(
-                    child: SvgPicture.asset(
-                      Assets.imagesFilter,
-                    ),
-                  ),
-                ),
+                GestureDetector(
+  onTap: () {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (_) => const PriceFilterBottomSheet(),
+    );
+  },
+  child: SizedBox(
+    width: 20,
+    child: Center(
+      child: SvgPicture.asset(Assets.imagesFilter),
+    ),
+  ),
+),
+
                 const SizedBox(width: 8),
               ],
             ),
