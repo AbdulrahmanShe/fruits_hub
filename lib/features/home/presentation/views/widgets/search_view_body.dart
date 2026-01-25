@@ -5,6 +5,7 @@ import 'package:fruits_hub/core/widgets/custom_app_bar_search.dart';
 import 'package:fruits_hub/core/widgets/recent_search_list.dart';
 import 'package:fruits_hub/core/widgets/search_results_grid.dart';
 import 'package:fruits_hub/core/widgets/search_text_field.dart';
+import 'package:fruits_hub/features/home/presentation/views/widgets/products_view_header.dart';
 import 'package:get/get.dart';
 
 class SearchViewBody extends StatefulWidget {
@@ -46,7 +47,18 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                 const SizedBox(height: 16),
                  SearchTextField(),
                 const SizedBox(height: 16),
+                Obx(() {
+                  final count = controller.filteredProducts.length;
 
+      if (count == 0) {
+        return const SizedBox();
+      }
+                  return ProductsViewHeader(
+                    productsLength: count,
+                  );
+                }),
+
+                const SizedBox(height: 16),
                   /// ✅ Recent Searches (تظهر فقط إذا ما في نص بحث)
                 Obx(() {
                   if (controller.searchQuery.isEmpty) {
