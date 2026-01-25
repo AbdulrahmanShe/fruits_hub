@@ -17,6 +17,10 @@ class ProductsController extends GetxController {
   final filteredProducts = <ProductEntity>[].obs;
   final recentSearches = <String>[].obs;
   final searchQuery = ''.obs;
+  // Filter
+final minPrice = 0.0.obs;
+final maxPrice = 7.0.obs;
+// final selectedCategory = ''.obs; // مثال: 'فواكه'
 
   Future<void> getProducts() async{
   isLoading.value = true;
@@ -50,6 +54,7 @@ class ProductsController extends GetxController {
     },
          (productsList) {
           products.value = productsList;
+          applyFilter(); // 👈 أضف هذا السطر
       Get.snackbar(
         'نجاح',
         successMessage,
@@ -63,16 +68,17 @@ class ProductsController extends GetxController {
   // Search
   void search(String query) {
     searchQuery.value = query;
+    applyFilter();
 
-    if (query.isEmpty) {
-      filteredProducts.clear();
-      return;
-    }
+    // if (query.isEmpty) {
+    //   filteredProducts.clear();
+    //   return;
+    // }
 
-    filteredProducts.value = products
-        .where((product) =>
-            product.name.toLowerCase().contains(query.toLowerCase()))
-        .toList();
+    // filteredProducts.value = products
+    //     .where((product) =>
+    //         product.name.toLowerCase().contains(query.toLowerCase()))
+    //     .toList();
   }
 
   void addRecentSearch(String value) {
@@ -116,4 +122,25 @@ void dispose() {
   }
   super.dispose();
 }
+// Filter
+void applyFilter() {
+  filteredProducts.value = products.where((product) {
+    final matchesPrice =
+        product.price >= minPrice.value &&
+        product.price <= maxPrice.value;
+
+    // final matchesCategory =
+    //     selectedCategory.value.isEmpty ||
+    //     product.category == selectedCategory.value;
+
+    final matchesSearch =
+        searchQuery.value.isEmpty ||
+        product.name
+            .toLowerCase()
+            .contains(searchQuery.value.toLowerCase());
+
+    return matchesPrice && matchesSearch; //return matchesPrice && matchesCategory && matchesSearch;
+  }).toList();
+}
+
 }
