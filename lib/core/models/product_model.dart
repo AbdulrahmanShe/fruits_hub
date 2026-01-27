@@ -7,6 +7,7 @@ class ProductModel {
   final String name;
   final String code;
   final String description;
+  final String category;
   final num price;
   final bool isFeatured;
   final String? imageUrl;
@@ -22,6 +23,7 @@ class ProductModel {
       {required this.name,
       required this.code,
       required this.description,
+      required this.category,
       required this.expirationMonths,
       required this.numberOfCalories,
       required this.unitAmount,
@@ -43,6 +45,7 @@ class ProductModel {
       name: json['name'],
       code: json['code'],
       description: json['description'],
+      category: json['category'],
       expirationMonths: json['expirationMonths'],
       numberOfCalories: json['numberOfCalories'],
       unitAmount: json['unitAmount'],
@@ -63,6 +66,7 @@ ProductEntity toEntity() {
         name: name,
         code: code,
         description: description,
+        category: category,
         price: price,
         reviews: reviews.map((e) => e.toEntity()).toList(),
         expirationMonths: expirationMonths,
@@ -80,6 +84,7 @@ ProductEntity toEntity() {
       'code': code,
       'sellingCount': sellingCount,
       'description': description,
+      'category': category,
       'price': price,
       'isFeatured': isFeatured,
       'imageUrl': imageUrl,

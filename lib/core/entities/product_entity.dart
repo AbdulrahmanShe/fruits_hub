@@ -5,6 +5,7 @@ class ProductEntity extends Equatable{
   final String name;
   final String code;
   final String description;
+  final String category;
   final num price;
   final bool isFeatured;
   final String? imageUrl;
@@ -20,6 +21,7 @@ class ProductEntity extends Equatable{
     required this.name,
     required this.code,
     required this.description,
+    required this.category,
     required this.price,
     required this.isFeatured,
     required this.expirationMonths,
@@ -39,6 +41,7 @@ class ProductEntity extends Equatable{
       name: name,
       code: code,
       description: description,
+      category: category,
       price: price,
       isFeatured: isFeatured,
       expirationMonths: expirationMonths,
