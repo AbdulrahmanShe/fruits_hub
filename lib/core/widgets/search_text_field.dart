@@ -6,7 +6,7 @@ import 'package:fruits_hub/features/home/presentation/views/widgets/search_view.
 import 'package:svg_flutter/svg.dart';
 import 'package:get/get.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
-import 'package:fruits_hub/core/widgets/price_filter_bottom_sheet.dart';
+import 'package:fruits_hub/core/widgets/filter_bottom_sheet.dart';
 
 // ignore: must_be_immutable
 class SearchTextField extends StatefulWidget {
@@ -85,7 +85,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
-      builder: (_) => const PriceFilterBottomSheet(),
+      builder: (_) => const FilterBottomSheet(),
     );
   },
   child: SizedBox(
