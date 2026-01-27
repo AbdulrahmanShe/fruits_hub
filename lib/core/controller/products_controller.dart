@@ -20,7 +20,7 @@ class ProductsController extends GetxController {
   // Filter
 final minPrice = 0.0.obs;
 final maxPrice = 7.0.obs;
-// final selectedCategory = ''.obs; // مثال: 'فواكه'
+final selectedCategory = 'الكل'.obs;
 
   Future<void> getProducts() async{
   isLoading.value = true;
@@ -66,6 +66,10 @@ final maxPrice = 7.0.obs;
   }
 
   // Search
+  void updateSearch(String value) {
+  searchQuery.value = value;
+  applyFilter();
+}
   void search(String query) {
     searchQuery.value = query;
     applyFilter();
@@ -124,23 +128,36 @@ void dispose() {
 }
 // Filter
 void applyFilter() {
+  final query = searchQuery.value.toLowerCase();
+  final category = selectedCategory.value;
+
   filteredProducts.value = products.where((product) {
     final matchesPrice =
         product.price >= minPrice.value &&
         product.price <= maxPrice.value;
 
-    // final matchesCategory =
-    //     selectedCategory.value.isEmpty ||
-    //     product.category == selectedCategory.value;
+    final matchesCategory =
+        category == 'الكل' ||
+        product.category == category;
 
     final matchesSearch =
-        searchQuery.value.isEmpty ||
+        query.isEmpty ||
         product.name
             .toLowerCase()
-            .contains(searchQuery.value.toLowerCase());
+            .contains(query);
 
-    return matchesPrice && matchesSearch; //return matchesPrice && matchesCategory && matchesSearch;
+    return matchesPrice && matchesCategory && matchesSearch; //return matchesPrice && matchesCategory && matchesSearch;
   }).toList();
+}
+//  / كل التصنيفات
+  List<String> get categories {
+    final set = products.map((e) => e.category).toSet().toList();
+    set.insert(0, 'الكل');
+    return set;
+  }
+void selectCategory(String category) {
+  selectedCategory.value = category;
+  applyFilter();
 }
 
 }
