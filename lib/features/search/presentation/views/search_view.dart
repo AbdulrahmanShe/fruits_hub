@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/features/home/presentation/views/widgets/search_view_body.dart';
+import 'package:fruits_hub/features/search/presentation/views/widgets/search_view_body.dart';
 
 class SearchView extends StatelessWidget {
   static const routeName = '/search';

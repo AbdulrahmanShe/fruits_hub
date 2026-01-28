@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/core/controller/voice_search_controller.dart';
+import 'package:fruits_hub/features/search/presentation/controller/voice_search_controller.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:get/get.dart';

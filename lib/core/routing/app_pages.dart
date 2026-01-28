@@ -7,7 +7,7 @@ import 'package:fruits_hub/features/home/bindings/favorit_binding.dart';
 import 'package:fruits_hub/features/home/presentation/views/main_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/best_selling_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/favorit_view.dart';
-import 'package:fruits_hub/features/home/presentation/views/widgets/search_view.dart';
+import 'package:fruits_hub/features/search/presentation/views/search_view.dart';
 import 'package:get/get.dart';
 import 'package:fruits_hub/features/auth/bindings/auth_binding.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';

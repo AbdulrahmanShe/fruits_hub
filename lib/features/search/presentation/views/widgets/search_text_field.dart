@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
-import 'package:fruits_hub/core/widgets/voice_search_button.dart';
-import 'package:fruits_hub/features/home/presentation/views/widgets/search_view.dart';
+import 'package:fruits_hub/features/search/presentation/views/widgets/voice_search_button.dart';
+import 'package:fruits_hub/features/search/presentation/views/search_view.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:get/get.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
-import 'package:fruits_hub/core/widgets/filter_bottom_sheet.dart';
+import 'package:fruits_hub/features/search/presentation/views/widgets/filter_bottom_sheet.dart';
 
 // ignore: must_be_immutable
 class SearchTextField extends StatefulWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar_notification.dart';
-import 'package:fruits_hub/core/widgets/search_text_field.dart';
+import 'package:fruits_hub/features/search/presentation/views/widgets/search_text_field.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/products_grid_view_controller.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/products_view_header.dart';
 import 'package:get/get.dart';

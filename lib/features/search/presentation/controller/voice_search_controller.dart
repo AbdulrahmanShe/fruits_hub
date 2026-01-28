@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-import 'products_controller.dart';
+import '../../../../core/controller/products_controller.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class VoiceSearchController extends GetxController {

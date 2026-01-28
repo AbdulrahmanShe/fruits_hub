@@ -11,12 +11,12 @@ class SearchResultsGrid extends StatelessWidget {
     final controller = Get.find<ProductsController>();
 
     return Obx(() {
-      // final query = controller.searchQuery.value;
+      final query = controller.searchQuery.value;
       final results = controller.filteredProducts;
       
-      // if (query.isEmpty) {
-      //   return const SliverToBoxAdapter(child: SizedBox());
-      // }
+      if (query.isEmpty && results.isEmpty) {
+        return const SliverToBoxAdapter(child: SizedBox());
+      }
 
       if (results.isEmpty) {
         return const SliverToBoxAdapter(

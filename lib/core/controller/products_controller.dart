@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:fruits_hub/core/controller/voice_search_controller.dart';
+import 'package:fruits_hub/features/search/presentation/controller/voice_search_controller.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/errors/failures.dart';
 import 'package:fruits_hub/core/repos/products_repo/products_repo.dart';
@@ -19,7 +19,7 @@ class ProductsController extends GetxController {
   final searchQuery = ''.obs;
   // Filter
 final minPrice = 0.0.obs;
-final maxPrice = 7.0.obs;
+final maxPrice = 20.0.obs;
 final selectedCategory = 'الكل'.obs;
 
   Future<void> getProducts() async{
@@ -146,7 +146,7 @@ void applyFilter() {
             .toLowerCase()
             .contains(query);
 
-    return matchesPrice && matchesCategory && matchesSearch; //return matchesPrice && matchesCategory && matchesSearch;
+    return matchesPrice && matchesCategory && matchesSearch; 
   }).toList();
 }
 //  / كل التصنيفات
