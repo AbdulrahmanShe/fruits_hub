@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
-
-// import '../../../../../core/entities/product_entity.dart';
 import '../../../../../core/widgets/fruit_item.dart';
 
 class ProductsGridView extends StatelessWidget {
