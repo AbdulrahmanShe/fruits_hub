@@ -66,23 +66,13 @@ final selectedCategory = 'الكل'.obs;
   }
 
   // Search
-  void updateSearch(String value) {
-  searchQuery.value = value;
-  applyFilter();
-}
+//   void updateSearch(String value) {
+//   searchQuery.value = value;
+//   applyFilter();
+// }
   void search(String query) {
     searchQuery.value = query;
     applyFilter();
-
-    // if (query.isEmpty) {
-    //   filteredProducts.clear();
-    //   return;
-    // }
-
-    // filteredProducts.value = products
-    //     .where((product) =>
-    //         product.name.toLowerCase().contains(query.toLowerCase()))
-    //     .toList();
   }
 
   void addRecentSearch(String value) {
@@ -155,9 +145,9 @@ void applyFilter() {
     set.insert(0, 'الكل');
     return set;
   }
-void selectCategory(String category) {
-  selectedCategory.value = category;
-  applyFilter();
-}
+// void selectCategory(String category) {
+//   selectedCategory.value = category;
+//   applyFilter();
+// }
 
 }

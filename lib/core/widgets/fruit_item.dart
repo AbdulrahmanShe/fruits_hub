@@ -78,7 +78,7 @@ class FruitItem extends StatelessWidget {
                       style: TextStyles.semiBold16,
                     ),
                     subtitle: Text(
-                      '${productEntity.price} جنيه / كيلو',
+                      '${productEntity.price} شيكل / كيلو',
                       textAlign: TextAlign.right,
                     ),
                     trailing: GestureDetector(

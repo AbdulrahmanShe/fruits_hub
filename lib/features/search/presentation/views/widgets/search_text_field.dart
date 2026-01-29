@@ -18,18 +18,18 @@ class SearchTextField extends StatefulWidget {
 }
 
 class _SearchTextFieldState extends State<SearchTextField> {
-  late final TextEditingController textEditingController;
+  late final TextEditingController searchTextEditingController;
   final controller = Get.find<ProductsController>();
 
   @override
   void initState() {
     super.initState();
-    textEditingController = TextEditingController();
+    searchTextEditingController = TextEditingController();
   }
 
   @override
   void dispose() {
-    textEditingController.dispose(); // ✅ ينحذف تلقائي
+    searchTextEditingController.dispose(); // ✅ ينحذف تلقائي
     super.dispose();
   }
 
@@ -47,7 +47,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
         ],
       ),
       child: TextField(
-          controller: textEditingController,
+          controller: searchTextEditingController,
           onChanged: controller.search,
           readOnly: widget.readOnly ?? false,
           onSubmitted: controller.addRecentSearch,
@@ -71,7 +71,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
                   /// 🎤 زر الصوت
                    VoiceSearchButton(
                     onResult: (text) {
-                      textEditingController.text = text;        // 👈 يظهر فورًا
+                      searchTextEditingController.text = text;        // 👈 يظهر فورًا
                       controller.search(text);
                     },
                   ),

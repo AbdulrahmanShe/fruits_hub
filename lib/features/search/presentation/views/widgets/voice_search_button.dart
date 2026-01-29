@@ -39,7 +39,7 @@ class VoiceSearchButton extends StatelessWidget {
                             : Icons.mic_none,
                         color: controller.isListening.value
                             ? AppColors.primaryColor
-                            : Colors.grey,
+                            : const Color(0xFF949D9E),
                       ),
                     ),
                   );

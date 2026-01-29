@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:get/get.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
 
@@ -18,9 +19,9 @@ class FilterBottomSheet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /// 🧾 العنوان
-            const Text(
+             Text(
               'الفلترة',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyles.bold19,
             ),
 
             const SizedBox(height: 24),
@@ -28,7 +29,7 @@ class FilterBottomSheet extends StatelessWidget {
             /// 🧺 فلترة التصنيف
             const Text(
               'التصنيف',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyles.bold19,
             ),
             const SizedBox(height: 8),
 
@@ -52,12 +53,12 @@ class FilterBottomSheet extends StatelessWidget {
               /// 💰 فلترة السعر
               const Text(
                 ' السعر',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyles.bold19,
               ),
               const SizedBox(height: 8),
           
               Text(
-                '${controller.minPrice.value.toInt()} \$  -  ${controller.maxPrice.value.toInt()} \$',
+                '${controller.minPrice.value.toInt()} ₪  -  ${controller.maxPrice.value.toInt()} ₪',
               ),
           
               RangeSlider(
@@ -83,7 +84,7 @@ class FilterBottomSheet extends StatelessWidget {
                     controller.applyFilter();
                     Get.back();
                   },
-                  child: const Text('تطبيق'),
+                  child: const Text('تصفيه',style: TextStyles.bold16,),
                 ),
               ),
             ],

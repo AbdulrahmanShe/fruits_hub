@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/features/search/presentation/views/widgets/search_view_body.dart';
 
 class SearchView extends StatelessWidget {
-  static const routeName = '/search';
+  static const routeName = '/search_view';
 
   const SearchView({super.key});
 

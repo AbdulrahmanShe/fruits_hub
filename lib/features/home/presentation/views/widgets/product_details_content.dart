@@ -26,7 +26,19 @@ class ProductDetailsContent extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-               Text(
+              Row(
+          children: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.remove)),
+            const Text('1', style: TextStyle(fontSize: 18)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+          ],
+        ),
+               
+            ],
+          ),
+
+          const SizedBox(height: 8),
+          Text(
                 '${product.price} ₪ / الكيلو',
                 style: TextStyle(
                   fontSize: 16,
@@ -34,10 +46,8 @@ class ProductDetailsContent extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            ],
-          ),
 
-          const SizedBox(height: 8),
+              const SizedBox(height: 8),
 
           // التقييم
           Row(
@@ -62,8 +72,9 @@ class ProductDetailsContent extends StatelessWidget {
            ProductProperties(product: product),
 
           // const Spacer(),
-
+          const SizedBox(height: 24),
           // // زر السلة
+
           const AddToCartSection(),
           // const SizedBox(height: 24),
         ],

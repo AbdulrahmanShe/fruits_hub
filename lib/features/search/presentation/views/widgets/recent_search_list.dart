@@ -27,7 +27,7 @@ class RecentSearchList extends StatelessWidget {
                  child: Text(
                   'حذف الكل',
                   style: TextStyles.regular13.copyWith(
-                    color: Color(0xFFF949D9E),
+              color: const Color(0xFF949D9E),
                   ),
                   
                   ),
