@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
+import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:get/get.dart';
+import 'package:svg_flutter/svg.dart';
 
 class ProductImageSection extends StatelessWidget {
   const ProductImageSection({super.key, required this.product});
@@ -9,27 +11,21 @@ class ProductImageSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: [
-        Container(
-          height: 260,
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            color: Color(0xffF6F6F6),
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(30),
+      children: [ 
+            CircleAvatar(
+              child: SvgPicture.asset(Assets.imagesBackgroundImageProductsDetails),
             ),
-          ),
-          child: Center(
+
+          Center(
             child: product.imageUrl != null
                 ? Image.network(product.imageUrl!, height: 160)
                 : Image.asset('assets/images/watermelon.png', height: 160),
           ),
-        ),
 
         // زر الرجوع
         Positioned(
-          top: 8,
-          right: 8,
+          top: 12,
+          right: 12,
           child: CircleAvatar(
             backgroundColor: Colors.white,
             child: IconButton(
