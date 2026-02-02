@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
+import 'package:fruits_hub/core/utils/app_colors.dart';
+import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/add_to_cart_section.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/product_properties.dart';
 
@@ -21,31 +23,16 @@ class ProductDetailsContent extends StatelessWidget {
             children: [
                Text(
                 product.name,
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyles.bold16,
               ),
-              Row(
-          children: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.remove)),
-            const Text('1', style: TextStyle(fontSize: 18)),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
-          ],
-        ),
+              
+              Text(
+                '${product.price} شيكل / الكيلو',
+                style: TextStyles.semiBold13.copyWith(color: AppColors.lightPrimaryColor),
+              ),
                
             ],
-          ),
-
-          const SizedBox(height: 8),
-          Text(
-                '${product.price} ₪ / الكيلو',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+          ),          
 
               const SizedBox(height: 8),
 
@@ -63,8 +50,10 @@ class ProductDetailsContent extends StatelessWidget {
           // الوصف
            Text(
            product.description,
-            style: TextStyle(color: Colors.grey),
+            style: TextStyles.regular13.copyWith(
+              color: const Color(0xFF979899),
           ),
+           ),
 
           const SizedBox(height: 24),
 
@@ -75,7 +64,7 @@ class ProductDetailsContent extends StatelessWidget {
           const SizedBox(height: 24),
           // // زر السلة
 
-          const AddToCartSection(),
+           AddToCartSection(product: product,),
           // const SizedBox(height: 24),
         ],
       ),

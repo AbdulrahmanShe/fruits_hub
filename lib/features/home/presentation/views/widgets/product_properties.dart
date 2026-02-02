@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
+import 'package:fruits_hub/core/utils/app_text_styles.dart';
 
 class ProductProperties extends StatelessWidget {
   const ProductProperties({super.key, required this.product});
@@ -14,18 +15,18 @@ class ProductProperties extends StatelessWidget {
         crossAxisCount: 2,
         mainAxisSpacing: 12,
         crossAxisSpacing: 12,
-        childAspectRatio: 2.4,
+        childAspectRatio: 2.2,
       ),
       children: [
         PropertyItem(
           icon: Icons.eco,
-          title: 'عضوي',
+          title: 'اوجانيك',
           value: product.isOrganic ? 'نعم' : 'لا',
         ),
         PropertyItem(
           icon: Icons.calendar_today,
           title: 'الصلاحية',
-          value: '${product.expirationMonths} شهر',
+          value: '${product.expirationMonths} أشهر',
         ),
         PropertyItem(
           icon: Icons.local_fire_department,
@@ -70,8 +71,8 @@ class PropertyItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(title, style: const TextStyle(fontSize: 12)),
-              Text(value, style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text(title, style: TextStyles.semiBold13),
+              Text(value, style: TextStyles.bold16),
               
             ],
           ),

@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class ProductDetailsView extends StatelessWidget {
   const ProductDetailsView({super.key});
 
-  static const routeName = '/product-details';
+  static const routeName = '/product_details';
 
   @override
   Widget build(BuildContext context) {

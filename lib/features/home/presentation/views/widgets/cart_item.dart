@@ -69,7 +69,7 @@ final CartController controller = Get.find<CartController>();
                           ),
                           const Spacer(),
                           Text(
-                            '${carItemEntity.calculateTotalPrice()} جنيه ',
+                            '${carItemEntity.calculateTotalPrice()} شيكل ',
                             style: TextStyles.bold16
                                 .copyWith(color: AppColors.secondaryColor),
                           )
