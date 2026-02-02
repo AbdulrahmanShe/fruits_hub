@@ -6,7 +6,7 @@ class CartItemEntity extends Equatable{
   final ProductEntity productEntity;
   final RxInt quantity;
 
-  CartItemEntity({required this.productEntity, int quantity = 0})
+  CartItemEntity({required this.productEntity, int quantity = 1})
       : quantity = quantity.obs;
 
   num calculateTotalPrice() => productEntity.price * quantity.value;
@@ -15,7 +15,7 @@ class CartItemEntity extends Equatable{
 
   increaseQuantity() => quantity.value++;
   decreasQuantity() {
-  if (quantity.value > 0) quantity.value--;
+  if (quantity.value > 1) quantity.value--;
 }
 
   @override
