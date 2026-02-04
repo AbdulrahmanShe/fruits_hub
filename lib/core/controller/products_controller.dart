@@ -22,6 +22,18 @@ final minPrice = 0.0.obs;
 final maxPrice = 20.0.obs;
 final selectedCategory = 'الكل'.obs;
 
+
+  List<ProductEntity> get displayProducts {
+  if (searchQuery.isNotEmpty ||
+      selectedCategory.value != 'الكل' ||
+      minPrice.value != 0 ||
+      maxPrice.value != 20) {
+    return filteredProducts;
+  }
+  return products;
+}
+
+
   Future<void> getProducts() async{
   isLoading.value = true;
   final result = await productsRepo.getProducts();
@@ -66,10 +78,6 @@ final selectedCategory = 'الكل'.obs;
   }
 
   // Search
-//   void updateSearch(String value) {
-//   searchQuery.value = value;
-//   applyFilter();
-// }
   void search(String query) {
     searchQuery.value = query;
     applyFilter();
@@ -90,9 +98,10 @@ final selectedCategory = 'الكل'.obs;
     recentSearches.remove(value);
   }
   void clearSearch() {
-    searchQuery.value = '';
-  filteredProducts.clear();
-  }
+  searchQuery.value = '';
+  applyFilter();
+}
+
   void clearRecentSearches() {
   recentSearches.clear();
 }
@@ -145,9 +154,25 @@ void applyFilter() {
     set.insert(0, 'الكل');
     return set;
   }
-// void selectCategory(String category) {
-//   selectedCategory.value = category;
-//   applyFilter();
-// }
+void selectCategory(String category) {
+  selectedCategory.value = category;
+  applyFilter();
+}
+
+/// ✅ التصنيفات + أول منتج (للصورة)
+  Map<String, ProductEntity> get categoriesWithProduct {
+    final Map<String, ProductEntity> map = {};
+
+    for (final product in products) {
+      map.putIfAbsent(product.category, () => product);
+    }
+
+    return map;
+  }
+
+  /// أسماء التصنيفات (مع الكل)
+  List<String> get categorie {
+    return ['الكل', ...categoriesWithProduct.keys];
+  }
 
 }
