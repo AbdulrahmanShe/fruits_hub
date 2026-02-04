@@ -20,7 +20,7 @@ class ProductsGridViewController extends StatelessWidget {
       if (!controller.isLoading.value &&
           controller.errorMessage.isEmpty &&
           controller.products.isNotEmpty) {
-        return ProductsGridView(products: controller.products,);
+        return ProductsGridView(products: controller.displayProducts,);
       }
       /// Failure
       if (!controller.isLoading.value &&
@@ -40,6 +40,5 @@ class ProductsGridViewController extends StatelessWidget {
         ),
       );
     });
-    // return ProductsGridView();
   }
 }

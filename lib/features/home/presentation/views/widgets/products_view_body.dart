@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar_notification.dart';
+import 'package:fruits_hub/features/home/presentation/views/widgets/categories_section.dart';
 import 'package:fruits_hub/features/search/presentation/views/widgets/search_text_field.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/products_grid_view_controller.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/products_view_header.dart';
@@ -46,8 +47,12 @@ class _ProductsViewBodyState extends State<ProductsViewBody> {
                 const SizedBox(
                   height: 12,
                 ),
+                const CategoriesSection(),
+                const SizedBox(
+                  height: 12,
+                ),
                 Obx(() => ProductsViewHeader(
-                        productsLength: controller.products.length,
+                        productsLength: controller.displayProducts.length,
                   ),
                   ),
                 const SizedBox(
