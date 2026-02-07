@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+﻿import 'package:dartz/dartz.dart';
 import 'package:fruits_hub/features/search/presentation/controller/voice_search_controller.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/errors/failures.dart';
@@ -12,6 +12,7 @@ class ProductsController extends GetxController {
 
   final isLoading = false.obs;
   final products = <ProductEntity>[].obs;
+  final featuredProducts = <ProductEntity>[].obs;
   final errorMessage = ''.obs;
   // search
   final filteredProducts = <ProductEntity>[].obs;
@@ -22,6 +23,14 @@ final minPrice = 0.0.obs;
 final maxPrice = 20.0.obs;
 final selectedCategory = 'الكل'.obs;
 
+  final currentView = ProductsListView.featured.obs;
+
+  List<ProductEntity> get activeProducts {
+    return currentView.value == ProductsListView.all
+        ? products
+        : featuredProducts;
+  }
+
 
   List<ProductEntity> get displayProducts {
   if (searchQuery.isNotEmpty ||
@@ -30,31 +39,35 @@ final selectedCategory = 'الكل'.obs;
       maxPrice.value != 20) {
     return filteredProducts;
   }
-  return products;
+  return activeProducts;
 }
 
 
-  Future<void> getProducts() async{
+  Future<void> getProducts({bool force = false}) async{
+  setView(ProductsListView.all);
+  if (!force && products.isNotEmpty) return;
   isLoading.value = true;
   final result = await productsRepo.getProducts();
   isLoading.value = false;
   
-  return handleProductsResult(result, successMessage: 'تم تحميل المنتجات بنجاح');
+  return handleProductsResult(result,target: products, successMessage: 'تم تحميل المنتجات بنجاح');
 
   } 
 
-  Future<void> getBestSellingProducts() async{
+  Future<void> getFeaturedProducts({bool force = false}) async{
     
+  setView(ProductsListView.featured);
+  if (!force && featuredProducts.isNotEmpty) return;
   isLoading.value = true;
-  final result = await productsRepo.getBestSellingProducts();
+  final result = await productsRepo.getFeaturedProducts();
   isLoading.value = false;
   
-  return handleProductsResult(result, successMessage: 'تم تحميل المنتجات الأكثر مبيعًا بنجاح');
+  return handleProductsResult(result,target: featuredProducts, successMessage: 'تم تحميل المنتجات المميزة بنجاح');
   
   }
     
 
-     Future<void> handleProductsResult(Either<Failure, List<ProductEntity>> result,{required String successMessage}) async{
+     Future<void> handleProductsResult(Either<Failure, List<ProductEntity>> result,{required RxList<ProductEntity> target, required String successMessage}) async{
     return result.fold(
           (failure) {
             errorMessage.value = failure.message;
@@ -65,7 +78,7 @@ final selectedCategory = 'الكل'.obs;
       );
     },
          (productsList) {
-          products.value = productsList;
+          target.value = productsList;
           applyFilter(); // 👈 أضف هذا السطر
       Get.snackbar(
         'نجاح',
@@ -130,7 +143,7 @@ void applyFilter() {
   final query = searchQuery.value.toLowerCase();
   final category = selectedCategory.value;
 
-  filteredProducts.value = products.where((product) {
+  filteredProducts.value = activeProducts.where((product) {
     final matchesPrice =
         product.price >= minPrice.value &&
         product.price <= maxPrice.value;
@@ -150,7 +163,7 @@ void applyFilter() {
 }
 //  / كل التصنيفات
   List<String> get categories {
-    final set = products.map((e) => e.category).toSet().toList();
+    final set = activeProducts.map((e) => e.category).toSet().toList();
     set.insert(0, 'الكل');
     return set;
   }
@@ -163,7 +176,7 @@ void selectCategory(String category) {
   Map<String, ProductEntity> get categoriesWithProduct {
     final Map<String, ProductEntity> map = {};
 
-    for (final product in products) {
+    for (final product in activeProducts) {
       map.putIfAbsent(product.category, () => product);
     }
 
@@ -175,4 +188,17 @@ void selectCategory(String category) {
     return ['الكل', ...categoriesWithProduct.keys];
   }
 
+  void setView(ProductsListView view) {
+    currentView.value = view;
+    // Reset filters when switching views so category selection
+    // in one view doesn't affect the other.
+    searchQuery.value = '';
+    selectedCategory.value = 'الكل';
+    minPrice.value = 0;
+    maxPrice.value = 20;
+    applyFilter();
+  }
+
 }
+
+enum ProductsListView { all, featured }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
 import 'package:fruits_hub/features/search/presentation/views/widgets/search_text_field.dart';
-import 'package:fruits_hub/features/home/presentation/views/widgets/best_selling_header.dart';
+import 'package:fruits_hub/features/home/presentation/views/widgets/featured_header.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/custom_home_app_bar.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/featured_list.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/products_grid_view_controller.dart';
@@ -23,7 +23,13 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   @override
   void initState() {
     super.initState();
-    controller.getBestSellingProducts();
+    controller.setView(ProductsListView.featured);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.getFeaturedProducts().then((_) async {
+        await controller.getProducts();
+        controller.setView(ProductsListView.featured);
+      });
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -41,7 +47,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                 const SizedBox(height: 12,),
                 const FeaturedList(),
                 const SizedBox(height: 12,),
-                const BestSellingHeader(),
+                const FeaturedHeader(),
                 const SizedBox(height: 12,),
                 
                 

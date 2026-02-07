@@ -1,19 +1,24 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/controller/products_controller.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
-import 'package:fruits_hub/features/home/presentation/views/widgets/best_selling_view.dart';
+import 'package:fruits_hub/features/home/presentation/views/widgets/featured_view.dart';
 import 'package:get/get.dart';
 
-class BestSellingHeader extends StatelessWidget {
-  const BestSellingHeader({super.key});
+class FeaturedHeader extends StatelessWidget {
+  const FeaturedHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed(BestSellingView.routeName),
+      onTap: () {
+        final controller = Get.find<ProductsController>();
+        controller.setView(ProductsListView.featured);
+        Get.toNamed(FeaturedView.routeName);
+      },
       child: Row(
         children: [
           const Text(
-            'الأكثر مبيعًا',
+            'المنتجات المميزة',
             textAlign: TextAlign.right,
             style: TextStyles.bold16,
           ),

@@ -5,7 +5,7 @@ import 'package:fruits_hub/features/checkout/binding/checkout_binding%20.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/checkout_view.dart';
 import 'package:fruits_hub/features/home/bindings/favorit_binding.dart';
 import 'package:fruits_hub/features/home/presentation/views/main_view.dart';
-import 'package:fruits_hub/features/home/presentation/views/widgets/best_selling_view.dart';
+import 'package:fruits_hub/features/home/presentation/views/widgets/featured_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/favorit_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/product_details_view.dart';
 import 'package:fruits_hub/features/search/presentation/views/search_view.dart';
@@ -71,8 +71,8 @@ class AppPages {
     ),
 
     GetPage(
-      name: BestSellingView.routeName,
-      page: () => const BestSellingView(),
+      name: FeaturedView.routeName,
+      page: () => const FeaturedView(),
     ),
 
     GetPage(

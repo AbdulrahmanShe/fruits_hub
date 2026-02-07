@@ -19,7 +19,7 @@ class ProductsGridViewController extends StatelessWidget {
       /// Success
       if (!controller.isLoading.value &&
           controller.errorMessage.isEmpty &&
-          controller.products.isNotEmpty) {
+          controller.activeProducts.isNotEmpty) {
         return ProductsGridView(products: controller.displayProducts,);
       }
       /// Failure

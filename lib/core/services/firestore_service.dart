@@ -28,11 +28,17 @@ class FireStoreService implements DatabaseService{
 }else{
    Query<Map<String, dynamic>> data = firestore.collection(collectionName);
       if (query != null) {
+        if (query['whereField'] != null) {
+          var whereField = query['whereField'];
+          var whereValue = query['whereValue'];
+          data = data.where(whereField, isEqualTo: whereValue);
+        }
         if (query['orderBy'] != null) {
           var orderByField = query['orderBy'];
           var descending = query['descending'];
           data = data.orderBy(orderByField, descending: descending);
         }
+        
         if (query['limit'] != null) {
           var limit = query['limit'];
           data = data.limit(limit);
@@ -58,4 +64,3 @@ class FireStoreService implements DatabaseService{
   }
 
 }
-

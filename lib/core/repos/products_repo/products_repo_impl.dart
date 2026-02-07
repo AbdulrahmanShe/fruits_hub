@@ -13,14 +13,14 @@ class ProductsRepoImpl extends ProductsRepo {
 
   ProductsRepoImpl(this.databaseService);
   @override
-  Future<Either<Failure, List<ProductEntity>>> getBestSellingProducts() async{
+  Future<Either<Failure, List<ProductEntity>>> getFeaturedProducts() async{
     try {
   var data = await databaseService.getData(
     collectionName: BackendEndpoint.getProducts, 
     query: {
+            'whereField': 'isFeatured',
+            'whereValue': true,
             'limit': 10,
-            'orderBy': 'sellingCount',
-            'descending': true,
           }
     ) as List<Map<String, dynamic>>;
 

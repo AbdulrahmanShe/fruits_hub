@@ -21,7 +21,9 @@ class _SearchViewBodyState extends State<SearchViewBody> {
   @override
   void initState() {
     super.initState();
-    controller.clearSearch();        // 🔥 هذا هو السر
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.clearSearch();
+    });
   }
 
   @override

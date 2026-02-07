@@ -21,7 +21,10 @@ class _ProductsViewBodyState extends State<ProductsViewBody> {
   @override
   void initState() {
     super.initState();
-    controller.getProducts();
+    controller.setView(ProductsListView.all);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.getProducts();
+    });
   }
   
   @override
