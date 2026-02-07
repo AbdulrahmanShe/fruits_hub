@@ -39,6 +39,7 @@ class _MainViewState extends State<MainView> {
         onItemTapped: (index) { 
           currentViewIndex = index;
           if (index == 0) {
+            controller.clearSearch();
             controller.setView(ProductsListView.featured);
             controller.getFeaturedProducts();
           } else if (index == 1) {

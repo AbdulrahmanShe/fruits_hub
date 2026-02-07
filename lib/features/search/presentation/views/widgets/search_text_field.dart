@@ -51,9 +51,11 @@ class _SearchTextFieldState extends State<SearchTextField> {
           onChanged: controller.search,
           readOnly: widget.readOnly ?? false,
           onSubmitted: controller.addRecentSearch,
-          onTap: () {
-          if (widget.readOnly == true) {
-              Get.toNamed(SearchView.routeName);
+          onTap: () async {
+            if (widget.readOnly == true) {
+              await Get.toNamed(SearchView.routeName);
+              controller.clearSearch();
+              controller.setView(ProductsListView.featured);
             }
           },
           keyboardType: TextInputType.text,
