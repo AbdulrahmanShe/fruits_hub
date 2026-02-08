@@ -43,10 +43,13 @@ final selectedCategory = 'الكل'.obs;
 }
 
 
-  Future<void> getProducts({bool force = false}) async{
-  setView(ProductsListView.all);
+  Future<void> getProducts({bool force = false, bool changeView = true}) async{
+  if (changeView) {
+    setView(ProductsListView.all);
+  }
   if (!force && products.isNotEmpty) return;
   isLoading.value = true;
+  products.clear();
   final result = await productsRepo.getProducts();
   isLoading.value = false;
   
@@ -54,11 +57,13 @@ final selectedCategory = 'الكل'.obs;
 
   } 
 
-  Future<void> getFeaturedProducts({bool force = false}) async{
-    
-  setView(ProductsListView.featured);
+  Future<void> getFeaturedProducts({bool force = false, bool changeView = true}) async{
+  if (changeView) {
+    setView(ProductsListView.featured);
+  }
   if (!force && featuredProducts.isNotEmpty) return;
   isLoading.value = true;
+  featuredProducts.clear();
   final result = await productsRepo.getFeaturedProducts();
   isLoading.value = false;
   
@@ -80,11 +85,6 @@ final selectedCategory = 'الكل'.obs;
          (productsList) {
           target.value = productsList;
           applyFilter(); // 👈 أضف هذا السطر
-      Get.snackbar(
-        'نجاح',
-        successMessage,
-        snackPosition: SnackPosition.BOTTOM,
-      );
 
     },
          );
@@ -197,6 +197,13 @@ void selectCategory(String category) {
     selectedCategory.value = 'الكل';
     minPrice.value = 0;
     maxPrice.value = 20;
+    filteredProducts.clear();
+    if (view == ProductsListView.all && products.isEmpty) {
+      isLoading.value = true;
+    }
+    if (view == ProductsListView.featured && featuredProducts.isEmpty) {
+      isLoading.value = true;
+    }
     applyFilter();
   }
 

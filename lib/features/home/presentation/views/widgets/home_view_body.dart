@@ -26,8 +26,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     controller.setView(ProductsListView.featured);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.getFeaturedProducts().then((_) async {
-        await controller.getProducts();
-        controller.setView(ProductsListView.featured);
+        await controller.getProducts(changeView: false);
       });
     });
   }
