@@ -6,6 +6,8 @@ import 'package:fruits_hub/features/search/presentation/views/widgets/recent_sea
 import 'package:fruits_hub/features/search/presentation/views/widgets/search_results_grid.dart';
 import 'package:fruits_hub/features/search/presentation/views/widgets/search_text_field.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/products_view_header.dart';
+import 'package:fruits_hub/features/search/presentation/views/widgets/filter_bottom_sheet.dart';
+import 'package:fruits_hub/features/search/presentation/controller/voice_search_controller.dart';
 import 'package:get/get.dart';
 
 class SearchViewBody extends StatefulWidget {
@@ -23,6 +25,20 @@ class _SearchViewBodyState extends State<SearchViewBody> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.clearSearch();
+      final args = Get.arguments;
+      if (args is Map && args['action'] == 'filter') {
+        showModalBottomSheet(
+          context: context,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+          ),
+          builder: (_) => const FilterBottomSheet(),
+        );
+      } else if (args is Map && args['action'] == 'voice') {
+        if (Get.isRegistered<VoiceSearchController>()) {
+          Get.find<VoiceSearchController>().toggleListening();
+        }
+      }
     });
   }
 
