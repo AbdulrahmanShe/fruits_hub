@@ -143,7 +143,8 @@ void applyFilter() {
   final query = searchQuery.value.toLowerCase();
   final category = selectedCategory.value;
 
-  filteredProducts.value = activeProducts.where((product) {
+  // Search should be across all products, regardless of current view.
+  filteredProducts.value = products.where((product) {
     final matchesPrice =
         product.price >= minPrice.value &&
         product.price <= maxPrice.value;
