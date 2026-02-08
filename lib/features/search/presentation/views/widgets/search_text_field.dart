@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/features/search/presentation/views/widgets/voice_search_button.dart';
@@ -10,8 +10,9 @@ import 'package:fruits_hub/features/search/presentation/views/widgets/filter_bot
 
 // ignore: must_be_immutable
 class SearchTextField extends StatefulWidget {
-   SearchTextField({super.key,this.readOnly});
+   SearchTextField({super.key, this.readOnly, this.returnView});
   bool? readOnly = false;
+  final ProductsListView? returnView;
 
   @override
   State<SearchTextField> createState() => _SearchTextFieldState();
@@ -20,17 +21,30 @@ class SearchTextField extends StatefulWidget {
 class _SearchTextFieldState extends State<SearchTextField> {
   late final TextEditingController searchTextEditingController;
   final controller = Get.find<ProductsController>();
+  late final Worker _searchWorker;
 
   @override
   void initState() {
     super.initState();
     searchTextEditingController = TextEditingController();
+    _searchWorker = ever<String>(controller.searchQuery, (value) {
+      if (searchTextEditingController.text != value) {
+        searchTextEditingController.text = value;
+      }
+    });
   }
 
   @override
   void dispose() {
+    _searchWorker.dispose();
     searchTextEditingController.dispose(); // ✅ ينحذف تلقائي
     super.dispose();
+  }
+
+  Future<void> _openSearchAndRun(String action) async {
+    await Get.toNamed(SearchView.routeName, arguments: {'action': action});
+    controller.clearSearch();
+    controller.setView(widget.returnView ?? ProductsListView.featured);
   }
 
   @override
@@ -55,7 +69,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
             if (widget.readOnly == true) {
               await Get.toNamed(SearchView.routeName);
               controller.clearSearch();
-              controller.setView(ProductsListView.featured);
+              controller.setView(widget.returnView ?? ProductsListView.featured);
             }
           },
           keyboardType: TextInputType.text,
@@ -66,22 +80,35 @@ class _SearchTextFieldState extends State<SearchTextField> {
                 child: SvgPicture.asset(Assets.imagesSearchIcon),
               ),
             ),
-            /// 🎤 + فلترة
+           /// 🎤 + فلترة
             suffixIcon: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  /// 🎤 زر الصوت
-                   VoiceSearchButton(
-                    onResult: (text) {
-                      searchTextEditingController.text = text;        // 👈 يظهر فورًا
-                      controller.search(text);
-                    },
-                  ),
+                 /// 🎤 زر الصوت
+                   if (widget.readOnly == true)
+                     GestureDetector(
+                       onTap: () => _openSearchAndRun('voice'),
+                       child: const Icon(
+                         Icons.mic_none,
+                         color: Color(0xFF949D9E),
+                       ),
+                     )
+                   else
+                     VoiceSearchButton(
+                      onResult: (text) {
+                        searchTextEditingController.text = text;       // 👈 يظهر فورًا
+                        controller.search(text);
+                      },
+                    ),
                 const SizedBox(width: 8),
         
                   /// 🔍 زر الفلترة (كما طلبت)
                 GestureDetector(
   onTap: () {
+    if (widget.readOnly == true) {
+      _openSearchAndRun('filter');
+      return;
+    }
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
