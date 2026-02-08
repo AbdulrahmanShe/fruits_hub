@@ -33,11 +33,6 @@ class CartController extends GetxController{
    void deleteCarItem(CartItemEntity carItem) {
     cartEntity.value.removeCartItem(carItem);
     cartEntity.refresh();
-     Get.snackbar(
-        'نجاح',
-        'تم الحذف بنجاح',
-        snackPosition: SnackPosition.BOTTOM,
-      );
     // emit(CartItemRemoved());
   }
 
