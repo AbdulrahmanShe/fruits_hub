@@ -43,7 +43,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                 const SizedBox(height: kTopPaddding,),
                 const CustomHomeAppBar(),
                 const SizedBox(height: 16,),
-                SearchTextField(readOnly: true,),
+                SearchTextField(readOnly: true, returnView: ProductsListView.featured),
                 const SizedBox(height: 12,),
                 const FeaturedList(),
                 const SizedBox(height: 12,),
