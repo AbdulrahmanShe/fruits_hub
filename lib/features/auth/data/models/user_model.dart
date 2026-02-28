@@ -2,7 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fruits_hub/features/auth/domin/entites/user_entity.dart';
 
 class UserModel extends UserEntity {
-  UserModel({required super.name, required super.email, required super.uId});
+  UserModel({
+    required super.name,
+    required super.email,
+    required super.uId,
+    super.role,
+  });
 
 // Firebase Auth (fromFirebaseUser)
 
@@ -23,6 +28,7 @@ class UserModel extends UserEntity {
       name: json['name'] ?? '',
       email: json['email'] ?? '',
       uId: json['uId'] ?? '',
+      role: json['role'] ?? 'viewer',
     );
   }
 
@@ -31,6 +37,7 @@ class UserModel extends UserEntity {
       name: user.name,
       email: user.email,
       uId: user.uId,
+      role: user.role,
     );
   }
 
@@ -39,6 +46,7 @@ class UserModel extends UserEntity {
       'name': name,
       'email': email,
       'uId': uId,
+      'role': role,
     };
   }
 }
