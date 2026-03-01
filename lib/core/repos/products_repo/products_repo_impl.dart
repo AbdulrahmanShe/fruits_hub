@@ -49,5 +49,34 @@ class ProductsRepoImpl extends ProductsRepo {
 }
   }
 
+  @override
+  Future<Either<Failure, List<String>>> getCategories() async {
+    try {
+      final data = await databaseService.getData(
+        collectionName: BackendEndpoint.categories,
+        query: {
+          'orderBy': 'name',
+          'descending': false,
+        },
+      ) as List<dynamic>;
+
+      final categories = data
+          .map((item) {
+            if (item is Map<String, dynamic>) {
+              return (item['name'] ?? '').toString().trim();
+            }
+            return item.toString().trim();
+          })
+          .where((name) => name.isNotEmpty)
+          .toSet()
+          .toList()
+        ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
+
+      return right(categories);
+    } catch (e) {
+      return left(ServerFailure('Failed to get categories'));
+    }
+  }
+
 
 }

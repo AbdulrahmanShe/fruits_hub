@@ -22,6 +22,7 @@ class ProductsController extends GetxController {
 final minPrice = 0.0.obs;
 final maxPrice = 20.0.obs;
 final selectedCategory = 'الكل'.obs;
+final availableCategories = <String>[].obs;
 
   final currentView = ProductsListView.featured.obs;
 
@@ -57,7 +58,7 @@ final selectedCategory = 'الكل'.obs;
 
   } 
 
-  Future<void> getFeaturedProducts({bool force = false, bool changeView = true}) async{
+	  Future<void> getFeaturedProducts({bool force = false, bool changeView = true}) async{
   if (changeView) {
     setView(ProductsListView.featured);
   }
@@ -69,10 +70,23 @@ final selectedCategory = 'الكل'.obs;
   
   return handleProductsResult(result,target: featuredProducts, successMessage: 'تم تحميل المنتجات المميزة بنجاح');
   
-  }
-    
+	  }
+	    
 
-     Future<void> handleProductsResult(Either<Failure, List<ProductEntity>> result,{required RxList<ProductEntity> target, required String successMessage}) async{
+  Future<void> getCategories() async {
+    final result = await productsRepo.getCategories();
+    result.fold(
+      (failure) {
+        errorMessage.value = failure.message;
+    },
+      (items) {
+        availableCategories.assignAll(items);
+      },
+    );
+  }
+
+
+	     Future<void> handleProductsResult(Either<Failure, List<ProductEntity>> result,{required RxList<ProductEntity> target, required String successMessage}) async{
     return result.fold(
           (failure) {
             errorMessage.value = failure.message;
@@ -125,6 +139,12 @@ void setVoiceResult(String text) {
   search(text);
 }
 @override
+void onInit() {
+  super.onInit();
+  getCategories();
+}
+
+@override
 void onClose() {
   clearSearch();
   clearRecentSearches();
@@ -164,9 +184,12 @@ void applyFilter() {
 }
 //  / كل التصنيفات
   List<String> get categories {
-    final set = activeProducts.map((e) => e.category).toSet().toList();
-    set.insert(0, 'الكل');
-    return set;
+    if (availableCategories.isEmpty) {
+      final set = activeProducts.map((e) => e.category).toSet().toList();
+      set.insert(0, 'الكل');
+      return set;
+    }
+    return ['الكل', ...availableCategories];
   }
 void selectCategory(String category) {
   selectedCategory.value = category;
