@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/services/shared_preferences_singleton.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/core/utils/backend_endpoint.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/core/widgets/custom_bottom.dart';
 import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
@@ -61,13 +63,32 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
     super.dispose();
   }
 
+  Future<void> _updateNameInFirebase() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      throw Exception('User not logged in');
+    }
+
+    final trimmedName = nameController.text.trim();
+
+    await user.updateDisplayName(trimmedName);
+    await user.reload();
+
+    await FirebaseFirestore.instance
+        .collection(BackendEndpoint.users)
+        .doc(user.uid)
+        .set({'name': trimmedName}, SetOptions(merge: true));
+  }
+
   Future<void> _saveUserLocally() async {
     final rawUser = Prefs.getString(kUserData);
+    final currentUid = FirebaseAuth.instance.currentUser?.uid ?? '';
+
     Map<String, dynamic> userMap = {
       'name': nameController.text.trim(),
       'email': emailController.text.trim(),
       'phone': phoneController.text.trim(),
-      'uId': '',
+      'uId': currentUid,
       'role': 'viewer',
     };
 
@@ -95,16 +116,20 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
 
     setState(() => isSaving = true);
     try {
+      await _updateNameInFirebase();
       await _saveUserLocally();
       Get.snackbar(
         'تم',
         'تم حفظ البيانات بنجاح',
         snackPosition: SnackPosition.BOTTOM,
       );
-    } 
-    // سواء العملية نجحت او فشلت 
-    finally {
-      //mounted => هل الـ Widget ما زال موجود في الشجرة؟
+    } catch (_) {
+      Get.snackbar(
+        'خطأ',
+        'تعذر تحديث الاسم في Firebase',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } finally {
       if (mounted) {
         setState(() => isSaving = false);
       }
