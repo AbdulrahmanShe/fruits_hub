@@ -7,8 +7,8 @@ import 'package:fruits_hub/core/services/shared_preferences_singleton.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
-import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
 import 'package:fruits_hub/core/widgets/custom_bottom.dart';
+import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
 import 'package:get/get.dart';
 
 class ProfileInfoView extends StatefulWidget {
@@ -27,6 +27,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
   final TextEditingController phoneController = TextEditingController();
 
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  bool isSaving = false;
 
   @override
   void initState() {
@@ -85,143 +86,171 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
     await Prefs.setString(kUserData, jsonEncode(userMap));
   }
 
+  Future<void> _onSavePressed() async {
+    if (isSaving) return;
+    if (!formKey.currentState!.validate()) {
+      setState(() => autovalidateMode = AutovalidateMode.always);
+      return;
+    }
+
+    setState(() => isSaving = true);
+    try {
+      await _saveUserLocally();
+      Get.snackbar(
+        'تم',
+        'تم حفظ البيانات بنجاح',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } 
+    // سواء العملية نجحت او فشلت 
+    finally {
+      //mounted => هل الـ Widget ما زال موجود في الشجرة؟
+      if (mounted) {
+        setState(() => isSaving = false);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context, title: 'الملف الشخصي'),
       body: SafeArea(
-        child: Form(
-          key: formKey,
-          autovalidateMode: autovalidateMode,
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(14),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF1F7F3),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: const Color(0xFFDFECE4)),
-                        ),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 22,
-                              backgroundColor: AppColors.primaryColor
-                                  .withOpacity(.12),
-                              child: const Icon(
-                                Icons.person_outline,
-                                color: AppColors.primaryColor,
+        child: Stack(
+          children: [
+            Form(
+              key: formKey,
+              autovalidateMode: autovalidateMode,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF1F7F3),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: const Color(0xFFDFECE4),
                               ),
                             ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'معلومات الحساب',
-                                    style: TextStyles.bold16,
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 22,
+                                  backgroundColor: AppColors.primaryColor
+                                      .withOpacity(.12),
+                                  child: const Icon(
+                                    Icons.person_outline,
+                                    color: AppColors.primaryColor,
                                   ),
-                                  const SizedBox(height: 2),
-                                  Text(
-                                    'حدّث بياناتك وسيتم حفظها محليًا.',
-                                    style: TextStyles.regular13.copyWith(
-                                      color: const Color(0xFF5A6662),
-                                    ),
+                                ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'معلومات الحساب',
+                                        style: TextStyles.bold16,
+                                      ),
+                                      const SizedBox(height: 2),
+                                      Text(
+                                        'حدّث بياناتك وسيتم حفظها محليًا.',
+                                        style: TextStyles.regular13.copyWith(
+                                          color: const Color(0xFF5A6662),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(height: 14),
+                          _LabeledField(
+                            label: 'الاسم الكامل',
+                            child: CustomTextFormField(
+                              controller: nameController,
+                              hintText: 'أدخل الاسم الكامل',
+                              textInputType: TextInputType.name,
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'الاسم مطلوب';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          _LabeledField(
+                            label: 'البريد الإلكتروني',
+                            child: CustomTextFormField(
+                              controller: emailController,
+                              hintText: 'mail@example.com',
+                              textInputType: TextInputType.emailAddress,
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'البريد الإلكتروني مطلوب';
+                                }
+                                final emailRegex = RegExp(
+                                  r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                                );
+                                if (!emailRegex.hasMatch(value.trim())) {
+                                  return 'صيغة البريد الإلكتروني غير صحيحة';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          _LabeledField(
+                            label: 'رقم الهاتف',
+                            child: CustomTextFormField(
+                              controller: phoneController,
+                              hintText: '05x xxx xxxx',
+                              textInputType: TextInputType.phone,
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'رقم الهاتف مطلوب';
+                                }
+                                if (value.trim().length < 9) {
+                                  return 'رقم الهاتف غير مكتمل';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 14),
-                      _LabeledField(
-                        label: 'الاسم الكامل',
-                        child: CustomTextFormField(
-                          controller: nameController,
-                          hintText: 'أدخل الاسم الكامل',
-                          textInputType: TextInputType.name,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'الاسم مطلوب';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      _LabeledField(
-                        label: 'البريد الإلكتروني',
-                        child: CustomTextFormField(
-                          controller: emailController,
-                          hintText: 'mail@example.com',
-                          textInputType: TextInputType.emailAddress,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'البريد الإلكتروني مطلوب';
-                            }
-                            final emailRegex = RegExp(
-                              r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                            );
-                            if (!emailRegex.hasMatch(value.trim())) {
-                              return 'صيغة البريد الإلكتروني غير صحيحة';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      _LabeledField(
-                        label: 'رقم الهاتف',
-                        child: CustomTextFormField(
-                          controller: phoneController,
-                          hintText: '05x xxx xxxx',
-                          textInputType: TextInputType.phone,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'رقم الهاتف مطلوب';
-                            }
-                            if (value.trim().length < 9) {
-                              return 'رقم الهاتف غير مكتمل';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                    ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                    child: CustomBottom(
+                      text: isSaving ? 'جاري الحفظ...' : 'حفظ التغييرات',
+                      onPressed: _onSavePressed,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (isSaving)
+              Positioned.fill(
+                child: Container(
+                  color: Colors.black.withOpacity(0.08),
+                  alignment: Alignment.center,
+                  child: const CircularProgressIndicator(
+                    color: AppColors.primaryColor,
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                child: CustomBottom(
-                  text: 'حفظ التغييرات',
-                  onPressed: () async {
-                    if (!formKey.currentState!.validate()) {
-                      setState(
-                        () => autovalidateMode = AutovalidateMode.always,
-                      );
-                      return;
-                    }
-
-                    await _saveUserLocally();
-                    Get.snackbar(
-                      'تم',
-                      'تم حفظ البيانات بنجاح',
-                      snackPosition: SnackPosition.BOTTOM,
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
+          ],
         ),
       ),
     );
