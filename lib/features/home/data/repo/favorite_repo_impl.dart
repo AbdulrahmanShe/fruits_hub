@@ -12,16 +12,14 @@ class FavoriteRepoImpl implements FavoriteRepo {
   @override
   Future<Either<Failure, void>> addFavorite({
     required String userId,
-    required String productCode,
+    required String productAutoId,
   }) async {
     try {
       await databaseService.addData(
-        collectionName: '${BackendEndpoint.users}/$userId/${BackendEndpoint.favorites}',
-        docuementId: productCode,
-        data: {
-          'productCode': productCode,
-          'addedAt': DateTime.now(),
-        },
+        collectionName:
+            '${BackendEndpoint.users}/$userId/${BackendEndpoint.favorites}',
+        docuementId: productAutoId,
+        data: {'productAutoId': productAutoId, 'addedAt': DateTime.now()},
       );
       return const Right(null);
     } catch (e) {
@@ -30,39 +28,48 @@ class FavoriteRepoImpl implements FavoriteRepo {
   }
 
   @override
-Future<Either<Failure, void>> removeFavorite({
-  required String userId,
-  required String productCode,
-}) async {
-  try {
-    await databaseService.deleteData(
-      collectionName: '${BackendEndpoint.users}/$userId/${BackendEndpoint.favorites}',
-      docuementId: productCode,
-    );
-    return const Right(null);
-  } catch (e) {
-    return Left(ServerFailure('فشل حذف المنتج من المفضلة'));
+  Future<Either<Failure, void>> removeFavorite({
+    required String userId,
+    required String productAutoId,
+  }) async {
+    try {
+      await databaseService.deleteData(
+        collectionName:
+            '${BackendEndpoint.users}/$userId/${BackendEndpoint.favorites}',
+        docuementId: productAutoId,
+      );
+      return const Right(null);
+    } catch (e) {
+      return Left(ServerFailure('فشل حذف المنتج من المفضلة'));
+    }
   }
-}
 
-  
   @override
-Future<Either<Failure, Set<String>>> getFavorites({
-  required String userId,
-}) async {
-  try {
-    final result = await databaseService.getData(
-      collectionName: '${BackendEndpoint.users}/$userId/${BackendEndpoint.favorites}',
-    );
+  Future<Either<Failure, Set<String>>> getFavorites({
+    required String userId,
+  }) async {
+    try {
+      final result = await databaseService.getData(
+        collectionName:
+            '${BackendEndpoint.users}/$userId/${BackendEndpoint.favorites}',
+      );
 
-    final codes = (result as List)
-        .map((e) => e['productCode'] as String)
-        .toSet();
+      final ids =
+          (result as List)
+              .map((e) {
+                final map = e as Map<String, dynamic>;
+                return (map['productAutoId'] ??
+                        map['productCode'] ??
+                        map['productId'] ??
+                        '')
+                    .toString();
+              })
+              .where((id) => id.isNotEmpty)
+              .toSet();
 
-    return Right(codes);
-  } catch (e) {
-    return Left(ServerFailure('فشل تحميل المفضلة'));
+      return Right(ids);
+    } catch (e) {
+      return Left(ServerFailure('فشل تحميل المفضلة'));
+    }
   }
-}
-
 }

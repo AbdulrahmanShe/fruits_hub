@@ -14,22 +14,21 @@ class FavoritProductsGridViewController extends StatelessWidget {
     final productsController = Get.find<ProductsController>();
 
     return Obx(() {
-      final favoriteProducts = productsController.products
-    .where((product) =>
-        favoriteController.favoritesCodes.contains(product.code))
-    .toList();
+      final favoriteProducts =
+          productsController.products
+              .where(
+                (product) =>
+                    favoriteController.favoriteIds.contains(product.productId),
+              )
+              .toList();
 
       if (favoriteProducts.isEmpty) {
         return const SliverToBoxAdapter(
-          child: CustomErrorWidget(
-            text: 'المفضلة فارغة',
-          ),
+          child: CustomErrorWidget(text: 'المفضلة فارغة'),
         );
       }
 
-      return ProductsGridView(
-        products: favoriteProducts,
-      );
+      return ProductsGridView(products: favoriteProducts);
     });
   }
 }

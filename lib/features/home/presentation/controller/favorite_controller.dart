@@ -5,75 +5,65 @@ import 'package:get/get.dart';
 class FavoriteController extends GetxController {
   final FavoriteRepo favoriteRepo;
   final String userId;
-  
 
-  FavoriteController({
-    required this.favoriteRepo,
-    required this.userId,
-  });
+  FavoriteController({required this.favoriteRepo, required this.userId});
 
   @override
   void onInit() {
-  super.onInit();
-  loadFavorites();
+    super.onInit();
+    loadFavorites();
   }
 
-  final RxSet<String> favoritesCodes = <String>{}.obs;
+  final RxSet<String> favoriteIds = <String>{}.obs;
   final RxBool isUpdating = false.obs;
 
   Future<void> loadFavorites() async {
-  final result = await favoriteRepo.getFavorites(userId: userId);
+    final result = await favoriteRepo.getFavorites(userId: userId);
 
-  result.fold(
-    (failure) {
-      Get.snackbar('خطأ', failure.message);
-    },
-    (codes) {
-  favoritesCodes
-    ..clear()
-    ..addAll(codes);
-},
-  );
-}
-
+    result.fold(
+      (failure) {
+        Get.snackbar('خطأ', failure.message);
+      },
+      (ids) {
+        favoriteIds
+          ..clear()
+          ..addAll(ids);
+      },
+    );
+  }
 
   bool isFavorite(ProductEntity product) {
-    return favoritesCodes.contains(product.code);
+    return favoriteIds.contains(product.productId);
   }
 
   Future<void> toggleFavorite(ProductEntity product) async {
     if (isUpdating.value) return;
-  isUpdating.value = true;
+    isUpdating.value = true;
 
-  final isFav = isFavorite(product);
+    final id = product.productId;
+    if (id.isEmpty) {
+      Get.snackbar('خطأ', 'معرف المنتج غير متوفر');
+      isUpdating.value = false;
+      return;
+    }
 
-  // تحديث UI فوراً
-  isFav
-      ? favoritesCodes.remove(product.code)
-      : favoritesCodes.add(product.code);
+    final isFav = isFavorite(product);
 
-  final result = isFav
-      ? await favoriteRepo.removeFavorite(
-          userId: userId,
-          productCode: product.code,
-        )
-      : await favoriteRepo.addFavorite(
-          userId: userId,
-          productCode: product.code,
-        );
+    isFav ? favoriteIds.remove(id) : favoriteIds.add(id);
 
-  result.fold(
-    (failure) {
-      // rollback
-      isFav
-          ? favoritesCodes.add(product.code)
-          : favoritesCodes.remove(product.code);
+    final result =
+        isFav
+            ? await favoriteRepo.removeFavorite(
+              userId: userId,
+              productAutoId: id,
+            )
+            : await favoriteRepo.addFavorite(userId: userId, productAutoId: id);
 
+    result.fold((failure) {
+      isFav ? favoriteIds.add(id) : favoriteIds.remove(id);
       Get.snackbar('خطأ', failure.message);
-    },
-    (_) {},
-  );
-  isUpdating.value = false;
-}
+    }, (_) {});
 
+    isUpdating.value = false;
+  }
 }

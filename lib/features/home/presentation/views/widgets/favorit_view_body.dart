@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
+import 'package:fruits_hub/core/controller/products_controller.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar_notification.dart';
 import 'package:fruits_hub/features/home/presentation/controller/favorite_controller.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/favorit_products_grid_view_controller.dart';
@@ -11,7 +12,10 @@ class FavoritViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FavoriteController controller = Get.find<FavoriteController>();
+    final FavoriteController favoriteController =
+        Get.find<FavoriteController>();
+    final ProductsController productsController =
+        Get.find<ProductsController>();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -29,11 +33,18 @@ class FavoritViewBody extends StatelessWidget {
 
                 /// عرض عدد المنتجات المفضلة
                 Obx(() {
+                  final visibleFavoriteCount =
+                      productsController.products
+                          .where(
+                            (product) => favoriteController.favoriteIds
+                                .contains(product.productId),
+                          )
+                          .length;
+
                   return ProductsViewHeader(
-                    productsLength: controller.favoritesCodes.length,
+                    productsLength: visibleFavoriteCount,
                   );
                 }),
-
                 const SizedBox(height: 8),
               ],
             ),
