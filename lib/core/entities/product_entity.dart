@@ -1,7 +1,8 @@
 import 'package:fruits_hub/core/entities/review_entity.dart';
 import 'package:equatable/equatable.dart';
 
-class ProductEntity extends Equatable{
+class ProductEntity extends Equatable {
+  final String productId;
   final String name;
   final String code;
   final String description;
@@ -18,6 +19,7 @@ class ProductEntity extends Equatable{
   final List<ReviewEntity> reviews;
 
   const ProductEntity({
+    required this.productId,
     required this.name,
     required this.code,
     required this.description,
@@ -34,10 +36,9 @@ class ProductEntity extends Equatable{
     this.reviews = const [],
   });
 
-  ProductEntity copyWith({
-    String? imageUrl,
-  }) {
+  ProductEntity copyWith({String? imageUrl}) {
     return ProductEntity(
+      productId: productId,
       name: name,
       code: code,
       description: description,
@@ -54,7 +55,7 @@ class ProductEntity extends Equatable{
       reviews: reviews,
     );
   }
-  
+
   @override
-  List<Object?> get props => [code];
+  List<Object?> get props => [productId];
 }
