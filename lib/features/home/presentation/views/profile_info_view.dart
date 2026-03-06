@@ -1,4 +1,4 @@
-import 'dart:convert';
+﻿import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +12,7 @@ import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/core/widgets/custom_bottom.dart';
 import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
 import 'package:get/get.dart';
+import 'package:svg_flutter/svg.dart';
 
 class ProfileInfoView extends StatefulWidget {
   const ProfileInfoView({super.key});
@@ -23,6 +24,9 @@ class ProfileInfoView extends StatefulWidget {
 }
 
 class _ProfileInfoViewState extends State<ProfileInfoView> {
+  static const String maleAvatarPath = 'assets/images/avatar_male_cartoon.svg';
+  static const String femaleAvatarPath = 'assets/images/avatar_female_cartoon.svg';
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -30,6 +34,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
 
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   bool isSaving = false;
+  String selectedGender = 'male';
 
   @override
   void initState() {
@@ -45,6 +50,8 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
         nameController.text = (data['name'] ?? '').toString();
         emailController.text = (data['email'] ?? '').toString();
         phoneController.text = (data['phone'] ?? '').toString();
+        final gender = (data['gender'] ?? '').toString();
+        selectedGender = (gender == 'female') ? 'female' : 'male';
         return;
       } catch (_) {}
     }
@@ -53,6 +60,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
     nameController.text = user?.displayName ?? '';
     emailController.text = user?.email ?? '';
     phoneController.text = '';
+    selectedGender = 'male';
   }
 
   @override
@@ -63,7 +71,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
     super.dispose();
   }
 
-  Future<void> _updateNameInFirebase() async {
+  Future<void> _updateProfileInFirebase() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) {
       throw Exception('User not logged in');
@@ -77,7 +85,10 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
     await FirebaseFirestore.instance
         .collection(BackendEndpoint.users)
         .doc(user.uid)
-        .set({'name': trimmedName}, SetOptions(merge: true));
+        .set({
+          'name': trimmedName,
+          'gender': selectedGender,
+        }, SetOptions(merge: true));
   }
 
   Future<void> _saveUserLocally() async {
@@ -88,6 +99,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
       'name': nameController.text.trim(),
       'email': emailController.text.trim(),
       'phone': phoneController.text.trim(),
+      'gender': selectedGender,
       'uId': currentUid,
       'role': 'viewer',
     };
@@ -100,6 +112,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
           'name': nameController.text.trim(),
           'email': emailController.text.trim(),
           'phone': phoneController.text.trim(),
+          'gender': selectedGender,
         };
       } catch (_) {}
     }
@@ -116,7 +129,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
 
     setState(() => isSaving = true);
     try {
-      await _updateNameInFirebase();
+      await _updateProfileInFirebase();
       await _saveUserLocally();
       Get.snackbar(
         'تم',
@@ -126,7 +139,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
     } catch (_) {
       Get.snackbar(
         'خطأ',
-        'تعذر تحديث الاسم في Firebase',
+        'تعذر تحديث البيانات',
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
@@ -138,6 +151,8 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
 
   @override
   Widget build(BuildContext context) {
+    final avatarPath = selectedGender == 'female' ? femaleAvatarPath : maleAvatarPath;
+
     return Scaffold(
       appBar: buildAppBar(context, title: 'الملف الشخصي'),
       body: SafeArea(
@@ -154,50 +169,48 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                       child: Column(
                         children: [
                           Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(14),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF1F7F3),
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: const Color(0xFFDFECE4),
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 22,
-                                  backgroundColor: AppColors.primaryColor
-                                      .withOpacity(.12),
-                                  child: const Icon(
-                                    Icons.person_outline,
-                                    color: AppColors.primaryColor,
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(14),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFF1F7F3),
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: const Color(0xFFDFECE4),
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(width: 10),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  child: Row(
                                     children: [
-                                      Text(
-                                        'معلومات الحساب',
-                                        style: TextStyles.bold16,
+                                      CircleAvatar(
+                                        radius: 22,
+                                        backgroundColor: AppColors.primaryColor
+                                            .withOpacity(.12),
+                                        child: SvgPicture.asset(avatarPath, fit: BoxFit.cover),
                                       ),
-                                      const SizedBox(height: 2),
-                                      Text(
-                                        'حدّث بياناتك وسيتم حفظها محليًا.',
-                                        style: TextStyles.regular13.copyWith(
-                                          color: const Color(0xFF5A6662),
+                                      const SizedBox(width: 10),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'معلومات الحساب',
+                                              style: TextStyles.bold16,
+                                            ),
+                                            const SizedBox(height: 2),
+                                            Text(
+                                              'حدّث بياناتك وسيتم حفظها محليًا.',
+                                              style: TextStyles.regular13.copyWith(
+                                                color: const Color(0xFF5A6662),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 14),
+                              
+              ),
+                    const SizedBox(height: 14),
                           _LabeledField(
                             label: 'الاسم الكامل',
                             child: CustomTextFormField(
@@ -251,18 +264,42 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                               },
                             ),
                           ),
-                        ],
+                    const SizedBox(height: 14),
+                    _LabeledField(
+                            label: 'الجنس',
+                            child: Row(
+                      children: [
+                        Expanded(
+                          child: _GenderButton(
+                            title: 'ذكر',
+                            selected: selectedGender == 'male',
+                            onTap: () {
+                              setState(() => selectedGender = 'male');
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: _GenderButton(
+                            title: 'أنثى',
+                            selected: selectedGender == 'female',
+                            onTap: () {
+                              setState(() => selectedGender = 'female');
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 32, 16, 16),
+                      child: CustomBottom(
+                        text: isSaving ? 'جاري الحفظ...' : 'حفظ التغييرات',
+                        onPressed: _onSavePressed,
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                    child: CustomBottom(
-                      text: isSaving ? 'جاري الحفظ...' : 'حفظ التغييرات',
-                      onPressed: _onSavePressed,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             if (isSaving)
@@ -276,6 +313,47 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                 ),
               ),
           ],
+        ),
+      ),
+          ],
+          ),
+          ),
+    );
+  }
+}
+
+class _GenderButton extends StatelessWidget {
+  const _GenderButton({
+    required this.title,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String title;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 11),
+        decoration: BoxDecoration(
+          color: selected ? const Color(0xFFEFF7F2) : const Color(0xFFF9FAFA),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: selected ? AppColors.primaryColor : const Color(0xFFE1E4E3),
+          ),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyles.semiBold13.copyWith(
+              color: selected ? AppColors.primaryColor : const Color(0xFF596260),
+            ),
+          ),
         ),
       ),
     );
@@ -301,5 +379,5 @@ class _LabeledField extends StatelessWidget {
         child,
       ],
     );
-  }
-}
+    }
+    }
