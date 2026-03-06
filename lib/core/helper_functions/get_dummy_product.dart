@@ -1,8 +1,8 @@
 import 'package:fruits_hub/core/entities/product_entity.dart';
 
 ProductEntity getDummyProduct() {
-  
   return ProductEntity(
+    productId: 'dummy-auto-id',
     name: 'Apple',
     code: '123',
     description: 'Fresh apple',
