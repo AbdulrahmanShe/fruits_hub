@@ -1,4 +1,4 @@
-﻿import 'package:fruits_hub/core/bindings/products_binding.dart';
+import 'package:fruits_hub/core/bindings/products_binding.dart';
 import 'package:fruits_hub/features/auth/bindings/auth_binding.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_up_view.dart';
@@ -7,7 +7,12 @@ import 'package:fruits_hub/features/auth/presentation/views/widgets/terms_and_co
 import 'package:fruits_hub/features/checkout/binding/checkout_binding.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/checkout_view.dart';
 import 'package:fruits_hub/features/home/bindings/favorit_binding.dart';
+import 'package:fruits_hub/features/home/presentation/views/about_us_view.dart';
+import 'package:fruits_hub/features/home/presentation/views/help_view.dart';
+import 'package:fruits_hub/features/home/presentation/views/language_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/main_view.dart';
+import 'package:fruits_hub/features/home/presentation/views/orders_view.dart';
+import 'package:fruits_hub/features/home/presentation/views/profile_info_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/featured_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/favorit_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/product_details_view.dart';
@@ -18,10 +23,7 @@ import 'package:get/get.dart';
 
 class AppPages {
   static final routes = [
-    GetPage(
-      name: SplashView.routeName,
-      page: () => const SplashView(),
-    ),
+    GetPage(name: SplashView.routeName, page: () => const SplashView()),
     GetPage(
       name: SignInView.routeName,
       page: () => const SignInView(),
@@ -32,17 +34,11 @@ class AppPages {
       page: () => const SignUpView(),
       binding: AuthBinding(),
     ),
-    GetPage(
-      name: OnBoardingView.routeName,
-      page: () => const OnBoardingView(),
-    ),
+    GetPage(name: OnBoardingView.routeName, page: () => const OnBoardingView()),
     GetPage(
       name: MainView.routeName,
       page: () => const MainView(),
-      bindings: [
-        ProductsBinding(),
-        FavoritBinding(),
-      ],
+      bindings: [ProductsBinding(), FavoritBinding()],
     ),
     GetPage(
       name: SearchView.routeName,
@@ -63,10 +59,7 @@ class AppPages {
       page: () => const CheckoutView(),
       binding: CheckoutBinding(),
     ),
-    GetPage(
-      name: FeaturedView.routeName,
-      page: () => const FeaturedView(),
-    ),
+    GetPage(name: FeaturedView.routeName, page: () => const FeaturedView()),
     GetPage(
       name: TermsAndConditionsView.routeName,
       page: () => const TermsAndConditionsView(),
@@ -76,5 +69,13 @@ class AppPages {
       page: () => const ForgotPasswordView(),
       binding: AuthBinding(),
     ),
+    GetPage(
+      name: ProfileInfoView.routeName,
+      page: () => const ProfileInfoView(),
+    ),
+    GetPage(name: OrdersView.routeName, page: () => const OrdersView()),
+    GetPage(name: HelpView.routeName, page: () => const HelpView()),
+    GetPage(name: AboutUsView.routeName, page: () => const AboutUsView()),
+    GetPage(name: LanguageView.routeName, page: () => const LanguageView()),
   ];
 }

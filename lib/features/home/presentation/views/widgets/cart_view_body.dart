@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
-import 'package:fruits_hub/core/widgets/custom_app_bar_notification.dart';
+import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/features/home/presentation/controller/cart_controller.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/car_items_list.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/cart_header.dart';
@@ -24,9 +24,10 @@ class CartViewBody extends StatelessWidget {
                     const SizedBox(
                       height: kTopPaddding,
                     ),
-                    buildAppBarNotification(
+                    buildAppBar(
+                      context,
                       title: 'السلة',
-                      showNotification: false,
+                      showBackBottom: false,
                     ),
                     const SizedBox( 
                       height: 16,

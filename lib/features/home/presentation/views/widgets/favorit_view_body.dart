@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
-import 'package:fruits_hub/core/widgets/custom_app_bar_notification.dart';
+import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/features/home/presentation/controller/favorite_controller.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/favorit_products_grid_view_controller.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/products_view_header.dart';
@@ -25,9 +25,10 @@ class FavoritViewBody extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: kTopPaddding),
-                buildAppBarNotification(
+                buildAppBar(
+                  context,
                   title: 'المفضلة',
-                  showNotification: false,
+                  
                 ),
                 const SizedBox(height: 16),
 

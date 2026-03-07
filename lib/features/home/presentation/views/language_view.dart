@@ -3,6 +3,7 @@ import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/services/shared_preferences_singleton.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:get/get.dart';
 
 class LanguageView extends StatefulWidget {
@@ -40,7 +41,7 @@ class _LanguageViewState extends State<LanguageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('اللغة'), centerTitle: true),
+      appBar: buildAppBar(context, title:'اللغة',),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

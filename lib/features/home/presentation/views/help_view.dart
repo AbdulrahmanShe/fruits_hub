@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
-import 'package:fruits_hub/core/widgets/custom_app_bar_notification.dart';
+import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 
 class HelpView extends StatelessWidget {
   const HelpView({super.key});
@@ -34,9 +34,9 @@ class HelpView extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: buildAppBarNotification(
+      appBar: buildAppBar(
+        context,
         title: 'المساعدة',
-        showNotification: false,
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),

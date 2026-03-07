@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
-import 'package:fruits_hub/core/widgets/custom_app_bar_notification.dart';
+import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class OrdersView extends StatelessWidget {
@@ -54,7 +54,7 @@ class OrdersView extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: buildAppBarNotification(title: 'طلباتي', showNotification: false),
+      appBar: buildAppBar(context, title: 'طلباتي',),
       body: ListView.separated(
         padding: const EdgeInsets.all(16),
         itemCount: orders.length,
