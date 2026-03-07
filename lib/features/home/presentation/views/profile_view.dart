@@ -1,16 +1,20 @@
 ﻿import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/services/shared_preferences_singleton.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
-import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
+import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/about_us_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/help_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/language_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/orders_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/profile_info_view.dart';
+import 'package:fruits_hub/features/home/presentation/views/widgets/favorit_view.dart';
+import 'package:get/get.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -25,7 +29,7 @@ class _ProfileViewState extends State<ProfileView> {
 
   _UserData userData = const _UserData(name: '', email: '');
   bool notificationsEnabled = true;
-  bool designModeEnabled = false;
+  bool designModeEnabled = true;
 
   @override
   void initState() {
@@ -65,86 +69,318 @@ class _ProfileViewState extends State<ProfileView> {
     Prefs.setBool(designModeEnabledKey, value);
   }
 
+  Future<void> _logout() async {
+    await FirebaseAuth.instance.signOut();
+    Get.offAllNamed(SignInView.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final name = userData.name.isEmpty ? 'abed' : userData.name;
+    final email =
+        userData.email.isEmpty ? 'abed2003shehab@gmail.com' : userData.email;
+    final languageValue =
+        Prefs.getString(kAppLanguage) == 'en' ? 'English' : 'العربية';
+
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5),
+      appBar: buildAppBar(context, title: 'حسابي',showBackBottom: false),
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(16),
+        child: Column(
           children: [
-            _ProfileHeader(
-              name: userData.name.isEmpty ? 'مستخدم' : userData.name,
-              email: userData.email,
-            ),
-            const SizedBox(height: 14),
-            _ProfileActionTile(
-              icon: Icons.person_outline,
-              title: 'الملف الشخصي',
-              onTap: () async {
-                await Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => const ProfileInfoView(),
+            Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          _ProfileTop(name: name, email: email),
+                          const SizedBox(height: 28),
+                          const Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              'عام',
+                              style: TextStyle(
+                                color: Color(0xFF1C1D1D),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          _ProfileLineItem(
+                            title: 'الملف الشخصي',
+                            icon: Icons.person_outline,
+                            onTap: () async {
+                              await Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (_) => const ProfileInfoView(),
+                                ),
+                              );
+                              _readUserData();
+                            },
+                          ),
+                          const SizedBox(height: 8),
+                          _ProfileLineItem(
+                            title: 'طلباتي',
+                            icon: Icons.inventory_2_outlined,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (_) => const OrdersView(),
+                                ),
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 8),
+                          _ProfileLineItem(
+                            title: 'المفضلة',
+                            icon: Icons.favorite_border,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (_) => const FavoritView(),
+                                ),
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 8),
+                          _ProfileLineItem(
+                            title: 'الإشعارات',
+                            icon: Icons.notifications_none,
+                            trailing: _StyledSwitch(
+                              value: notificationsEnabled,
+                              onChanged: _onNotificationsChanged,
+                            ),
+                            onTap: null,
+                          ),
+                          const SizedBox(height: 8),
+                          _ProfileLineItem(
+                            title: 'اللغة',
+                            icon: Icons.language,
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  languageValue,
+                                  style:  TextStyle(
+                                    color: AppColors.primaryColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                const Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 15,
+                                  color: Color(0xFF1F2021),
+                                ),
+                              ],
+                            ),
+                            onTap: () async {
+                              await Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (_) => const LanguageView(),
+                                ),
+                              );
+                              if (mounted) {
+                                setState(() {});
+                              }
+                            },
+                          ),
+                          const SizedBox(height: 8),
+                          _ProfileLineItem(
+                            title: 'الوضع',
+                            icon: Icons.auto_fix_high_outlined,
+                            trailing: _StyledSwitch(
+                              value: designModeEnabled,
+                              onChanged: _onDesignModeChanged,
+                            ),
+                            onTap: null,
+                          ),
+                          const SizedBox(height: 14),
+                          const Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              'المساعدة',
+                              style: TextStyle(
+                                color: Color(0xFF1C1D1D),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          _ProfileLineItem(
+                            title: 'من نحن',
+                            icon: Icons.info_outline,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (_) => const AboutUsView(),
+                                ),
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 8),
+                          _ProfileLineItem(
+                            title: 'المساعده',
+                            icon: Icons.help_outline,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (_) => const HelpView(),
+                                ),
+                              );
+                            },
+                          ),
+                           
+                        ],
+                      ),
+                    ),
                   ),
-                );
-                _readUserData();
-              },
-            ),
-            _ProfileActionTile(
-              icon: Icons.receipt_long_outlined,
-              title: 'طلباتي',
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => const OrdersView(),
+                ),
+                GestureDetector(
+                  onTap: _logout,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: const Row(
+                      children: [
+                        SizedBox(width: 24),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'تسجيل الخروج',
+                              style: TextStyle(
+                                color: AppColors.primaryColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Icon(
+                          Icons.logout,
+                          color: AppColors.primaryColor,
+                          size: 25,
+                        ),
+                        SizedBox(width: 22),
+                      ],
+                    ),
                   ),
-                );
-              },
+                ),
+          ],
+        ),
+           
+         
+      ),
+    );
+  }
+}
+
+class _ProfileTop extends StatelessWidget {
+  const _ProfileTop({required this.name, required this.email});
+
+  final String name;
+  final String email;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        ClipOval(
+          child: Image.asset(
+            Assets.imagesProfileImage,
+            width: 80,
+            height: 80,
+            fit: BoxFit.cover,
+          ),
+        ),
+        const SizedBox(width: 22),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: Color(0xFF121212),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                email,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: Color(0xFF898F93),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ProfileLineItem extends StatelessWidget {
+  const _ProfileLineItem({
+    required this.title,
+    required this.icon,
+    required this.onTap,
+    this.trailing,
+  });
+
+  final String title;
+  final IconData icon;
+  final VoidCallback? onTap;
+  final Widget? trailing;
+
+  @override
+  Widget build(BuildContext context) {
+    final isClickable = onTap != null;
+
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 36,
+        decoration: const BoxDecoration(
+          border: Border(
+            bottom: BorderSide(color: Color(0xFFE2E3E4), width: 1.1),
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, size: 25, color: AppColors.primaryColor),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Color(0xFF7E8487),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
             ),
-            _ProfileActionTile(
-              icon: Icons.translate_outlined,
-              title: 'اللغة',
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => const LanguageView(),
-                  ),
-                );
-              },
-            ),
-            _ProfileSwitchTile(
-              icon: Icons.notifications_none_outlined,
-              title: 'الإشعارات',
-              value: notificationsEnabled,
-              onChanged: _onNotificationsChanged,
-            ),
-            _ProfileSwitchTile(
-              icon: Icons.dark_mode_outlined,
-              title: 'الوضع',
-              value: designModeEnabled,
-              onChanged: _onDesignModeChanged,
-            ),
-            _ProfileActionTile(
-              icon: Icons.help_outline,
-              title: 'المساعدة',
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => const HelpView(),
-                  ),
-                );
-              },
-            ),
-            _ProfileActionTile(
-              icon: Icons.info_outline,
-              title: 'من نحن',
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => const AboutUsView(),
-                  ),
-                );
-              },
-            ),
+            if (trailing != null)
+              trailing!
+            else if (isClickable)
+              const Icon(
+                Icons.arrow_forward_ios,
+                size: 15,
+                color: Color(0xFF1F2021),
+              )
+            else
+              const SizedBox(width: 24),
           ],
         ),
       ),
@@ -152,126 +388,30 @@ class _ProfileViewState extends State<ProfileView> {
   }
 }
 
-class _ProfileHeader extends StatelessWidget {
-  const _ProfileHeader({
-    required this.name,
-    required this.email,
-  });
+class _StyledSwitch extends StatelessWidget {
+  const _StyledSwitch({required this.value, required this.onChanged});
 
-  final String name;
-  final String email;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF1F7F3),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFFDFECE4)),
-      ),
-      child: Row(
-        children: [
-          ClipOval(
-            child: Image.asset(
-              Assets.imagesProfileImage,
-              width: 56,
-              height: 56,
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(name, style: TextStyles.bold16),
-                const SizedBox(height: 4),
-                Text(
-                  email.isEmpty ? 'لا يوجد بريد إلكتروني' : email,
-                  style: TextStyles.regular13.copyWith(
-                    color: const Color(0xFF5F6967),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ProfileActionTile extends StatelessWidget {
-  const _ProfileActionTile({
-    required this.icon,
-    required this.title,
-    required this.onTap,
-  });
-
-  final IconData icon;
-  final String title;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xFFE4E9E6)),
-      ),
-      child: ListTile(
-        leading: Icon(icon, color: AppColors.primaryColor),
-        title: Text(title, style: TextStyles.semiBold13),
-        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-        onTap: onTap,
-      ),
-    );
-  }
-}
-
-class _ProfileSwitchTile extends StatelessWidget {
-  const _ProfileSwitchTile({
-    required this.icon,
-    required this.title,
-    required this.value,
-    required this.onChanged,
-  });
-
-  final IconData icon;
-  final String title;
   final bool value;
   final ValueChanged<bool> onChanged;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xFFE4E9E6)),
-      ),
-      child: ListTile(
-        leading: Icon(icon, color: AppColors.primaryColor),
-        title: Text(title, style: TextStyles.semiBold13),
-        trailing: Switch(
-          value: value,
-          onChanged: onChanged,
-          activeColor: AppColors.primaryColor,
-        ),
+    return Transform.scale(
+      scale: 0.7,
+      child: Switch(
+        value: value,
+        onChanged: onChanged,
+        activeColor: const Color(0xFF176E45),
+        activeTrackColor: const Color(0xFF8BB19F),
+        inactiveThumbColor: AppColors.white,
+        inactiveTrackColor: const Color(0xFFD8DEDA),
       ),
     );
   }
 }
 
 class _UserData {
-  const _UserData({
-    required this.name,
-    required this.email,
-  });
+  const _UserData({required this.name, required this.email});
 
   final String name;
   final String email;
