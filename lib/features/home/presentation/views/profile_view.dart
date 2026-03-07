@@ -83,7 +83,7 @@ class _ProfileViewState extends State<ProfileView> {
         Prefs.getString(kAppLanguage) == 'en' ? 'English' : 'العربية';
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: AppColors.white,
       appBar: buildAppBar(context, title: 'حسابي',showBackBottom: false),
       body: SafeArea(
         child: Column(
