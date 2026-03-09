@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/featured_item_button.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg;
@@ -49,14 +50,14 @@ class FeaturedItem extends StatelessWidget {
                         height: 25,
                       ),
                       Text(
-                        'عروض العيد',
+                        S.of(context).holidayOffers,
                         style: TextStyles.regular13.copyWith(
                           color: Colors.white,
                         ),
                       ),
                       const Spacer(),
                       Text(
-                        'خصم 25%',
+                        S.of(context).discount25,
                         style: TextStyles.bold19.copyWith(
                           color: Colors.white,
                         ),

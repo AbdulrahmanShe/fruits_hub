@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 
 class OrDivider extends StatelessWidget {
   const OrDivider({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       children: [
-        Expanded(
+        const Expanded(
           child: Divider(
             color: Color(0xFFDCDEDE),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 18,
         ),
         Text(
-          'أو',
+          S.of(context).or,
           textAlign: TextAlign.center,
           style: TextStyles.semiBold16,
         ),
-        SizedBox(
+        const SizedBox(
           width: 18,
         ),
-        Expanded(
+        const Expanded(
           child: Divider(
             color: Color(0xFFDCDEDE),
           ),

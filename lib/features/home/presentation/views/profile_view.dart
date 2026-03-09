@@ -15,6 +15,7 @@ import 'package:fruits_hub/features/home/presentation/views/language_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/orders_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/profile_info_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/favorit_view.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class ProfileView extends StatefulWidget {
@@ -83,11 +84,17 @@ class _ProfileViewState extends State<ProfileView> {
     final email =
         userData.email.isEmpty ? 'abed2003shehab@gmail.com' : userData.email;
     final languageValue =
-        Prefs.getString(kAppLanguage) == 'en' ? 'English' : 'العربية';
+        Prefs.getString(kAppLanguage) == 'en'
+            ? S.of(context).english
+            : S.of(context).arabic;
 
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: buildAppBar(context, title: 'حسابي',showBackBottom: false),
+      appBar: buildAppBar(
+        context,
+        title: S.of(context).myAccount,
+        showBackBottom: false,
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -100,11 +107,11 @@ class _ProfileViewState extends State<ProfileView> {
                         children: [
                           _ProfileTop(name: name, email: email),
                           const SizedBox(height: 28),
-                          const Align(
+                          Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              'عام',
-                              style: TextStyle(
+                              S.of(context).general,
+                              style: const TextStyle(
                                 color: Color(0xFF1C1D1D),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
@@ -113,7 +120,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           const SizedBox(height: 8),
                           _ProfileLineItem(
-                            title: 'الملف الشخصي',
+                            title: S.of(context).profile,
                             icon: Icons.person_outline,
                             onTap: () async {
                               await Navigator.of(context).push(
@@ -126,7 +133,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           const SizedBox(height: 8),
                           _ProfileLineItem(
-                            title: 'طلباتي',
+                            title: S.of(context).myOrders,
                             icon: Icons.inventory_2_outlined,
                             onTap: () {
                               Navigator.of(context).push(
@@ -138,7 +145,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           const SizedBox(height: 8),
                           _ProfileLineItem(
-                            title: 'المفضلة',
+                            title: S.of(context).favorites,
                             icon: Icons.favorite_border,
                             onTap: () {
                               Navigator.of(context).push(
@@ -150,7 +157,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           const SizedBox(height: 8),
                           _ProfileLineItem(
-                            title: 'الإشعارات',
+                            title: S.of(context).notifications,
                             icon: Icons.notifications_none,
                             trailing: _StyledSwitch(
                               value: notificationsEnabled,
@@ -160,7 +167,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           const SizedBox(height: 8),
                           _ProfileLineItem(
-                            title: 'اللغة',
+                            title: S.of(context).language,
                             icon: Icons.language,
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -194,7 +201,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           const SizedBox(height: 8),
                           _ProfileLineItem(
-                            title: 'الوضع',
+                            title: S.of(context).designMode,
                             icon: Icons.auto_fix_high_outlined,
                             trailing: _StyledSwitch(
                               value: designModeEnabled,
@@ -203,11 +210,11 @@ class _ProfileViewState extends State<ProfileView> {
                             onTap: null,
                           ),
                           const SizedBox(height: 14),
-                          const Align(
+                          Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              'المساعدة',
-                              style: TextStyle(
+                              S.of(context).helpSection,
+                              style: const TextStyle(
                                 color: Color(0xFF1C1D1D),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
@@ -216,7 +223,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           const SizedBox(height: 8),
                           _ProfileLineItem(
-                            title: 'من نحن',
+                            title: S.of(context).aboutUs,
                             icon: Icons.info_outline,
                             onTap: () {
                               Navigator.of(context).push(
@@ -228,7 +235,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           const SizedBox(height: 8),
                           _ProfileLineItem(
-                            title: 'المساعده',
+                            title: S.of(context).help,
                             icon: Icons.help_outline,
                             onTap: () {
                               Navigator.of(context).push(
@@ -248,14 +255,14 @@ class _ProfileViewState extends State<ProfileView> {
                   onTap: _logout,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: const Row(
+                    child: Row(
                       children: [
-                        SizedBox(width: 24),
+                        const SizedBox(width: 24),
                         Expanded(
                           child: Center(
                             child: Text(
-                              'تسجيل الخروج',
-                              style: TextStyle(
+                              S.of(context).logout,
+                              style: const TextStyle(
                                 color: AppColors.primaryColor,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -263,12 +270,12 @@ class _ProfileViewState extends State<ProfileView> {
                             ),
                           ),
                         ),
-                        Icon(
+                        const Icon(
                           Icons.logout,
                           color: AppColors.primaryColor,
                           size: 25,
                         ),
-                        SizedBox(width: 22),
+                        const SizedBox(width: 22),
                       ],
                     ),
                   ),
@@ -417,7 +424,7 @@ class _StyledSwitch extends StatelessWidget {
       child: Switch(
         value: value,
         onChanged: onChanged,
-        activeColor: const Color(0xFF176E45),
+        activeThumbColor: const Color(0xFF176E45),
         activeTrackColor: const Color(0xFF8BB19F),
         inactiveThumbColor: AppColors.white,
         inactiveTrackColor: const Color(0xFFD8DEDA),

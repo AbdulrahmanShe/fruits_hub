@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/home/presentation/controller/cart_controller.dart';
 import 'package:fruits_hub/features/home/presentation/views/cart_view.dart';
 import 'package:get/get.dart';
@@ -35,7 +36,7 @@ class AddToCartSection extends StatelessWidget {
           ),
         ),
         child: Text(
-          'أضف إلى السلة',
+          S.of(context).addToCart,
           style: TextStyles.bold16.copyWith(color: Colors.white),
         ),
       ),

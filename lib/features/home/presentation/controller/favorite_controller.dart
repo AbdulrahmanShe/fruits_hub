@@ -1,4 +1,5 @@
 import 'package:fruits_hub/core/entities/product_entity.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/home/domain/repo/favorite_repo.dart';
 import 'package:get/get.dart';
 
@@ -22,7 +23,7 @@ class FavoriteController extends GetxController {
 
     result.fold(
       (failure) {
-        Get.snackbar('خطأ', failure.message);
+        Get.snackbar(S.current.error, failure.message);
       },
       (ids) {
         favoriteIds
@@ -42,7 +43,7 @@ class FavoriteController extends GetxController {
 
     final id = product.productId;
     if (id.isEmpty) {
-      Get.snackbar('خطأ', 'معرف المنتج غير متوفر');
+      Get.snackbar(S.current.error, S.current.productIdUnavailable);
       isUpdating.value = false;
       return;
     }
@@ -61,7 +62,7 @@ class FavoriteController extends GetxController {
 
     result.fold((failure) {
       isFav ? favoriteIds.add(id) : favoriteIds.remove(id);
-      Get.snackbar('خطأ', failure.message);
+      Get.snackbar(S.current.error, failure.message);
     }, (_) {});
 
     isUpdating.value = false;

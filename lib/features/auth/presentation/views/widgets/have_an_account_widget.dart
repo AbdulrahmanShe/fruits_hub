@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class HaveAnAccountWidget extends StatelessWidget {
@@ -13,7 +14,7 @@ class HaveAnAccountWidget extends StatelessWidget {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: 'تمتلك حساب بالفعل ؟',
+                      text: S.of(context).alreadyHaveAccount,
                       style: TextStyles.semiBold16.copyWith(
                         color: const Color(0xFF949D9E),
                           ),
@@ -22,7 +23,7 @@ class HaveAnAccountWidget extends StatelessWidget {
                       recognizer: TapGestureRecognizer()..onTap = (){
                         Get.back();
                       },
-                      text: 'تسجيل الدخول',
+                      text: S.of(context).signIn,
                       style:
                         TextStyles.semiBold16.copyWith(color: AppColors.primaryColor),
                       ),

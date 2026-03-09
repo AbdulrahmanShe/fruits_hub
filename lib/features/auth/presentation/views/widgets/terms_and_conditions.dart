@@ -4,6 +4,7 @@ import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/custom_check_box.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/terms_and_conditions_view.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class TermsAndConditions extends StatefulWidget {
@@ -43,7 +44,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
             TextSpan(
               children: [
                 TextSpan(
-                  text: 'من خلال إنشاء حساب ، فإنك توافق على ',
+                  text: S.of(context).termsAcceptancePrefix,
                   style: TextStyles.semiBold13.copyWith(
                     color: const Color(0xFF949D9E),
                   ),
@@ -52,30 +53,11 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                   recognizer: TapGestureRecognizer()..onTap = (){
                         Get.toNamed(TermsAndConditionsView.routeName);
                       },
-                  text: 'الشروط والأحكام الخاصة بنا',
+                  text: S.of(context).ourTermsAndConditions,
                   style: TextStyles.semiBold13.copyWith(
                     color: AppColors.lightPrimaryColor,
                   ),
                 ),
-                // const TextSpan(
-                //   text: ' ',
-                //   style: TextStyles.semiBold13,
-                // ),
-                // TextSpan(
-                //   text: 'الخاصة ',
-                //   style: TextStyles.semiBold13.copyWith(
-                //     color: AppColors.lightPrimaryColor,
-                //   ),
-                // ),
-                // const TextSpan(
-                //   text: ' ',
-                //   style: TextStyles.semiBold13,
-                // ),
-                // TextSpan(
-                //   text: 'بنا',
-                //   style: TextStyles.semiBold13
-                //       .copyWith(color: AppColors.lightPrimaryColor),
-                // ),
               ],
             ),
           ),

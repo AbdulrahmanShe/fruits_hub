@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar_notification.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/categories_section.dart';
 import 'package:fruits_hub/features/search/presentation/views/widgets/search_text_field.dart';
@@ -40,7 +41,7 @@ class _ProductsViewBodyState extends State<ProductsViewBody> {
                   height: kTopPaddding,
                 ),
                 buildAppBarNotification( 
-                  title: 'المنتجات',
+                  title: S.of(context).products,
                   showBackBottom: false,
                 ),
                 const SizedBox(

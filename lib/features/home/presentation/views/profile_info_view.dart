@@ -13,6 +13,7 @@ import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/core/widgets/custom_bottom.dart';
 import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
 import 'package:fruits_hub/features/home/presentation/controller/profile_controller.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class ProfileInfoView extends StatefulWidget {
@@ -81,7 +82,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
 
   Future<void> _updateProfileInFirebase() async {
     final user = FirebaseAuth.instance.currentUser;
-    if (user == null) throw Exception('User not logged in');
+    if (user == null) throw Exception(S.current.error);
 
     final trimmedName = nameController.text.trim();
     await user.updateDisplayName(trimmedName);
@@ -132,6 +133,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
 
   Future<void> _onSavePressed() async {
     if (isSaving) return;
+    final strings = S.of(context);
     if (!formKey.currentState!.validate()) {
       setState(() => autovalidateMode = AutovalidateMode.always);
       return;
@@ -141,9 +143,17 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
     try {
       await _updateProfileInFirebase();
       await _saveUserLocally();
-      Get.snackbar('تم', 'تم حفظ البيانات بنجاح', snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar(
+        strings.done,
+        strings.profileSavedSuccessfully,
+        snackPosition: SnackPosition.BOTTOM,
+      );
     } catch (_) {
-      Get.snackbar('خطأ', 'تعذر تحديث البيانات', snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar(
+        strings.error,
+        strings.failedToUpdateData,
+        snackPosition: SnackPosition.BOTTOM,
+      );
     } finally {
       if (mounted) setState(() => isSaving = false);
     }
@@ -157,7 +167,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
             : Assets.imagesProfileImageMale;
 
     return Scaffold(
-      appBar: buildAppBar(context, title: 'الملف الشخصي'),
+      appBar: buildAppBar(context, title: S.of(context).profile),
       body: SafeArea(
         child: Stack(
           children: [
@@ -192,10 +202,13 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('معلومات الحساب', style: TextStyles.bold16),
+                                      Text(
+                                        S.of(context).profileInfo,
+                                        style: TextStyles.bold16,
+                                      ),
                                       const SizedBox(height: 2),
                                       Text(
-                                        'حدّث بياناتك وسيتم حفظها محليًا.',
+                                        S.of(context).updateDataHint,
                                         style: TextStyles.regular13.copyWith(
                                           color: const Color(0xFF5A6662),
                                         ),
@@ -208,20 +221,22 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                           ),
                           const SizedBox(height: 14),
                           _LabeledField(
-                            label: 'الاسم الكامل',
+                            label: S.of(context).fullName,
                             child: CustomTextFormField(
                               controller: nameController,
-                              hintText: 'أدخل الاسم الكامل',
+                              hintText: S.of(context).enterFullName,
                               textInputType: TextInputType.name,
                               validator: (value) {
-                                if (value == null || value.trim().isEmpty) return 'الاسم مطلوب';
+                                if (value == null || value.trim().isEmpty) {
+                                  return S.of(context).nameRequired;
+                                }
                                 return null;
                               },
                             ),
                           ),
                           const SizedBox(height: 10),
                           _LabeledField(
-                            label: 'البريد الإلكتروني',
+                            label: S.of(context).email,
                             child: CustomTextFormField(
                               controller: emailController,
                               hintText: 'mail@example.com',
@@ -229,11 +244,11 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                               textInputType: TextInputType.emailAddress,
                               validator: (value) {
                                 if (value == null || value.trim().isEmpty) {
-                                  return 'البريد الإلكتروني مطلوب';
+                                  return S.of(context).emailRequired;
                                 }
                                 final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
                                 if (!emailRegex.hasMatch(value.trim())) {
-                                  return 'صيغة البريد الإلكتروني غير صحيحة';
+                                  return S.of(context).invalidEmail;
                                 }
                                 return null;
                               },
@@ -241,26 +256,30 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                           ),
                           const SizedBox(height: 10),
                           _LabeledField(
-                            label: 'رقم الهاتف',
+                            label: S.of(context).phoneNumber,
                             child: CustomTextFormField(
                               controller: phoneController,
                               hintText: '05x xxx xxxx',
                               textInputType: TextInputType.phone,
                               validator: (value) {
-                                if (value == null || value.trim().isEmpty) return 'رقم الهاتف مطلوب';
-                                if (value.trim().length < 9) return 'رقم الهاتف غير مكتمل';
+                                if (value == null || value.trim().isEmpty) {
+                                  return S.of(context).phoneRequired;
+                                }
+                                if (value.trim().length < 9) {
+                                  return S.of(context).phoneIncomplete;
+                                }
                                 return null;
                               },
                             ),
                           ),
                           const SizedBox(height: 14),
                           _LabeledField(
-                            label: 'الجنس',
+                            label: S.of(context).gender,
                             child: Row(
                               children: [
                                 Expanded(
                                   child: _GenderButton(
-                                    title: 'ذكر',
+                                    title: S.of(context).male,
                                     selected: selectedGender == 'male',
                                     onTap: () => setState(() => selectedGender = 'male'),
                                   ),
@@ -268,7 +287,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: _GenderButton(
-                                    title: 'أنثى',
+                                    title: S.of(context).female,
                                     selected: selectedGender == 'female',
                                     onTap: () => setState(() => selectedGender = 'female'),
                                   ),
@@ -283,7 +302,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 32, 16, 16),
                     child: CustomBottom(
-                      text: isSaving ? 'جاري الحفظ...' : 'حفظ التغييرات',
+                      text: isSaving ? S.of(context).saving : S.of(context).saveChanges,
                       onPressed: _onSavePressed,
                     ),
                   ),
@@ -293,7 +312,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
             if (isSaving)
               Positioned.fill(
                 child: Container(
-                  color: Colors.black.withOpacity(0.08),
+                  color: Colors.black.withValues(alpha: 0.08),
                   alignment: Alignment.center,
                   child: const CircularProgressIndicator(color: AppColors.primaryColor),
                 ),

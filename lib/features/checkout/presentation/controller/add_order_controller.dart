@@ -1,6 +1,7 @@
 import 'package:fruits_hub/core/repos/orders_repo/orders_repo.dart';
 import 'package:fruits_hub/core/utils/show_snack_bar.dart';
 import 'package:fruits_hub/features/checkout/domain/entites/order_entity.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class AddOrderController extends GetxController{
@@ -16,7 +17,7 @@ class AddOrderController extends GetxController{
 
     isLoading.value = false;
     result.fold(
-      (failure) => showSnackBar('فشل', failure.message),
+      (failure) => showSnackBar(S.current.failed, failure.message),
       // emit(AddOrderFailure(failure.message)),
       (success) => null,
       // emit(AddOrderSuccess()),

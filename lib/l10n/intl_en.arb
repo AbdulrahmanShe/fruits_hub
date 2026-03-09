@@ -1,1 +1,271 @@
-{}
+﻿{
+    "aboutUs":  "About Us",
+    "accountCreatedSuccessfully":  "Account created successfully",
+    "addedSuccessfully":  "Added successfully",
+    "address":  "Address",
+    "addToCart":  "Add to Cart",
+    "alert":  "Alert",
+    "alertExclamation":  "Alert!",
+    "allCategory":  "All",
+    "alreadyHaveAccount":  "Already have an account?",
+    "alreadyRegisteredPleaseSignIn":  "You are already registered. Please sign in.",
+    "applyFilter":  "Apply Filter",
+    "arabic":  "العربية",
+    "banana":  "Banana",
+    "calories":  "Calories",
+    "cart":  "Cart",
+    "cartIsEmpty":  "Cart is empty",
+    "cashOnDelivery":  "Cash on delivery",
+    "category":  "Category",
+    "checkInternetAndCardThenRetry":  "Check your internet and card validity, then retry.",
+    "checkInternetConnection":  "Check your internet connection.",
+    "checkInternetConnectionTypo":  "Check your internet connection.",
+    "city":  "City",
+    "contactSupport":  "Contact Support",
+    "continuousUpdates":  "Continuous Updates",
+    "createAccount":  "Create Account",
+    "createNewAccount":  "Create New Account",
+    "creatingAccount":  "Creating account...",
+    "currencyShekel":  "Shekel",
+    "date1March2026":  "March 1, 2026",
+    "date27Feb2026":  "February 27, 2026",
+    "date2March2026":  "March 2, 2026",
+    "defaultUser":  "User",
+    "deleteAll":  "Delete All",
+    "deliveryFromLocation":  "Delivery from location",
+    "deliveryLabel":  "Delivery:",
+    "designedClearPurchaseExperience":  "So we designed a clear purchase journey from product selection to delivery.",
+    "designMode":  "Mode",
+    "discount25":  "25% OFF",
+    "done":  "Done",
+    "dontHaveAccount":  "Don\u0027t have an account?",
+    "easierFreshFruitShoppingExperience":  "An easier way to buy fresh fruits",
+    "edit":  "Edit",
+    "ilsAmount":  "{amount} ILS",
+    "email":  "Email",
+    "emailNotRegistered":  "Email is not registered.",
+    "emailRequired":  "Email is required",
+    "english":  "English",
+    "enterFullName":  "Enter full name",
+    "error":  "Error",
+    "expiry":  "Expiry",
+    "failed":  "Failed",
+    "failedToAddProductToFavorites":  "Failed to add product to favorites",
+    "failedToLoadFavorites":  "Failed to load favorites",
+    "failedToRemoveProductFromFavorites":  "Failed to remove product from favorites",
+    "failedToSendResetLink":  "Failed to send reset link.",
+    "failedToUpdateData":  "Failed to update data",
+    "fastDelivery":  "Fast Delivery",
+    "favorites":  "Favorites",
+    "favoritesEmpty":  "Favorites are empty",
+    "featuredProducts":  "Featured Products",
+    "featuredProductsLoadedSuccessfully":  "Featured products loaded successfully",
+    "female":  "Female",
+    "fieldRequired":  "This field is required",
+    "filtering":  "Filtering",
+    "finalTotal":  "Final Total",
+    "floorAndApartmentNumber":  "Floor and apartment number",
+    "forgotPassword":  "Forgot Password",
+    "forgotPasswordQuestion":  "Forgot password?",
+    "fromMyAccountThenLanguage":  "From \"My Account\" then \"Language\", choose Arabic or English.",
+    "fromMyOrdersOpenOrder":  "From \"My Orders\", open the order to view details and invoice.",
+    "fullName":  "Full Name",
+    "fullNameRequired":  "Full name is required",
+    "gender":  "Gender",
+    "general":  "General",
+    "grapes":  "Grapes",
+    "guaranteedQuality":  "Guaranteed Quality",
+    "help":  "Help",
+    "helpSection":  "Support",
+    "holidayOffers":  "Holiday Offers",
+    "home":  "Home",
+    "howAddProductToFavorites":  "How do I add a product to favorites?",
+    "howCanWeHelpToday":  "How can we help you today?",
+    "howChangeLanguage":  "How do I change language?",
+    "howTrackOrderStatus":  "How do I track my order?",
+    "invalidCredentials":  "Invalid sign-in credentials.",
+    "invalidEmail":  "Invalid email format",
+    "invoiceQr":  "Invoice QR",
+    "kiwi":  "Kiwi",
+    "kmUnit":  "km",
+    "language":  "Language",
+    "languageAppliedImmediatelyAfterSelection":  "Language will be applied immediately after selection.",
+    "logout":  "Log out",
+    "male":  "Male",
+    "microphoneAccessRequired":  "Microphone permission is required.",
+    "monthsCount":  "{months} months",
+    "more":  "More",
+    "mustAcceptTerms":  "You must accept terms and conditions",
+    "myAccount":  "My Account",
+    "myOrders":  "My Orders",
+    "nameLettersOnly":  "Name must contain letters only",
+    "nameRequired":  "Name is required",
+    "nameTooShort":  "Name is too short",
+    "newAccount":  "New Account",
+    "next":  "Next",
+    "no":  "No",
+    "noProductsInCart":  "No products in cart",
+    "notifications":  "Notifications",
+    "onboardingSubtitle1":  "Discover a unique shopping experience with FruitHUB.",
+    "onboardingSubtitle2":  "We provide carefully selected premium fruits.",
+    "onlinePayment":  "Online payment",
+    "or":  "or",
+    "orangeFruit":  "Orange",
+    "orderDateLabel":  "Order date: {date}",
+    "orderInvoice":  "Order Invoice",
+    "orderNumberLabel":  "Order No. {orderNumber}",
+    "orderSummary":  "Order Summary",
+    "orderSummaryLabel":  "Total {total} | Items: {quantity}",
+    "organic":  "Organic",
+    "ourMission":  "Our Mission",
+    "ourProducts":  "Our Products",
+    "ourTermsAndConditions":  "Our terms and conditions",
+    "password":  "Password",
+    "passwordMinLength":  "Password must be at least 6 characters",
+    "passwordRequired":  "Password is required",
+    "passwordResetInstruction":  "A reset link will be sent to your email.",
+    "passwordResetLinkSent":  "Password reset link sent",
+    "payment":  "Payment",
+    "paymentAmount":  "Pay {amount} EGP",
+    "paymentMethodLabel":  "Payment method: {method}",
+    "payWithStripe":  "Pay with Stripe",
+    "phoneIncomplete":  "Phone number is incomplete",
+    "phoneNumber":  "Phone Number",
+    "phoneRequired":  "Phone number is required",
+    "pineapple":  "Pineapple",
+    "pleaseSelectPaymentMethod":  "Please select payment method",
+    "price":  "Price",
+    "productIdUnavailable":  "Product ID is unavailable",
+    "products":  "Products",
+    "productsLoadedSuccessfully":  "Products loaded successfully",
+    "profile":  "Profile",
+    "profileInfo":  "Account Information",
+    "profileSavedSuccessfully":  "Profile saved successfully",
+    "rating":  "Rating",
+    "recentSearches":  "Recent Searches",
+    "redApple":  "Red Apple",
+    "resultsCount":  "{count} results",
+    "saveChanges":  "Save Changes",
+    "saving":  "Saving...",
+    "search":  "Search",
+    "searchAndShop":  "Search and Shop",
+    "searchByVoiceOrTyping":  "Search by voice or typing...",
+    "securePayment":  "Secure Payment",
+    "sending":  "Sending...",
+    "shekelPerKilo":  "{price} ₪ / kg",
+    "shipping":  "Shipping",
+    "shippingAddress":  "Shipping Address",
+    "shopNow":  "Shop now",
+    "shoppingCart":  "Shopping Cart",
+    "signedInWithGoogle":  "Signed in with Google",
+    "signIn":  "Sign In",
+    "signInCancelled":  "Sign-in canceled",
+    "signingIn":  "Signing in...",
+    "signInSuccessful":  "Signed in successfully",
+    "signInWithGoogle":  "Sign in with Google",
+    "skip":  "Skip",
+    "somethingWentWrongTryAgain":  "Something went wrong. Please try again.",
+    "sorryDataUnavailableNow":  "Sorry, this information is currently unavailable.",
+    "startNow":  "Start now",
+    "strawberry":  "Strawberry",
+    "subtotal":  "Subtotal",
+    "subtotalLabel":  "Subtotal:",
+    "success":  "Success",
+    "supportHours":  "From 9:00 AM to 10:00 PM",
+    "tapHeartIconInProductCard":  "Tap the heart icon on a product card to add it to favorites.",
+    "termsAcceptancePrefix":  "By creating an account, you agree to ",
+    "termsAndConditions":  "Terms and Conditions",
+    "termsAndConditionsContent":  "Welcome to our app!\n\nPlease read the following terms and conditions carefully before using the app:\n\n1. Using the app means you agree to these terms.\n2. The app must not be used for illegal purposes.\n3. We are not responsible for any losses resulting from app use.\n4. Content in the app is protected by copyright.\n5. We may modify terms at any time.\n6. If you do not agree, please do not use the app.\n\nThank you for using our app!",
+    "thanksForTrustingFruitHub":  "Thank you for trusting FruitHub",
+    "thisEmailIsNotRegistered":  "This email is not registered.",
+    "totalLabel":  "Total",
+    "unexpectedErrorTryAgain":  "Unexpected error. Please try again.",
+    "unexpectedErrorTryLater":  "Unexpected error. Please try later.",
+    "updateDataHint":  "Update your data and it will be saved locally.",
+    "weBelieveFreshProductsShouldBeSimpleAndFast":  "We believe access to fresh high-quality products should be simple and fast for every home.",
+    "weContinuouslyImproveApp":  "We continuously improve the app based on your feedback.",
+    "weFocusOnTransparentPricing":  "We focus on transparent pricing, easy payment, and smooth tracking.",
+    "welcomeBack":  "Welcome back!..",
+    "welcomeTo":  "Welcome to",
+    "weWorkWithTrustedSuppliers":  "We work with trusted suppliers and review order quality before shipping.",
+    "whatIfPaymentIssue":  "What if I have a payment issue?",
+    "whatWeCommitTo":  "What We Commit To",
+    "whyFruitHub":  "Why FruitHub?",
+    "yes":  "Yes",
+    "youHaveItemsInCart":  "You have {count} items in your cart",
+    "@ilsAmount":  {
+                       "placeholders":  {
+                                            "amount":  {
+                                                           "type":  "String"
+                                                       }
+                                        }
+                   },
+    "@shekelPerKilo":  {
+                           "placeholders":  {
+                                                "price":  {
+                                                              "type":  "String"
+                                                          }
+                                            }
+                       },
+    "@youHaveItemsInCart":  {
+                                "placeholders":  {
+                                                     "count":  {
+                                                                   "type":  "String"
+                                                               }
+                                                 }
+                            },
+    "@paymentAmount":  {
+                           "placeholders":  {
+                                                "amount":  {
+                                                               "type":  "String"
+                                                           }
+                                            }
+                       },
+    "@resultsCount":  {
+                          "placeholders":  {
+                                               "count":  {
+                                                             "type":  "String"
+                                                         }
+                                           }
+                      },
+    "@monthsCount":  {
+                         "placeholders":  {
+                                              "months":  {
+                                                             "type":  "String"
+                                                         }
+                                          }
+                     },
+    "@orderNumberLabel":  {
+                              "placeholders":  {
+                                                   "orderNumber":  {
+                                                                       "type":  "String"
+                                                                   }
+                                               }
+                          },
+    "@orderSummaryLabel":  {
+                               "placeholders":  {
+                                                    "total":  {
+                                                                  "type":  "String"
+                                                              },
+                                                    "quantity":  {
+                                                                     "type":  "String"
+                                                                 }
+                                                }
+                           },
+    "@paymentMethodLabel":  {
+                                "placeholders":  {
+                                                     "method":  {
+                                                                    "type":  "String"
+                                                                }
+                                                 }
+                            },
+    "@orderDateLabel":  {
+                            "placeholders":  {
+                                                 "date":  {
+                                                              "type":  "String"
+                                                          }
+                                             }
+                        }
+}
+
+

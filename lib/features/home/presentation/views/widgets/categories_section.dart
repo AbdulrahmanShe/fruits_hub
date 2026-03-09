@@ -1,5 +1,6 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/category_item.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -14,9 +15,9 @@ class CategoriesSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'منتجاتنا',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        Text(
+          S.of(context).ourProducts,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
         Obx(() {
@@ -45,7 +46,7 @@ class CategoriesSection extends StatelessWidget {
                   final category = categories[index];
                   final isSelected = selected == category;
 
-                  final imageUrl = category == 'الكل'
+                  final imageUrl = category == S.of(context).allCategory
                       ? categoriesMap.values.first.imageUrl ?? ''
                       : categoriesMap[category]?.imageUrl ?? '';
 

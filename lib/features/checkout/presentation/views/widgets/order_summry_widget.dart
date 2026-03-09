@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../../core/utils/app_text_styles.dart';
 import 'package:fruits_hub/features/checkout/presentation/controller/checkout_controller.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 import 'payment_item.dart';
 
@@ -14,13 +15,13 @@ class OrderSummryWidget extends StatelessWidget {
     final CheckoutController controller = Get.find<CheckoutController>();
 
     return PaymentItem(
-      tile: 'ملخص الطلب',
+      tile: S.of(context).orderSummary,
       child: Column(
         children: [
           Row(
             children: [
               Text(
-                'المجموع الفرعي :',
+                S.of(context).subtotalLabel,
                 style: TextStyles.regular13.copyWith(
                   color: const Color(0xFF4E5556),
                 ),
@@ -40,14 +41,14 @@ class OrderSummryWidget extends StatelessWidget {
           Row(
             children: [
               Text(
-                'التوصيل  :',
+                S.of(context).deliveryLabel,
                 style: TextStyles.regular13.copyWith(
                   color: const Color(0xFF4E5556),
                 ),
               ),
               const Spacer(),
               Text(
-                '30جنية',
+                S.of(context).ilsAmount('30'),
                 textAlign: TextAlign.right,
                 style: TextStyles.regular13.copyWith(
                   color: const Color(0xFF4E5556),
@@ -67,10 +68,7 @@ class OrderSummryWidget extends StatelessWidget {
           ),
           Row(
             children: [
-              const Text(
-                'الكلي',
-                style: TextStyles.bold16,
-              ),
+              Text(S.of(context).totalLabel, style: TextStyles.bold16),
               const Spacer(),
               Text(
                 (controller.cartTotal + 30).toStringAsFixed(0),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/features/checkout/presentation/controller/checkout_controller.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/widgets/shipping_item.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class ShippingSection extends StatefulWidget {
@@ -29,8 +30,8 @@ class _ShippingSectionState extends State<ShippingSection> with AutomaticKeepAli
           },
           
           isSelected: controller.selectedShippingIndex.value == 0,
-          title: 'الدفع عند الاستلام',
-          subTitle: 'التسليم من المكان',
+          title: S.of(context).cashOnDelivery,
+          subTitle: S.of(context).deliveryFromLocation,
           price: (controller.cartTotal + 30).toStringAsFixed(0),
         ),
 
@@ -45,8 +46,8 @@ class _ShippingSectionState extends State<ShippingSection> with AutomaticKeepAli
             controller.orderEntity.payWithCash = false;
           },
           isSelected: controller.selectedShippingIndex.value == 1,
-          title: 'الدفع اونلاين',
-          subTitle: 'يرجي تحديد طريقه الدفع',
+          title: S.of(context).onlinePayment,
+          subTitle: S.of(context).pleaseSelectPaymentMethod,
           price: controller.cartTotal.toStringAsFixed(0),
         ),
       ],

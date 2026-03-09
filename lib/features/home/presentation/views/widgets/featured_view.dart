@@ -1,5 +1,6 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar_notification.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/products_grid_view.dart';
 import 'package:get/get.dart';
@@ -26,7 +27,7 @@ class _FeaturedViewState extends State<FeaturedView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBarNotification(title: 'المنتجات المميزة'),
+      appBar: buildAppBarNotification(title: S.of(context).featuredProducts),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Obx(() {

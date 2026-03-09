@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:fruits_hub/core/errors/failures.dart';
 import 'package:fruits_hub/core/services/database_service.dart';
 import 'package:fruits_hub/core/utils/backend_endpoint.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/home/domain/repo/favorite_repo.dart';
 
 class FavoriteRepoImpl implements FavoriteRepo {
@@ -23,7 +24,7 @@ class FavoriteRepoImpl implements FavoriteRepo {
       );
       return const Right(null);
     } catch (e) {
-      return Left(ServerFailure('فشل إضافة المنتج للمفضلة'));
+      return Left(ServerFailure(S.current.failedToAddProductToFavorites));
     }
   }
 
@@ -40,7 +41,7 @@ class FavoriteRepoImpl implements FavoriteRepo {
       );
       return const Right(null);
     } catch (e) {
-      return Left(ServerFailure('فشل حذف المنتج من المفضلة'));
+      return Left(ServerFailure(S.current.failedToRemoveProductFromFavorites));
     }
   }
 
@@ -69,7 +70,7 @@ class FavoriteRepoImpl implements FavoriteRepo {
 
       return Right(ids);
     } catch (e) {
-      return Left(ServerFailure('فشل تحميل المفضلة'));
+      return Left(ServerFailure(S.current.failedToLoadFavorites));
     }
   }
 }

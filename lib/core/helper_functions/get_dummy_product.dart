@@ -6,7 +6,7 @@ ProductEntity getDummyProduct() {
     name: 'Apple',
     code: '123',
     description: 'Fresh apple',
-    category: 'فواكه',
+    category: 'Fruits',
     price: 2.5,
     reviews: [],
     expirationMonths: 6,

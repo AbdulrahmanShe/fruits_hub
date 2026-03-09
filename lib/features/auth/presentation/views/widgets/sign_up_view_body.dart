@@ -8,6 +8,7 @@ import 'package:fruits_hub/features/auth/presentation/controller/auth_controller
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/have_an_account_widget.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/terms_and_conditions.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class SignUpViewBody extends StatefulWidget {
@@ -41,27 +42,27 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             children: [
               SizedBox(height: 24,),
               CustomTextFormField(
-                hintText: 'الإسم كامل', 
+                hintText: S.of(context).fullName,
                 textInputType: TextInputType.name,
                   onChanged: (value) {
                     userName = value;
                   },
                   validator: (value) {
   if (value == null || value.trim().isEmpty) {
-    return 'الاسم الكامل مطلوب';
+    return S.of(context).fullNameRequired;
   }
 
   final name = value.trim();
 
   if (name.length < 3) {
-    return 'الاسم قصير جدًا';
+    return S.of(context).nameTooShort;
   }
 
   // يسمح بحروف عربية وإنجليزية ومسافات فقط
   final nameRegex = RegExp(r'^[a-zA-Z\u0600-\u06FF ]+$');
 
   if (!nameRegex.hasMatch(name)) {
-    return 'الاسم يجب أن يحتوي على حروف فقط';
+    return S.of(context).nameLettersOnly;
   }
 
   return null; // ✅ صحيح
@@ -90,8 +91,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             Obx((){
               return CustomBottom(
                 text: controller.isLoading.value
-                    ? 'جاري إنشاء الحساب...'
-                    : 'إنشاء حساب جديد',
+                    ? S.of(context).creatingAccount
+                    : S.of(context).createNewAccount,
                 onPressed: controller.isLoading.value 
                 ? (){return;}
                 : () async { 
@@ -102,8 +103,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
 
                     if (!isTermsAccepted) {
                       Get.snackbar(
-                        'تنبيه',
-                        'يجب الموافقة على الشروط والأحكام',
+                        S.of(context).alert,
+                        S.of(context).mustAcceptTerms,
                         snackPosition: SnackPosition.BOTTOM,
                       );
                       return;

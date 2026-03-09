@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 
 class ShippingItem extends StatelessWidget {
   const ShippingItem(
@@ -59,14 +60,14 @@ class ShippingItem extends StatelessWidget {
                     subTitle,
                     textAlign: TextAlign.right,
                     style: TextStyles.regular13
-                        .copyWith(color: Colors.black.withOpacity(.5)),
+                        .copyWith(color: Colors.black.withValues(alpha: 0.5)),
                   )
                 ],
               ),
               const Spacer(),
               Center(
                 child: Text(
-                  '$price جنيه',
+                  S.of(context).ilsAmount(price),
                   style: TextStyles.bold13.copyWith(
                     color: AppColors.lightPrimaryColor,
                   ),

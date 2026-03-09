@@ -4,6 +4,7 @@ import 'package:fruits_hub/core/services/shared_preferences_singleton.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class LanguageView extends StatefulWidget {
@@ -41,13 +42,13 @@ class _LanguageViewState extends State<LanguageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context, title:'اللغة',),
+      appBar: buildAppBar(context, title: S.of(context).language),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             _LanguageTile(
-              title: 'العربية',
+              title: S.of(context).arabic,
               subtitle: 'Arabic',
               value: 'ar',
               groupValue: selectedLanguageCode,
@@ -56,7 +57,7 @@ class _LanguageViewState extends State<LanguageView> {
             const SizedBox(height: 12),
             _LanguageTile(
               title: 'English',
-              subtitle: 'الإنجليزية',
+              subtitle: S.of(context).english,
               value: 'en',
               groupValue: selectedLanguageCode,
               onChanged: _onLanguageSelected,
@@ -70,7 +71,7 @@ class _LanguageViewState extends State<LanguageView> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                'سيتم تطبيق اللغة مباشرة بعد الاختيار.',
+                S.of(context).languageAppliedImmediatelyAfterSelection,
                 style: TextStyles.regular13.copyWith(
                   color: const Color(0xFF4A5552),
                 ),
@@ -132,14 +133,14 @@ class _LanguageTile extends StatelessWidget {
                 ],
               ),
             ),
-            Radio<String>(
-              value: value,
-              groupValue: groupValue,
-              activeColor: AppColors.primaryColor,
-              onChanged: (newValue) {
-                if (newValue == null) return;
-                onChanged(newValue);
-              },
+            Icon(
+              groupValue == value
+                  ? Icons.radio_button_checked
+                  : Icons.radio_button_off,
+              color:
+                  groupValue == value
+                      ? AppColors.primaryColor
+                      : const Color(0xFFB6BFBC),
             ),
           ],
         ),

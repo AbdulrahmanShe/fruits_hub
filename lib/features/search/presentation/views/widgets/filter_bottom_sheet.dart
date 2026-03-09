@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
 
@@ -20,17 +21,14 @@ class FilterBottomSheet extends StatelessWidget {
             children: [
               /// 🧾 العنوان
              Text(
-              'الفلترة',
+              S.of(context).filtering,
               style: TextStyles.bold19,
             ),
 
             const SizedBox(height: 24),
 
             /// 🧺 فلترة التصنيف
-            const Text(
-              'التصنيف',
-              style: TextStyles.bold19,
-            ),
+            Text(S.of(context).category, style: TextStyles.bold19),
             const SizedBox(height: 8),
 
             Wrap(
@@ -51,10 +49,7 @@ class FilterBottomSheet extends StatelessWidget {
 
             const SizedBox(height: 24),
               /// 💰 فلترة السعر
-              const Text(
-                ' السعر',
-                style: TextStyles.bold19,
-              ),
+              Text(S.of(context).price, style: TextStyles.bold19),
               const SizedBox(height: 8),
           
               Text(
@@ -84,7 +79,7 @@ class FilterBottomSheet extends StatelessWidget {
                     controller.applyFilter();
                     Get.back();
                   },
-                  child: const Text('تصفيه',style: TextStyles.bold16,),
+                  child: Text(S.of(context).applyFilter, style: TextStyles.bold16),
                 ),
               ),
             ],

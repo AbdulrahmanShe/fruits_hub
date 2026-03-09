@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 
 class HelpView extends StatelessWidget {
   const HelpView({super.key});
@@ -11,32 +12,28 @@ class HelpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final faqs = <_FaqItem>[
-      const _FaqItem(
-        question: 'كيف أتابع حالة طلبي؟',
-        answer:
-            'من صفحة "طلباتي" افتح الطلب المطلوب وستجد تفاصيل الطلب والفاتورة.',
+      _FaqItem(
+        question: S.of(context).howTrackOrderStatus,
+        answer: S.of(context).fromMyOrdersOpenOrder,
       ),
-      const _FaqItem(
-        question: 'كيف أضيف منتج للمفضلة؟',
-        answer:
-            'اضغط على أيقونة القلب داخل بطاقة المنتج، وسيظهر المنتج مباشرة في صفحة المفضلة.',
+      _FaqItem(
+        question: S.of(context).howAddProductToFavorites,
+        answer: S.of(context).tapHeartIconInProductCard,
       ),
-      const _FaqItem(
-        question: 'كيف أغير اللغة؟',
-        answer:
-            'من "حسابي" ثم "اللغة"، اختر العربية أو الإنجليزية وسيتم تطبيقها فورًا.',
+      _FaqItem(
+        question: S.of(context).howChangeLanguage,
+        answer: S.of(context).fromMyAccountThenLanguage,
       ),
-      const _FaqItem(
-        question: 'ماذا أفعل إذا واجهت مشكلة في الدفع؟',
-        answer:
-            'تأكد من الاتصال بالإنترنت ومن صلاحية البطاقة، ثم أعد المحاولة أو تواصل مع الدعم.',
+      _FaqItem(
+        question: S.of(context).whatIfPaymentIssue,
+        answer: S.of(context).checkInternetAndCardThenRetry,
       ),
     ];
 
     return Scaffold(
       appBar: buildAppBar(
         context,
-        title: 'المساعدة',
+        title: S.of(context).help,
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -54,7 +51,7 @@ class HelpView extends StatelessWidget {
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    'كيف نقدر نساعدك اليوم؟',
+                    S.of(context).howCanWeHelpToday,
                     style: TextStyles.bold13,
                   ),
                 ),
@@ -74,7 +71,7 @@ class HelpView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('التواصل مع الدعم', style: TextStyles.bold13),
+                Text(S.of(context).contactSupport, style: TextStyles.bold13),
                 const SizedBox(height: 8),
                 _ContactRow(
                   icon: Icons.email_outlined,
@@ -88,7 +85,7 @@ class HelpView extends StatelessWidget {
                 const SizedBox(height: 6),
                 _ContactRow(
                   icon: Icons.schedule,
-                  text: 'من 9:00 صباحًا حتى 10:00 مساءً',
+                  text: S.of(context).supportHours,
                 ),
               ],
             ),

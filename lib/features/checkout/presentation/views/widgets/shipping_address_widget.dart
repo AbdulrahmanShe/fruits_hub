@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/features/checkout/presentation/controller/checkout_controller.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/widgets/payment_item.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg_flutter.dart';
 import '../../../../../core/utils/app_text_styles.dart';
@@ -19,7 +20,7 @@ class ShippingAddressWidget extends StatelessWidget {
     final CheckoutController controller = Get.find<CheckoutController>();
     log(controller.orderEntity.toString());
     return PaymentItem(
-      tile: 'عنوان التوصيل',
+      tile: S.of(context).shippingAddress,
       child: Row(
         children: [
           SvgPicture.asset(
@@ -52,7 +53,7 @@ class ShippingAddressWidget extends StatelessWidget {
                     width: 4,
                   ),
                   Text(
-                    'تعديل',
+                    S.of(context).edit,
                     style: TextStyles.semiBold13.copyWith(
                       color: const Color(0xFF949D9E),
                     ),

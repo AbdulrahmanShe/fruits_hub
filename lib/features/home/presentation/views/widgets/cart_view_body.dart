@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/features/home/presentation/controller/cart_controller.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/car_items_list.dart';
@@ -26,7 +27,7 @@ class CartViewBody extends StatelessWidget {
                     ),
                     buildAppBar(
                       context,
-                      title: 'السلة',
+                      title: S.of(context).cart,
                       showBackBottom: false,
                     ),
                     const SizedBox( 
@@ -43,11 +44,11 @@ class CartViewBody extends StatelessWidget {
               ),
               /// لو السلة فاضية
               if (controller.cartEntity.value.cartItems.isEmpty)
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   child: Center(
                     child: Padding(
-                      padding: EdgeInsets.all(24),
-                      child: Text('السلة فارغة'),
+                      padding: const EdgeInsets.all(24),
+                      child: Text(S.of(context).cartIsEmpty),
                     ),
                   ),
                 )

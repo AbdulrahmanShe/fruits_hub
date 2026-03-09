@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class OrdersView extends StatelessWidget {
@@ -16,45 +17,45 @@ class OrdersView extends StatelessWidget {
     final orders = <_OrderItem>[
       _OrderItem(
         orderNumber: '#1234567',
-        total: '250 جنيه',
+        total: S.of(context).ilsAmount('250'),
         quantity: 3,
-        createdAt: '2 مارس 2026',
+        createdAt: S.of(context).date2March2026,
         paymentMethod: 'Visa **** 4887',
         shipping: 20,
-        items: const [
-          _InvoiceLine(title: 'تفاح أحمر', quantity: 2, unitPrice: 40),
-          _InvoiceLine(title: 'موز', quantity: 1, unitPrice: 30),
-          _InvoiceLine(title: 'أناناس', quantity: 1, unitPrice: 120),
+        items: [
+          _InvoiceLine(title: S.of(context).redApple, quantity: 2, unitPrice: 40),
+          _InvoiceLine(title: S.of(context).banana, quantity: 1, unitPrice: 30),
+          _InvoiceLine(title: S.of(context).pineapple, quantity: 1, unitPrice: 120),
         ],
       ),
       _OrderItem(
         orderNumber: '#1234568',
-        total: '180 جنيه',
+        total: S.of(context).ilsAmount('180'),
         quantity: 2,
-        createdAt: '1 مارس 2026',
+        createdAt: S.of(context).date1March2026,
         paymentMethod: 'MasterCard **** 1234',
         shipping: 15,
-        items: const [
-          _InvoiceLine(title: 'عنب', quantity: 2, unitPrice: 55),
-          _InvoiceLine(title: 'برتقال', quantity: 2, unitPrice: 20),
+        items: [
+          _InvoiceLine(title: S.of(context).grapes, quantity: 2, unitPrice: 55),
+          _InvoiceLine(title: S.of(context).orangeFruit, quantity: 2, unitPrice: 20),
         ],
       ),
       _OrderItem(
         orderNumber: '#1234569',
-        total: '95 جنيه',
+        total: S.of(context).ilsAmount('95'),
         quantity: 2,
-        createdAt: '27 فبراير 2026',
-        paymentMethod: 'نقدًا عند الاستلام',
+        createdAt: S.of(context).date27Feb2026,
+        paymentMethod: S.of(context).cashOnDelivery,
         shipping: 10,
-        items: const [
-          _InvoiceLine(title: 'فراولة', quantity: 1, unitPrice: 45),
-          _InvoiceLine(title: 'كيوي', quantity: 1, unitPrice: 40),
+        items: [
+          _InvoiceLine(title: S.of(context).strawberry, quantity: 1, unitPrice: 45),
+          _InvoiceLine(title: S.of(context).kiwi, quantity: 1, unitPrice: 40),
         ],
       ),
     ];
 
     return Scaffold(
-      appBar: buildAppBar(context, title: 'طلباتي',),
+      appBar: buildAppBar(context, title: S.of(context).myOrders),
       body: ListView.separated(
         padding: const EdgeInsets.all(16),
         itemCount: orders.length,
@@ -108,12 +109,15 @@ class _OrderCardState extends State<_OrderCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'طلب رقم ${order.orderNumber}',
+                          S.of(context).orderNumberLabel(order.orderNumber),
                           style: TextStyles.bold13,
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          'الإجمالي ${order.total}  |  عدد المنتجات: ${order.quantity}',
+                          S.of(context).orderSummaryLabel(
+                            order.total,
+                            order.quantity.toString(),
+                          ),
                           style: TextStyles.regular13.copyWith(
                             color: const Color(0xFF6D7573),
                           ),
@@ -180,7 +184,7 @@ class _OrderInvoice extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('فاتورة الطلب', style: TextStyles.bold13),
+          Text(S.of(context).orderInvoice, style: TextStyles.bold13),
           const SizedBox(height: 10),
           ...order.items.map((item) {
             final itemTotal = item.unitPrice * item.quantity;
@@ -197,7 +201,7 @@ class _OrderInvoice extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '$itemTotal جنيه',
+                    S.of(context).ilsAmount(itemTotal.toString()),
                     style: TextStyles.semiBold13.copyWith(
                       color: AppColors.primaryColor,
                     ),
@@ -207,25 +211,31 @@ class _OrderInvoice extends StatelessWidget {
             );
           }),
           const Divider(height: 20),
-          _InvoiceSummaryRow(title: 'المجموع', value: '$subtotal جنيه'),
-          const SizedBox(height: 6),
-          _InvoiceSummaryRow(title: 'الشحن', value: '${order.shipping} جنيه'),
+          _InvoiceSummaryRow(
+            title: S.of(context).subtotal,
+            value: S.of(context).ilsAmount(subtotal.toString()),
+          ),
           const SizedBox(height: 6),
           _InvoiceSummaryRow(
-            title: 'الإجمالي النهائي',
-            value: '$total جنيه',
+            title: S.of(context).shipping,
+            value: S.of(context).ilsAmount(order.shipping.toString()),
+          ),
+          const SizedBox(height: 6),
+          _InvoiceSummaryRow(
+            title: S.of(context).finalTotal,
+            value: S.of(context).ilsAmount(total.toString()),
             isTotal: true,
           ),
           const SizedBox(height: 10),
           Text(
-            'طريقة الدفع: ${order.paymentMethod}',
+            S.of(context).paymentMethodLabel(order.paymentMethod),
             style: TextStyles.regular13.copyWith(
               color: const Color(0xFF6D7573),
             ),
           ),
           const SizedBox(height: 4),
           Text(
-            'تاريخ الطلب: ${order.createdAt}',
+            S.of(context).orderDateLabel(order.createdAt),
             style: TextStyles.regular13.copyWith(
               color: const Color(0xFF6D7573),
             ),
@@ -250,7 +260,7 @@ class _OrderInvoice extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  'QR الفاتورة',
+                  S.of(context).invoiceQr,
                   style: TextStyles.regular13.copyWith(
                     color: const Color(0xFF6D7573),
                   ),

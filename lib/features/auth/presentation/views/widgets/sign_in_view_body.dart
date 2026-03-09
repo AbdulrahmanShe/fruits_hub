@@ -11,6 +11,7 @@ import 'package:fruits_hub/features/auth/presentation/views/widgets/forgot_passw
 import 'package:fruits_hub/features/auth/presentation/views/widgets/or_divider.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/social_login_button.dart';
 import 'package:fruits_hub/features/home/presentation/views/main_view.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class SignInViewBody extends StatefulWidget {
@@ -69,7 +70,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                           Get.toNamed(ForgotPasswordView.routeName);
                         },
                         child: Text(
-                        'نسيت كلمة المرور؟',
+                        S.of(context).forgotPasswordQuestion,
                         style: TextStyles.semiBold13.copyWith(
                           color: const Color.fromARGB(255, 51, 186, 107),
                         ),
@@ -84,8 +85,8 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                     return CustomBottom(
                                   
                       text: controller.isLoading.value 
-                      ? 'جاري تسجيل الدخول...' 
-                      : 'تسجيل دخول',
+                      ? S.of(context).signingIn
+                      : S.of(context).signIn,
                                   
                       onPressed: controller.isLoading.value 
                                   ? (){return;}
@@ -132,7 +133,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                     }
                   },
                   image: Assets.imagesGoogleIcon,
-                  title: 'تسجيل بواسطة جوجل',
+                  title: S.of(context).signInWithGoogle,
                 ),
                 
             ],

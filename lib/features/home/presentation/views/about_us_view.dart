@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 
 class AboutUsView extends StatelessWidget {
   const AboutUsView({super.key});
@@ -11,7 +12,7 @@ class AboutUsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context, title: 'من نحن',),
+      appBar: buildAppBar(context, title: S.of(context).aboutUs),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -45,7 +46,7 @@ class AboutUsView extends StatelessWidget {
                       Text('FruitHub', style: TextStyles.bold16),
                       const SizedBox(height: 2),
                       Text(
-                        'تجربة أسهل لشراء الفواكه الطازجة',
+                        S.of(context).easierFreshFruitShoppingExperience,
                         style: TextStyles.regular13.copyWith(
                           color: const Color(0xFF57615E),
                         ),
@@ -58,41 +59,39 @@ class AboutUsView extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           _SectionCard(
-            title: 'رسالتنا',
+            title: S.of(context).ourMission,
             icon: Icons.flag_outlined,
             body:
-                'نؤمن أن الوصول إلى منتجات طازجة بجودة عالية يجب أن يكون بسيطًا وسريعًا لكل بيت. '
-                'لهذا صممنا تجربة شراء واضحة من اختيار المنتج حتى استلام الطلب.',
+                '${S.of(context).weBelieveFreshProductsShouldBeSimpleAndFast} ${S.of(context).designedClearPurchaseExperience}',
           ),
           const SizedBox(height: 10),
           _SectionCard(
-            title: 'ما نلتزم به',
+            title: S.of(context).whatWeCommitTo,
             icon: Icons.verified_outlined,
             body:
-                'نعمل مع موردين موثوقين ونراجع جودة الطلبات قبل الشحن. '
-                'نركز على وضوح الأسعار، سهولة الدفع، وسلاسة التتبع.',
+                '${S.of(context).weWorkWithTrustedSuppliers} ${S.of(context).weFocusOnTransparentPricing}',
           ),
           const SizedBox(height: 10),
           _SectionCard(
-            title: 'لماذا FruitHub؟',
+            title: S.of(context).whyFruitHub,
             icon: Icons.lightbulb_outline,
             body:
-                'نطوّر التطبيق باستمرار بناءً على ملاحظاتكم ونضيف مزايا جديدة لتحسين تجربة التسوق يومًا بعد يوم.',
+                S.of(context).weContinuouslyImproveApp,
           ),
           const SizedBox(height: 12),
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: const [
-              _InfoChip(text: 'جودة مضمونة'),
-              _InfoChip(text: 'توصيل سريع'),
-              _InfoChip(text: 'دفع آمن'),
-              _InfoChip(text: 'تحديث مستمر'),
+            children: [
+              _InfoChip(text: S.of(context).guaranteedQuality),
+              _InfoChip(text: S.of(context).fastDelivery),
+              _InfoChip(text: S.of(context).securePayment),
+              _InfoChip(text: S.of(context).continuousUpdates),
             ],
           ),
           const SizedBox(height: 14),
           Text(
-            'شكرًا لثقتك بـ FruitHub',
+            S.of(context).thanksForTrustingFruitHub,
             textAlign: TextAlign.center,
             style: TextStyles.semiBold13.copyWith(
               color: AppColors.primaryColor,

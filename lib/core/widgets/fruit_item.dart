@@ -4,6 +4,7 @@ import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_network_image.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/home/presentation/controller/cart_controller.dart';
 import 'package:fruits_hub/features/home/presentation/controller/favorite_controller.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/product_details_view.dart';
@@ -78,7 +79,7 @@ class FruitItem extends StatelessWidget {
                       style: TextStyles.semiBold16,
                     ),
                     subtitle: Text(
-                      '${productEntity.price} شيكل / كيلو',
+                      S.of(context).shekelPerKilo(productEntity.price.toString()),
                       textAlign: TextAlign.right,
                     ),
                     trailing: GestureDetector(

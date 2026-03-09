@@ -3,6 +3,7 @@ import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_network_image.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/home/domain/entites/car_item_entity.dart';
 import 'package:fruits_hub/features/home/presentation/controller/cart_controller.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/cart_item_action_buttons.dart';
@@ -56,7 +57,7 @@ final CartController controller = Get.find<CartController>();
                         ],
                       ),
                       Text(
-                        '${carItemEntity.calculateTotalWeight()} كم',
+                        '${carItemEntity.calculateTotalWeight()} ${S.of(context).kmUnit}',
                         textAlign: TextAlign.right,
                         style: TextStyles.regular13.copyWith(
                           color: AppColors.secondaryColor,
@@ -69,7 +70,7 @@ final CartController controller = Get.find<CartController>();
                           ),
                           const Spacer(),
                           Text(
-                            '${carItemEntity.calculateTotalPrice()} شيكل ',
+                            '${carItemEntity.calculateTotalPrice()} ${S.of(context).currencyShekel}',
                             style: TextStyles.bold16
                                 .copyWith(color: AppColors.secondaryColor),
                           )

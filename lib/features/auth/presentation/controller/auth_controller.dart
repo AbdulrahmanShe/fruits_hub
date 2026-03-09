@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:fruits_hub/core/errors/failures.dart';
 import 'package:fruits_hub/features/auth/domin/entites/user_entity.dart';
 import 'package:fruits_hub/features/auth/domin/repos/auth_repo.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 class AuthController extends GetxController{
 final AuthRepo authRepo;
@@ -20,7 +21,7 @@ final AuthRepo authRepo;
 
       isLoading.value = false;
 
-        return  handleAuthResult(result,successMessage: 'تم إنشاء الحساب بنجاح');
+        return  handleAuthResult(result,successMessage: S.current.accountCreatedSuccessfully);
            
   }
 
@@ -34,7 +35,7 @@ final AuthRepo authRepo;
 
       isLoading.value = false;
 
-        return  handleAuthResult(result,successMessage: 'تم تسجيل الدخول بنجاح');
+        return  handleAuthResult(result,successMessage: S.current.signInSuccessful);
            
   }
 
@@ -47,7 +48,7 @@ Future<bool> signInWithGoogle() async {
 
   return handleAuthResult(
     result,
-    successMessage: 'تم تسجيل الدخول باستخدام Google',
+    successMessage: S.current.signedInWithGoogle,
   );
 }
 
@@ -64,7 +65,7 @@ Future<bool> signInWithGoogle() async {
 
   return handleUnitResult(
     result,
-    successMessage: 'تم إرسال رابط إعادة تعيين كلمة المرور',
+    successMessage: S.current.passwordResetLinkSent,
   );
 }
 
@@ -74,7 +75,7 @@ Future<bool> signInWithGoogle() async {
     return result.fold(
           (failure) {
       Get.snackbar(
-        'خطأ',
+        S.current.error,
         failure.message,
         snackPosition: SnackPosition.BOTTOM,
       );
@@ -82,7 +83,7 @@ Future<bool> signInWithGoogle() async {
     },
          (user) {
       Get.snackbar(
-        'نجاح',
+        S.current.success,
         successMessage,
         snackPosition: SnackPosition.BOTTOM,
       );
@@ -96,7 +97,7 @@ Future<bool> signInWithGoogle() async {
     return result.fold(
           (failure) {
       Get.snackbar(
-        'خطأ',
+        S.current.error,
         failure.message,
         snackPosition: SnackPosition.BOTTOM,
       );
@@ -104,7 +105,7 @@ Future<bool> signInWithGoogle() async {
     },
          (_) {
       Get.snackbar(
-        'نجاح',
+        S.current.success,
         successMessage,
         snackPosition: SnackPosition.BOTTOM,
       );

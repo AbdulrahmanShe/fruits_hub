@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 
 class FeaturedItemButton extends StatelessWidget {
   const FeaturedItemButton({super.key, required this.onPressed});
@@ -23,7 +24,7 @@ class FeaturedItemButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: FittedBox(
             child: Text(
-              'تسوق الان',
+              S.of(context).shopNow,
               style: TextStyles.bold13.copyWith(
                 color: AppColors.primaryColor,
               ),

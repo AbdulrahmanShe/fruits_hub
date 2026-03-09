@@ -20,6 +20,365 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
+  static String m0(months) => "${months} أشهر";
+
+  static String m1(date) => "تاريخ الطلب: ${date}";
+
+  static String m2(orderNumber) => "طلب رقم ${orderNumber}";
+
+  static String m3(total, quantity) =>
+      "الإجمالي ${total}  |  عدد المنتجات: ${quantity}";
+
+  static String m4(amount) => "الدفع ${amount} جنيه";
+
+  static String m5(method) => "طريقة الدفع: ${method}";
+
+  static String m6(count) => "${count} نتائج";
+
+  static String m7(price) => "${price} شيكل / الكيلو";
+
+  static String m8(count) => "لديك ${count} منتجات في سله التسوق";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{};
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "aboutUs": MessageLookupByLibrary.simpleMessage("من نحن"),
+    "accountCreatedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم إنشاء الحساب بنجاح",
+    ),
+    "addToCart": MessageLookupByLibrary.simpleMessage("أضف إلى السلة"),
+    "addedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تمت الاضافة بنجاح",
+    ),
+    "address": MessageLookupByLibrary.simpleMessage("العنوان"),
+    "alert": MessageLookupByLibrary.simpleMessage("تنبيه"),
+    "alertExclamation": MessageLookupByLibrary.simpleMessage("تنبيه !"),
+    "allCategory": MessageLookupByLibrary.simpleMessage("الكل"),
+    "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
+      "تمتلك حساب بالفعل ؟",
+    ),
+    "alreadyRegisteredPleaseSignIn": MessageLookupByLibrary.simpleMessage(
+      "لقد قمت بالتسجيل مسبقاً. الرجاء تسجيل الدخول.",
+    ),
+    "applyFilter": MessageLookupByLibrary.simpleMessage("تصفيه"),
+    "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
+    "banana": MessageLookupByLibrary.simpleMessage("موز"),
+    "calories": MessageLookupByLibrary.simpleMessage("سعرات"),
+    "cart": MessageLookupByLibrary.simpleMessage("السلة"),
+    "cartIsEmpty": MessageLookupByLibrary.simpleMessage("السلة فارغة"),
+    "cashOnDelivery": MessageLookupByLibrary.simpleMessage(
+      "الدفع عند الاستلام",
+    ),
+    "category": MessageLookupByLibrary.simpleMessage("التصنيف"),
+    "checkInternetAndCardThenRetry": MessageLookupByLibrary.simpleMessage(
+      "تأكد من الاتصال بالإنترنت ومن صلاحية البطاقة، ثم أعد المحاولة أو تواصل مع الدعم.",
+    ),
+    "checkInternetConnection": MessageLookupByLibrary.simpleMessage(
+      "تأكد من اتصالك بالإنترنت.",
+    ),
+    "checkInternetConnectionTypo": MessageLookupByLibrary.simpleMessage(
+      "تاكد من اتصالك بالانترنت.",
+    ),
+    "city": MessageLookupByLibrary.simpleMessage("المدينه"),
+    "contactSupport": MessageLookupByLibrary.simpleMessage("التواصل مع الدعم"),
+    "continuousUpdates": MessageLookupByLibrary.simpleMessage("تحديث مستمر"),
+    "createAccount": MessageLookupByLibrary.simpleMessage("قم بإنشاء حساب "),
+    "createNewAccount": MessageLookupByLibrary.simpleMessage("إنشاء حساب جديد"),
+    "creatingAccount": MessageLookupByLibrary.simpleMessage(
+      "جاري إنشاء الحساب...",
+    ),
+    "currencyShekel": MessageLookupByLibrary.simpleMessage("شيكل"),
+    "date1March2026": MessageLookupByLibrary.simpleMessage("1 مارس 2026"),
+    "date27Feb2026": MessageLookupByLibrary.simpleMessage("27 فبراير 2026"),
+    "date2March2026": MessageLookupByLibrary.simpleMessage("2 مارس 2026"),
+    "defaultUser": MessageLookupByLibrary.simpleMessage("مستخدم"),
+    "deleteAll": MessageLookupByLibrary.simpleMessage("حذف الكل"),
+    "deliveryFromLocation": MessageLookupByLibrary.simpleMessage(
+      "التسليم من المكان",
+    ),
+    "deliveryLabel": MessageLookupByLibrary.simpleMessage("التوصيل  :"),
+    "designMode": MessageLookupByLibrary.simpleMessage("الوضع"),
+    "designedClearPurchaseExperience": MessageLookupByLibrary.simpleMessage(
+      "لهذا صممنا تجربة شراء واضحة من اختيار المنتج حتى استلام الطلب.",
+    ),
+    "discount25": MessageLookupByLibrary.simpleMessage("خصم 25%"),
+    "done": MessageLookupByLibrary.simpleMessage("تم"),
+    "dontHaveAccount": MessageLookupByLibrary.simpleMessage("لا تمتلك حساب؟ "),
+    "easierFreshFruitShoppingExperience": MessageLookupByLibrary.simpleMessage(
+      "تجربة أسهل لشراء الفواكه الطازجة",
+    ),
+    "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
+    "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
+    "emailNotRegistered": MessageLookupByLibrary.simpleMessage(
+      "البريد الإلكتروني غير مسجل مسبقًا.",
+    ),
+    "emailRequired": MessageLookupByLibrary.simpleMessage(
+      "البريد الإلكتروني مطلوب",
+    ),
+    "english": MessageLookupByLibrary.simpleMessage("English"),
+    "enterFullName": MessageLookupByLibrary.simpleMessage("أدخل الاسم الكامل"),
+    "error": MessageLookupByLibrary.simpleMessage("خطأ"),
+    "expiry": MessageLookupByLibrary.simpleMessage("الصلاحية"),
+    "failed": MessageLookupByLibrary.simpleMessage("فشل"),
+    "failedToAddProductToFavorites": MessageLookupByLibrary.simpleMessage(
+      "فشل إضافة المنتج للمفضلة",
+    ),
+    "failedToLoadFavorites": MessageLookupByLibrary.simpleMessage(
+      "فشل تحميل المفضلة",
+    ),
+    "failedToRemoveProductFromFavorites": MessageLookupByLibrary.simpleMessage(
+      "فشل حذف المنتج من المفضلة",
+    ),
+    "failedToSendResetLink": MessageLookupByLibrary.simpleMessage(
+      "فشل إرسال رابط إعادة التعيين.",
+    ),
+    "failedToUpdateData": MessageLookupByLibrary.simpleMessage(
+      "تعذر تحديث البيانات",
+    ),
+    "fastDelivery": MessageLookupByLibrary.simpleMessage("توصيل سريع"),
+    "favorites": MessageLookupByLibrary.simpleMessage("المفضلة"),
+    "favoritesEmpty": MessageLookupByLibrary.simpleMessage("المفضلة فارغة"),
+    "featuredProducts": MessageLookupByLibrary.simpleMessage(
+      "المنتجات المميزة",
+    ),
+    "featuredProductsLoadedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم تحميل المنتجات المميزة بنجاح",
+    ),
+    "female": MessageLookupByLibrary.simpleMessage("أنثى"),
+    "fieldRequired": MessageLookupByLibrary.simpleMessage("هذا الحقل مطلوب"),
+    "filtering": MessageLookupByLibrary.simpleMessage("الفلترة"),
+    "finalTotal": MessageLookupByLibrary.simpleMessage("الإجمالي النهائي"),
+    "floorAndApartmentNumber": MessageLookupByLibrary.simpleMessage(
+      "رقم الطابق , رقم الشقه ..",
+    ),
+    "forgotPassword": MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور"),
+    "forgotPasswordQuestion": MessageLookupByLibrary.simpleMessage(
+      "نسيت كلمة المرور؟",
+    ),
+    "fromMyAccountThenLanguage": MessageLookupByLibrary.simpleMessage(
+      "من \"حسابي\" ثم \"اللغة\"، اختر العربية أو الإنجليزية وسيتم تطبيقها فورًا.",
+    ),
+    "fromMyOrdersOpenOrder": MessageLookupByLibrary.simpleMessage(
+      "من صفحة \"طلباتي\" افتح الطلب المطلوب وستجد تفاصيل الطلب والفاتورة.",
+    ),
+    "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
+    "fullNameRequired": MessageLookupByLibrary.simpleMessage(
+      "الاسم الكامل مطلوب",
+    ),
+    "gender": MessageLookupByLibrary.simpleMessage("الجنس"),
+    "general": MessageLookupByLibrary.simpleMessage("عام"),
+    "grapes": MessageLookupByLibrary.simpleMessage("عنب"),
+    "guaranteedQuality": MessageLookupByLibrary.simpleMessage("جودة مضمونة"),
+    "help": MessageLookupByLibrary.simpleMessage("المساعدة"),
+    "helpSection": MessageLookupByLibrary.simpleMessage("الدعم"),
+    "holidayOffers": MessageLookupByLibrary.simpleMessage("عروض العيد"),
+    "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
+    "howAddProductToFavorites": MessageLookupByLibrary.simpleMessage(
+      "كيف أضيف منتج للمفضلة؟",
+    ),
+    "howCanWeHelpToday": MessageLookupByLibrary.simpleMessage(
+      "كيف نقدر نساعدك اليوم؟",
+    ),
+    "howChangeLanguage": MessageLookupByLibrary.simpleMessage(
+      "كيف أغير اللغة؟",
+    ),
+    "howTrackOrderStatus": MessageLookupByLibrary.simpleMessage(
+      "كيف أتابع حالة طلبي؟",
+    ),
+    "invalidCredentials": MessageLookupByLibrary.simpleMessage(
+      "بيانات تسجيل الدخول غير صحيحة.",
+    ),
+    "invalidEmail": MessageLookupByLibrary.simpleMessage(
+      "صيغة البريد الإلكتروني غير صحيحة",
+    ),
+    "invoiceQr": MessageLookupByLibrary.simpleMessage("QR الفاتورة"),
+    "kiwi": MessageLookupByLibrary.simpleMessage("كيوي"),
+    "kmUnit": MessageLookupByLibrary.simpleMessage("كم"),
+    "language": MessageLookupByLibrary.simpleMessage("اللغة"),
+    "languageAppliedImmediatelyAfterSelection":
+        MessageLookupByLibrary.simpleMessage(
+          "سيتم تطبيق اللغة مباشرة بعد الاختيار.",
+        ),
+    "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
+    "male": MessageLookupByLibrary.simpleMessage("ذكر"),
+    "microphoneAccessRequired": MessageLookupByLibrary.simpleMessage(
+      "يجب السماح بالوصول إلى المايك",
+    ),
+    "monthsCount": m0,
+    "more": MessageLookupByLibrary.simpleMessage("المزيد"),
+    "mustAcceptTerms": MessageLookupByLibrary.simpleMessage(
+      "يجب الموافقة على الشروط والأحكام",
+    ),
+    "myAccount": MessageLookupByLibrary.simpleMessage("حسابي"),
+    "myOrders": MessageLookupByLibrary.simpleMessage("طلباتي"),
+    "nameLettersOnly": MessageLookupByLibrary.simpleMessage(
+      "الاسم يجب أن يحتوي على حروف فقط",
+    ),
+    "nameRequired": MessageLookupByLibrary.simpleMessage("الاسم مطلوب"),
+    "nameTooShort": MessageLookupByLibrary.simpleMessage("الاسم قصير جدًا"),
+    "newAccount": MessageLookupByLibrary.simpleMessage("حساب جديد"),
+    "next": MessageLookupByLibrary.simpleMessage("التالي"),
+    "no": MessageLookupByLibrary.simpleMessage("لا"),
+    "noProductsInCart": MessageLookupByLibrary.simpleMessage(
+      "لا يوجد منتجات في السلة",
+    ),
+    "notifications": MessageLookupByLibrary.simpleMessage("الإشعارات"),
+    "onboardingSubtitle1": MessageLookupByLibrary.simpleMessage(
+      "اكتشف تجربة تسوق فريدة مع FruitHUB. استكشف مجموعتنا الواسعة من الفواكه الطازجة الممتازة واحصل على أفضل العروض والجودة العالية.",
+    ),
+    "onboardingSubtitle2": MessageLookupByLibrary.simpleMessage(
+      "نقدم لك أفضل الفواكه المختارة بعناية. اطلع على التفاصيل والصور والتقييمات لتتأكد من اختيار الفاكهة المثالية",
+    ),
+    "onlinePayment": MessageLookupByLibrary.simpleMessage("الدفع اونلاين"),
+    "or": MessageLookupByLibrary.simpleMessage("أو"),
+    "orangeFruit": MessageLookupByLibrary.simpleMessage("برتقال"),
+    "orderDateLabel": m1,
+    "orderInvoice": MessageLookupByLibrary.simpleMessage("فاتورة الطلب"),
+    "orderNumberLabel": m2,
+    "orderSummary": MessageLookupByLibrary.simpleMessage("ملخص الطلب"),
+    "orderSummaryLabel": m3,
+    "organic": MessageLookupByLibrary.simpleMessage("اوجانيك"),
+    "ourMission": MessageLookupByLibrary.simpleMessage("رسالتنا"),
+    "ourProducts": MessageLookupByLibrary.simpleMessage("منتجاتنا"),
+    "ourTermsAndConditions": MessageLookupByLibrary.simpleMessage(
+      "الشروط والأحكام الخاصة بنا",
+    ),
+    "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
+    "passwordMinLength": MessageLookupByLibrary.simpleMessage(
+      "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
+    ),
+    "passwordRequired": MessageLookupByLibrary.simpleMessage(
+      "كلمة المرور مطلوبة",
+    ),
+    "passwordResetInstruction": MessageLookupByLibrary.simpleMessage(
+      "سيتم ارسال رابط على بريدك الالكتروني لتتمكن من اعادة تعيين كلمة المرور",
+    ),
+    "passwordResetLinkSent": MessageLookupByLibrary.simpleMessage(
+      "تم إرسال رابط إعادة تعيين كلمة المرور",
+    ),
+    "payWithStripe": MessageLookupByLibrary.simpleMessage("الدفع عبر Stripe"),
+    "payment": MessageLookupByLibrary.simpleMessage("الدفع"),
+    "paymentAmount": m4,
+    "paymentMethodLabel": m5,
+    "phoneIncomplete": MessageLookupByLibrary.simpleMessage(
+      "رقم الهاتف غير مكتمل",
+    ),
+    "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
+    "phoneRequired": MessageLookupByLibrary.simpleMessage("رقم الهاتف مطلوب"),
+    "pineapple": MessageLookupByLibrary.simpleMessage("أناناس"),
+    "pleaseSelectPaymentMethod": MessageLookupByLibrary.simpleMessage(
+      "يرجي تحديد طريقه الدفع",
+    ),
+    "price": MessageLookupByLibrary.simpleMessage("السعر"),
+    "productIdUnavailable": MessageLookupByLibrary.simpleMessage(
+      "معرف المنتج غير متوفر",
+    ),
+    "products": MessageLookupByLibrary.simpleMessage("المنتجات"),
+    "productsLoadedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم تحميل المنتجات بنجاح",
+    ),
+    "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
+    "profileInfo": MessageLookupByLibrary.simpleMessage("معلومات الحساب"),
+    "profileSavedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "تم حفظ البيانات بنجاح",
+    ),
+    "rating": MessageLookupByLibrary.simpleMessage("التقييم"),
+    "recentSearches": MessageLookupByLibrary.simpleMessage(
+      "عمليات البحث الأخيرة",
+    ),
+    "redApple": MessageLookupByLibrary.simpleMessage("تفاح أحمر"),
+    "resultsCount": m6,
+    "saveChanges": MessageLookupByLibrary.simpleMessage("حفظ التغييرات"),
+    "saving": MessageLookupByLibrary.simpleMessage("جاري الحفظ..."),
+    "search": MessageLookupByLibrary.simpleMessage("البحث"),
+    "searchAndShop": MessageLookupByLibrary.simpleMessage("ابحث وتسوق"),
+    "searchByVoiceOrTyping": MessageLookupByLibrary.simpleMessage(
+      "ابحث صوتيًا أو كتابة...",
+    ),
+    "securePayment": MessageLookupByLibrary.simpleMessage("دفع آمن"),
+    "sending": MessageLookupByLibrary.simpleMessage("جاري الإرسال..."),
+    "shekelPerKilo": m7,
+    "shipping": MessageLookupByLibrary.simpleMessage("الشحن"),
+    "shippingAddress": MessageLookupByLibrary.simpleMessage("عنوان التوصيل"),
+    "shopNow": MessageLookupByLibrary.simpleMessage("تسوق الان"),
+    "shoppingCart": MessageLookupByLibrary.simpleMessage("سلة التسوق"),
+    "signIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
+    "signInCancelled": MessageLookupByLibrary.simpleMessage(
+      "تم إلغاء تسجيل الدخول",
+    ),
+    "signInSuccessful": MessageLookupByLibrary.simpleMessage(
+      "تم تسجيل الدخول بنجاح",
+    ),
+    "signInWithGoogle": MessageLookupByLibrary.simpleMessage(
+      "تسجيل بواسطة جوجل",
+    ),
+    "signedInWithGoogle": MessageLookupByLibrary.simpleMessage(
+      "تم تسجيل الدخول باستخدام Google",
+    ),
+    "signingIn": MessageLookupByLibrary.simpleMessage("جاري تسجيل الدخول..."),
+    "skip": MessageLookupByLibrary.simpleMessage("تخط"),
+    "somethingWentWrongTryAgain": MessageLookupByLibrary.simpleMessage(
+      "لقد حدث خطأ ما. الرجاء المحاولة مرة اخرى.",
+    ),
+    "sorryDataUnavailableNow": MessageLookupByLibrary.simpleMessage(
+      "عفوًا... هذه المعلومات غير متوفرة للحظة",
+    ),
+    "startNow": MessageLookupByLibrary.simpleMessage("ابدأ الان"),
+    "strawberry": MessageLookupByLibrary.simpleMessage("فراولة"),
+    "subtotal": MessageLookupByLibrary.simpleMessage("المجموع"),
+    "subtotalLabel": MessageLookupByLibrary.simpleMessage("المجموع الفرعي :"),
+    "success": MessageLookupByLibrary.simpleMessage("نجاح"),
+    "supportHours": MessageLookupByLibrary.simpleMessage(
+      "من 9:00 صباحًا حتى 10:00 مساءً",
+    ),
+    "tapHeartIconInProductCard": MessageLookupByLibrary.simpleMessage(
+      "اضغط على أيقونة القلب داخل بطاقة المنتج، وسيظهر المنتج مباشرة في صفحة المفضلة.",
+    ),
+    "termsAcceptancePrefix": MessageLookupByLibrary.simpleMessage(
+      "من خلال إنشاء حساب ، فإنك توافق على ",
+    ),
+    "termsAndConditions": MessageLookupByLibrary.simpleMessage(
+      "الشروط والأحكام",
+    ),
+    "termsAndConditionsContent": MessageLookupByLibrary.simpleMessage(
+      "مرحبا بك في تطبيقنا!\n\nيرجى قراءة الشروط والأحكام التالية بعناية قبل استخدام التطبيق:\n\n1. استخدام التطبيق يعني موافقتك على هذه الشروط.\n2. لا يجوز استخدام التطبيق لأي أغراض غير قانونية.\n3. نحن غير مسؤولين عن أي خسائر ناتجة عن استخدام التطبيق.\n4. المحتوى المعروض في التطبيق محمي بحقوق الطبع والنشر.\n5. يحق لنا تعديل الشروط في أي وقت، ويكون التعديل ساري المفعول فور نشره.\n6. إذا لم توافق على هذه الشروط، يُرجى عدم استخدام التطبيق.\n\nشكرًا لاستخدامك تطبيقنا!",
+    ),
+    "thanksForTrustingFruitHub": MessageLookupByLibrary.simpleMessage(
+      "شكرًا لثقتك بـ FruitHub",
+    ),
+    "thisEmailIsNotRegistered": MessageLookupByLibrary.simpleMessage(
+      "هذا البريد غير مسجل.",
+    ),
+    "totalLabel": MessageLookupByLibrary.simpleMessage("الكلي"),
+    "unexpectedErrorTryAgain": MessageLookupByLibrary.simpleMessage(
+      "حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى.",
+    ),
+    "unexpectedErrorTryLater": MessageLookupByLibrary.simpleMessage(
+      "حدث خطأ غير متوقع، الرجاء المحاولة لاحقًا.",
+    ),
+    "updateDataHint": MessageLookupByLibrary.simpleMessage(
+      "حدّث بياناتك وسيتم حفظها محليًا.",
+    ),
+    "weBelieveFreshProductsShouldBeSimpleAndFast":
+        MessageLookupByLibrary.simpleMessage(
+          "نؤمن أن الوصول إلى منتجات طازجة بجودة عالية يجب أن يكون بسيطًا وسريعًا لكل بيت.",
+        ),
+    "weContinuouslyImproveApp": MessageLookupByLibrary.simpleMessage(
+      "نطوّر التطبيق باستمرار بناءً على ملاحظاتكم ونضيف مزايا جديدة لتحسين تجربة التسوق يومًا بعد يوم.",
+    ),
+    "weFocusOnTransparentPricing": MessageLookupByLibrary.simpleMessage(
+      "نركز على وضوح الأسعار، سهولة الدفع، وسلاسة التتبع.",
+    ),
+    "weWorkWithTrustedSuppliers": MessageLookupByLibrary.simpleMessage(
+      "نعمل مع موردين موثوقين ونراجع جودة الطلبات قبل الشحن.",
+    ),
+    "welcomeBack": MessageLookupByLibrary.simpleMessage("مرحبا بك !.."),
+    "welcomeTo": MessageLookupByLibrary.simpleMessage("مرحبًا بك في"),
+    "whatIfPaymentIssue": MessageLookupByLibrary.simpleMessage(
+      "ماذا أفعل إذا واجهت مشكلة في الدفع؟",
+    ),
+    "whatWeCommitTo": MessageLookupByLibrary.simpleMessage("ما نلتزم به"),
+    "whyFruitHub": MessageLookupByLibrary.simpleMessage("لماذا FruitHub؟"),
+    "yes": MessageLookupByLibrary.simpleMessage("نعم"),
+    "youHaveItemsInCart": m8,
+  };
 }

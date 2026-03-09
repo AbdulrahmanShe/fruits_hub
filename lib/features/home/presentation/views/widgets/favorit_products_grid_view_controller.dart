@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/home/presentation/controller/favorite_controller.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/custom_error_widget.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/products_grid_view.dart';
@@ -23,8 +24,8 @@ class FavoritProductsGridViewController extends StatelessWidget {
               .toList();
 
       if (favoriteProducts.isEmpty) {
-        return const SliverToBoxAdapter(
-          child: CustomErrorWidget(text: 'المفضلة فارغة'),
+        return SliverToBoxAdapter(
+          child: CustomErrorWidget(text: S.of(context).favoritesEmpty),
         );
       }
 

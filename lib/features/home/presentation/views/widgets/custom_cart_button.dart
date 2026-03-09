@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/widgets/custom_bottom.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/checkout_view.dart';
 import 'package:fruits_hub/features/home/presentation/controller/cart_controller.dart';
 import 'package:get/get.dart';
@@ -24,14 +25,14 @@ class CustomCartButton extends StatelessWidget {
                 );
               } else {
                 Get.snackbar(
-          'تنبيه !',
-          'لا يوجد منتجات في السلة',
+          S.of(context).alertExclamation,
+          S.of(context).noProductsInCart,
           snackPosition: SnackPosition.BOTTOM,
         );
               }
             },
              text:
-                'الدفع ${controller.totalPrice.toStringAsFixed(0)} جنيه',
+                S.of(context).paymentAmount(controller.totalPrice.toStringAsFixed(0)),
           );
     }
     );

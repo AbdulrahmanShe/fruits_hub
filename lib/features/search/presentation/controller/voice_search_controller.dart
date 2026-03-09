@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import '../../../../core/controller/products_controller.dart';
@@ -35,8 +36,8 @@ class VoiceSearchController extends GetxController {
     final status = await Permission.microphone.request();
     if (!status.isGranted) {
       Get.snackbar(
-        'تنبيه',
-        'يجب السماح بالوصول إلى المايك',
+        S.current.alert,
+        S.current.microphoneAccessRequired,
       );
       return;
     }

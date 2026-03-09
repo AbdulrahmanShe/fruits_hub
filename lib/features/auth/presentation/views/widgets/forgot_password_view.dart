@@ -4,6 +4,7 @@ import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/core/widgets/email_field.dart';
 import 'package:fruits_hub/features/auth/presentation/controller/auth_controller.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/widgets/custom_bottom.dart';
@@ -26,7 +27,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context, title: ' نسيت كلمة المرور',),
+      appBar: buildAppBar(context, title: S.of(context).forgotPassword),
       body: Padding(
         padding: const EdgeInsets.all(kHorizintalPadding),
         child: Form(
@@ -36,7 +37,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             children: [
               const SizedBox(height: 24),
               Text(
-                'سيتم ارسال رابط على بريدك الالكتروني لتتمكن من اعادة تعيين كلمة المرور',
+                S.of(context).passwordResetInstruction,
                       style: TextStyles.semiBold16.copyWith(
                         color: const Color(0xFF949D9E),
                           ),
@@ -50,8 +51,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               Obx(() {
   return CustomBottom(
     text: controller.isLoading.value
-        ? 'جاري الإرسال...'
-        : 'نسيت كلمة المرور',
+        ? S.of(context).sending
+        : S.of(context).forgotPassword,
     onPressed: controller.isLoading.value
         ? (){}
         : () async {

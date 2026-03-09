@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
 import 'package:fruits_hub/features/checkout/presentation/controller/checkout_controller.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class AddressInputSection extends StatefulWidget{
@@ -36,7 +37,7 @@ class _AddressInputSectionState extends State<AddressInputSection> with Automati
                 onSaved: (value) {
                   controller.orderEntity.shippingAddressEntity.name = value;
                 },
-                hintText: 'الاسم كامل',
+                hintText: S.of(context).fullName,
                 textInputType: TextInputType.text,
               ),
               const SizedBox(
@@ -46,7 +47,7 @@ class _AddressInputSectionState extends State<AddressInputSection> with Automati
                 onSaved: (value) {
                   controller.orderEntity.shippingAddressEntity.email = value;
                 },
-                hintText: 'البريد الإلكتروني',
+                hintText: S.of(context).email,
                 textInputType: TextInputType.text,
               ),
               const SizedBox(
@@ -56,7 +57,7 @@ class _AddressInputSectionState extends State<AddressInputSection> with Automati
                 onSaved: (value) {
                   controller.orderEntity.shippingAddressEntity.address = value;
                 },
-                hintText: 'العنوان',
+                hintText: S.of(context).address,
                 textInputType: TextInputType.text,
               ),
               const SizedBox(
@@ -66,7 +67,7 @@ class _AddressInputSectionState extends State<AddressInputSection> with Automati
                 onSaved: (value) {
                   controller.orderEntity.shippingAddressEntity.city = value;
                 },
-                hintText: 'المدينه',
+                hintText: S.of(context).city,
                 textInputType: TextInputType.text,
               ),
               const SizedBox(
@@ -76,7 +77,7 @@ class _AddressInputSectionState extends State<AddressInputSection> with Automati
                 onSaved: (value) {
                   controller.orderEntity.shippingAddressEntity.floor = value;
                 },
-                hintText: 'رقم الطابق , رقم الشقه ..',
+                hintText: S.of(context).floorAndApartmentNumber,
                 textInputType: TextInputType.text,
               ),
               const SizedBox(
@@ -86,7 +87,7 @@ class _AddressInputSectionState extends State<AddressInputSection> with Automati
                 onSaved: (value) {
                   controller.orderEntity.shippingAddressEntity.phone = value;
                 },
-                hintText: 'رقم الهاتف',
+                hintText: S.of(context).phoneNumber,
                 textInputType: TextInputType.number,
               ),
               const SizedBox(

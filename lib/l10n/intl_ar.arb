@@ -1,1 +1,271 @@
-{}
+﻿{
+    "aboutUs":  "من نحن",
+    "accountCreatedSuccessfully":  "تم إنشاء الحساب بنجاح",
+    "addedSuccessfully":  "تمت الاضافة بنجاح",
+    "address":  "العنوان",
+    "addToCart":  "أضف إلى السلة",
+    "alert":  "تنبيه",
+    "alertExclamation":  "تنبيه !",
+    "allCategory":  "الكل",
+    "alreadyHaveAccount":  "تمتلك حساب بالفعل ؟",
+    "alreadyRegisteredPleaseSignIn":  "لقد قمت بالتسجيل مسبقاً. الرجاء تسجيل الدخول.",
+    "applyFilter":  "تصفيه",
+    "arabic":  "العربية",
+    "banana":  "موز",
+    "calories":  "سعرات",
+    "cart":  "السلة",
+    "cartIsEmpty":  "السلة فارغة",
+    "cashOnDelivery":  "الدفع عند الاستلام",
+    "category":  "التصنيف",
+    "checkInternetAndCardThenRetry":  "تأكد من الاتصال بالإنترنت ومن صلاحية البطاقة، ثم أعد المحاولة أو تواصل مع الدعم.",
+    "checkInternetConnection":  "تأكد من اتصالك بالإنترنت.",
+    "checkInternetConnectionTypo":  "تاكد من اتصالك بالانترنت.",
+    "city":  "المدينه",
+    "contactSupport":  "التواصل مع الدعم",
+    "continuousUpdates":  "تحديث مستمر",
+    "createAccount":  "قم بإنشاء حساب ",
+    "createNewAccount":  "إنشاء حساب جديد",
+    "creatingAccount":  "جاري إنشاء الحساب...",
+    "currencyShekel":  "شيكل",
+    "date1March2026":  "1 مارس 2026",
+    "date27Feb2026":  "27 فبراير 2026",
+    "date2March2026":  "2 مارس 2026",
+    "defaultUser":  "مستخدم",
+    "deleteAll":  "حذف الكل",
+    "deliveryFromLocation":  "التسليم من المكان",
+    "deliveryLabel":  "التوصيل  :",
+    "designedClearPurchaseExperience":  "لهذا صممنا تجربة شراء واضحة من اختيار المنتج حتى استلام الطلب.",
+    "designMode":  "الوضع",
+    "discount25":  "خصم 25%",
+    "done":  "تم",
+    "dontHaveAccount":  "لا تمتلك حساب؟ ",
+    "easierFreshFruitShoppingExperience":  "تجربة أسهل لشراء الفواكه الطازجة",
+    "edit":  "تعديل",
+    "egpAmount":  "{amount} جنيه",
+    "email":  "البريد الإلكتروني",
+    "emailNotRegistered":  "البريد الإلكتروني غير مسجل مسبقًا.",
+    "emailRequired":  "البريد الإلكتروني مطلوب",
+    "english":  "English",
+    "enterFullName":  "أدخل الاسم الكامل",
+    "error":  "خطأ",
+    "expiry":  "الصلاحية",
+    "failed":  "فشل",
+    "failedToAddProductToFavorites":  "فشل إضافة المنتج للمفضلة",
+    "failedToLoadFavorites":  "فشل تحميل المفضلة",
+    "failedToRemoveProductFromFavorites":  "فشل حذف المنتج من المفضلة",
+    "failedToSendResetLink":  "فشل إرسال رابط إعادة التعيين.",
+    "failedToUpdateData":  "تعذر تحديث البيانات",
+    "fastDelivery":  "توصيل سريع",
+    "favorites":  "المفضلة",
+    "favoritesEmpty":  "المفضلة فارغة",
+    "featuredProducts":  "المنتجات المميزة",
+    "featuredProductsLoadedSuccessfully":  "تم تحميل المنتجات المميزة بنجاح",
+    "female":  "أنثى",
+    "fieldRequired":  "هذا الحقل مطلوب",
+    "filtering":  "الفلترة",
+    "finalTotal":  "الإجمالي النهائي",
+    "floorAndApartmentNumber":  "رقم الطابق , رقم الشقه ..",
+    "forgotPassword":  "نسيت كلمة المرور",
+    "forgotPasswordQuestion":  "نسيت كلمة المرور؟",
+    "fromMyAccountThenLanguage":  "من \"حسابي\" ثم \"اللغة\"، اختر العربية أو الإنجليزية وسيتم تطبيقها فورًا.",
+    "fromMyOrdersOpenOrder":  "من صفحة \"طلباتي\" افتح الطلب المطلوب وستجد تفاصيل الطلب والفاتورة.",
+    "fullName":  "الاسم الكامل",
+    "fullNameRequired":  "الاسم الكامل مطلوب",
+    "gender":  "الجنس",
+    "general":  "عام",
+    "grapes":  "عنب",
+    "guaranteedQuality":  "جودة مضمونة",
+    "help":  "المساعدة",
+    "helpSection":  "الدعم",
+    "holidayOffers":  "عروض العيد",
+    "home":  "الرئيسية",
+    "howAddProductToFavorites":  "كيف أضيف منتج للمفضلة؟",
+    "howCanWeHelpToday":  "كيف نقدر نساعدك اليوم؟",
+    "howChangeLanguage":  "كيف أغير اللغة؟",
+    "howTrackOrderStatus":  "كيف أتابع حالة طلبي؟",
+    "invalidCredentials":  "بيانات تسجيل الدخول غير صحيحة.",
+    "invalidEmail":  "صيغة البريد الإلكتروني غير صحيحة",
+    "invoiceQr":  "QR الفاتورة",
+    "kiwi":  "كيوي",
+    "kmUnit":  "كم",
+    "language":  "اللغة",
+    "languageAppliedImmediatelyAfterSelection":  "سيتم تطبيق اللغة مباشرة بعد الاختيار.",
+    "logout":  "تسجيل الخروج",
+    "male":  "ذكر",
+    "microphoneAccessRequired":  "يجب السماح بالوصول إلى المايك",
+    "monthsCount":  "{months} أشهر",
+    "more":  "المزيد",
+    "mustAcceptTerms":  "يجب الموافقة على الشروط والأحكام",
+    "myAccount":  "حسابي",
+    "myOrders":  "طلباتي",
+    "nameLettersOnly":  "الاسم يجب أن يحتوي على حروف فقط",
+    "nameRequired":  "الاسم مطلوب",
+    "nameTooShort":  "الاسم قصير جدًا",
+    "newAccount":  "حساب جديد",
+    "next":  "التالي",
+    "no":  "لا",
+    "noProductsInCart":  "لا يوجد منتجات في السلة",
+    "notifications":  "الإشعارات",
+    "onboardingSubtitle1":  "اكتشف تجربة تسوق فريدة مع FruitHUB. استكشف مجموعتنا الواسعة من الفواكه الطازجة الممتازة واحصل على أفضل العروض والجودة العالية.",
+    "onboardingSubtitle2":  "نقدم لك أفضل الفواكه المختارة بعناية. اطلع على التفاصيل والصور والتقييمات لتتأكد من اختيار الفاكهة المثالية",
+    "onlinePayment":  "الدفع اونلاين",
+    "or":  "أو",
+    "orangeFruit":  "برتقال",
+    "orderDateLabel":  "تاريخ الطلب: {date}",
+    "orderInvoice":  "فاتورة الطلب",
+    "orderNumberLabel":  "طلب رقم {orderNumber}",
+    "orderSummary":  "ملخص الطلب",
+    "orderSummaryLabel":  "الإجمالي {total}  |  عدد المنتجات: {quantity}",
+    "organic":  "اوجانيك",
+    "ourMission":  "رسالتنا",
+    "ourProducts":  "منتجاتنا",
+    "ourTermsAndConditions":  "الشروط والأحكام الخاصة بنا",
+    "password":  "كلمة المرور",
+    "passwordMinLength":  "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
+    "passwordRequired":  "كلمة المرور مطلوبة",
+    "passwordResetInstruction":  "سيتم ارسال رابط على بريدك الالكتروني لتتمكن من اعادة تعيين كلمة المرور",
+    "passwordResetLinkSent":  "تم إرسال رابط إعادة تعيين كلمة المرور",
+    "payment":  "الدفع",
+    "paymentAmount":  "الدفع {amount} جنيه",
+    "paymentMethodLabel":  "طريقة الدفع: {method}",
+    "payWithStripe":  "الدفع عبر Stripe",
+    "phoneIncomplete":  "رقم الهاتف غير مكتمل",
+    "phoneNumber":  "رقم الهاتف",
+    "phoneRequired":  "رقم الهاتف مطلوب",
+    "pineapple":  "أناناس",
+    "pleaseSelectPaymentMethod":  "يرجي تحديد طريقه الدفع",
+    "price":  "السعر",
+    "productIdUnavailable":  "معرف المنتج غير متوفر",
+    "products":  "المنتجات",
+    "productsLoadedSuccessfully":  "تم تحميل المنتجات بنجاح",
+    "profile":  "الملف الشخصي",
+    "profileInfo":  "معلومات الحساب",
+    "profileSavedSuccessfully":  "تم حفظ البيانات بنجاح",
+    "rating":  "التقييم",
+    "recentSearches":  "عمليات البحث الأخيرة",
+    "redApple":  "تفاح أحمر",
+    "resultsCount":  "{count} نتائج",
+    "saveChanges":  "حفظ التغييرات",
+    "saving":  "جاري الحفظ...",
+    "search":  "البحث",
+    "searchAndShop":  "ابحث وتسوق",
+    "searchByVoiceOrTyping":  "ابحث صوتيًا أو كتابة...",
+    "securePayment":  "دفع آمن",
+    "sending":  "جاري الإرسال...",
+    "shekelPerKilo":  "{price} شيكل / الكيلو",
+    "shipping":  "الشحن",
+    "shippingAddress":  "عنوان التوصيل",
+    "shopNow":  "تسوق الان",
+    "shoppingCart":  "سلة التسوق",
+    "signedInWithGoogle":  "تم تسجيل الدخول باستخدام Google",
+    "signIn":  "تسجيل الدخول",
+    "signInCancelled":  "تم إلغاء تسجيل الدخول",
+    "signingIn":  "جاري تسجيل الدخول...",
+    "signInSuccessful":  "تم تسجيل الدخول بنجاح",
+    "signInWithGoogle":  "تسجيل بواسطة جوجل",
+    "skip":  "تخط",
+    "somethingWentWrongTryAgain":  "لقد حدث خطأ ما. الرجاء المحاولة مرة اخرى.",
+    "sorryDataUnavailableNow":  "عفوًا... هذه المعلومات غير متوفرة للحظة",
+    "startNow":  "ابدأ الان",
+    "strawberry":  "فراولة",
+    "subtotal":  "المجموع",
+    "subtotalLabel":  "المجموع الفرعي :",
+    "success":  "نجاح",
+    "supportHours":  "من 9:00 صباحًا حتى 10:00 مساءً",
+    "tapHeartIconInProductCard":  "اضغط على أيقونة القلب داخل بطاقة المنتج، وسيظهر المنتج مباشرة في صفحة المفضلة.",
+    "termsAcceptancePrefix":  "من خلال إنشاء حساب ، فإنك توافق على ",
+    "termsAndConditions":  "الشروط والأحكام",
+    "termsAndConditionsContent":  "مرحبا بك في تطبيقنا!\n\nيرجى قراءة الشروط والأحكام التالية بعناية قبل استخدام التطبيق:\n\n1. استخدام التطبيق يعني موافقتك على هذه الشروط.\n2. لا يجوز استخدام التطبيق لأي أغراض غير قانونية.\n3. نحن غير مسؤولين عن أي خسائر ناتجة عن استخدام التطبيق.\n4. المحتوى المعروض في التطبيق محمي بحقوق الطبع والنشر.\n5. يحق لنا تعديل الشروط في أي وقت، ويكون التعديل ساري المفعول فور نشره.\n6. إذا لم توافق على هذه الشروط، يُرجى عدم استخدام التطبيق.\n\nشكرًا لاستخدامك تطبيقنا!",
+    "thanksForTrustingFruitHub":  "شكرًا لثقتك بـ FruitHub",
+    "thisEmailIsNotRegistered":  "هذا البريد غير مسجل.",
+    "totalLabel":  "الكلي",
+    "unexpectedErrorTryAgain":  "حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى.",
+    "unexpectedErrorTryLater":  "حدث خطأ غير متوقع، الرجاء المحاولة لاحقًا.",
+    "updateDataHint":  "حدّث بياناتك وسيتم حفظها محليًا.",
+    "weBelieveFreshProductsShouldBeSimpleAndFast":  "نؤمن أن الوصول إلى منتجات طازجة بجودة عالية يجب أن يكون بسيطًا وسريعًا لكل بيت.",
+    "weContinuouslyImproveApp":  "نطوّر التطبيق باستمرار بناءً على ملاحظاتكم ونضيف مزايا جديدة لتحسين تجربة التسوق يومًا بعد يوم.",
+    "weFocusOnTransparentPricing":  "نركز على وضوح الأسعار، سهولة الدفع، وسلاسة التتبع.",
+    "welcomeBack":  "مرحبا بك !..",
+    "welcomeTo":  "مرحبًا بك في",
+    "weWorkWithTrustedSuppliers":  "نعمل مع موردين موثوقين ونراجع جودة الطلبات قبل الشحن.",
+    "whatIfPaymentIssue":  "ماذا أفعل إذا واجهت مشكلة في الدفع؟",
+    "whatWeCommitTo":  "ما نلتزم به",
+    "whyFruitHub":  "لماذا FruitHub؟",
+    "yes":  "نعم",
+    "youHaveItemsInCart":  "لديك {count} منتجات في سله التسوق",
+    "@egpAmount":  {
+                       "placeholders":  {
+                                            "amount":  {
+                                                           "type":  "String"
+                                                       }
+                                        }
+                   },
+    "@shekelPerKilo":  {
+                           "placeholders":  {
+                                                "price":  {
+                                                              "type":  "String"
+                                                          }
+                                            }
+                       },
+    "@youHaveItemsInCart":  {
+                                "placeholders":  {
+                                                     "count":  {
+                                                                   "type":  "String"
+                                                               }
+                                                 }
+                            },
+    "@paymentAmount":  {
+                           "placeholders":  {
+                                                "amount":  {
+                                                               "type":  "String"
+                                                           }
+                                            }
+                       },
+    "@resultsCount":  {
+                          "placeholders":  {
+                                               "count":  {
+                                                             "type":  "String"
+                                                         }
+                                           }
+                      },
+    "@monthsCount":  {
+                         "placeholders":  {
+                                              "months":  {
+                                                             "type":  "String"
+                                                         }
+                                          }
+                     },
+    "@orderNumberLabel":  {
+                              "placeholders":  {
+                                                   "orderNumber":  {
+                                                                       "type":  "String"
+                                                                   }
+                                               }
+                          },
+    "@orderSummaryLabel":  {
+                               "placeholders":  {
+                                                    "total":  {
+                                                                  "type":  "String"
+                                                              },
+                                                    "quantity":  {
+                                                                     "type":  "String"
+                                                                 }
+                                                }
+                           },
+    "@paymentMethodLabel":  {
+                                "placeholders":  {
+                                                     "method":  {
+                                                                    "type":  "String"
+                                                                }
+                                                 }
+                            },
+    "@orderDateLabel":  {
+                            "placeholders":  {
+                                                 "date":  {
+                                                              "type":  "String"
+                                                          }
+                                             }
+                        }
+}
+
+

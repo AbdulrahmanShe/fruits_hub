@@ -1,6 +1,7 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/search/presentation/views/widgets/voice_search_button.dart';
 import 'package:fruits_hub/features/search/presentation/views/search_view.dart';
 import 'package:svg_flutter/svg.dart';
@@ -132,7 +133,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
             hintStyle: TextStyles.regular13.copyWith(
               color: const Color(0xFF949D9E),
             ),
-            hintText: 'ابحث صوتيًا أو كتابة...',
+            hintText: S.of(context).searchByVoiceOrTyping,
             filled: true,
             fillColor: Colors.grey.shade100, //Colors.white,
             border: buildBorder(),

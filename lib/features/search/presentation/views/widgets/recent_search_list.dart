@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
 
@@ -18,14 +19,12 @@ class RecentSearchList extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Text('عمليات البحث الأخيرة',
-              style: TextStyles.semiBold13,
-              ),
-              Spacer(),
+              Text(S.of(context).recentSearches, style: TextStyles.semiBold13),
+              const Spacer(),
                GestureDetector(
                 onTap: () => controller.clearRecentSearches(),
                  child: Text(
-                  'حذف الكل',
+                  S.of(context).deleteAll,
                   style: TextStyles.regular13.copyWith(
               color: const Color(0xFF949D9E),
                   ),

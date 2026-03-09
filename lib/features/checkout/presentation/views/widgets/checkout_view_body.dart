@@ -5,6 +5,7 @@ import 'package:fruits_hub/features/checkout/presentation/controller/add_order_c
 import 'package:fruits_hub/features/checkout/presentation/controller/checkout_controller.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/widgets/checkout_steps.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/widgets/checkout_steps_page_view.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class CheckoutViewBody extends StatefulWidget {
@@ -113,20 +114,20 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
       pageController.animateToPage(currentPageIndex + 1,
           duration: const Duration(milliseconds: 300), curve: Curves.bounceIn);
     } else {
-      showSnackBar('تنبيه !', 'يرجي تحديد طريقه الدفع');
+      showSnackBar(S.of(context).alertExclamation, S.of(context).pleaseSelectPaymentMethod);
     }
   }
   
   String getNextButtonText(int currentPageIndex) {
     switch (currentPageIndex) {
       case 0:
-        return 'التالي';
+        return S.of(context).next;
       case 1:
-        return 'التالي';
+        return S.of(context).next;
       case 2:
-        return 'الدفع عبر Stripe';
+        return S.of(context).payWithStripe;
       default:
-        return 'التالي';
+        return S.of(context).next;
     }
   }
 

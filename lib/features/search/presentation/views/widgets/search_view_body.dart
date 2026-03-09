@@ -8,6 +8,7 @@ import 'package:fruits_hub/features/search/presentation/views/widgets/search_tex
 import 'package:fruits_hub/features/home/presentation/views/widgets/products_view_header.dart';
 import 'package:fruits_hub/features/search/presentation/views/widgets/filter_bottom_sheet.dart';
 import 'package:fruits_hub/features/search/presentation/controller/voice_search_controller.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class SearchViewBody extends StatefulWidget {
@@ -60,7 +61,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
               children: [
                 const SizedBox(height: kTopPaddding),
 
-                buildAppBarSearch(title:  'البحث'),
+                buildAppBarSearch(title: S.of(context).search),
 
                 const SizedBox(height: 16),
                  SearchTextField(),

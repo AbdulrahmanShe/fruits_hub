@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 
 class PasswordField extends StatefulWidget {
   const PasswordField({
-    super.key, this.onChanged, this.obscureText = true, this.hintText = 'كلمة المرور',
+    super.key,
+    this.onChanged,
+    this.obscureText = true,
+    this.hintText,
   });
 
   final void Function(String)? onChanged;
   final bool obscureText;
-  final String hintText;
+  final String? hintText;
 
   @override
   State<PasswordField> createState() => _PasswordFieldState();
@@ -17,7 +21,7 @@ class PasswordField extends StatefulWidget {
 class _PasswordFieldState extends State<PasswordField> {
 
 late bool obscureText;
-late String hintText;
+late String? hintText;
 
 @override
   void initState() {
@@ -31,16 +35,16 @@ late String hintText;
     return CustomTextFormField(
       validator: (value) {
   if (value == null || value.isEmpty) {
-    return 'كلمة المرور مطلوبة';
+    return S.of(context).passwordRequired;
   }
   if (value.length < 6) {
-    return 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+    return S.of(context).passwordMinLength;
   }
   return null;
 },
 
       obscureText: obscureText,
-       hintText: hintText, 
+       hintText: hintText ?? S.of(context).password, 
           textInputType: TextInputType.visiblePassword,
             onChanged: widget.onChanged,
           suffixIcon: GestureDetector(

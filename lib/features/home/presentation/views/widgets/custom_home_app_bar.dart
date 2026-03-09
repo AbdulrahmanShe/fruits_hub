@@ -3,6 +3,7 @@ import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/notification_widget.dart';
 import 'package:fruits_hub/features/home/presentation/controller/profile_controller.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class CustomHomeAppBar extends StatelessWidget {
@@ -19,7 +20,7 @@ class CustomHomeAppBar extends StatelessWidget {
               : Assets.imagesProfileImageMale;
       final name =
           profileController.userName.value.isEmpty
-              ? 'مستخدم'
+              ? S.of(context).defaultUser
               : profileController.userName.value;
 
       return ListTile(
@@ -31,7 +32,7 @@ class CustomHomeAppBar extends StatelessWidget {
           ),
         ),
         title: Text(
-          'مرحبا بك !..',
+          S.of(context).welcomeBack,
           textAlign: TextAlign.right,
           style: TextStyles.regular16.copyWith(
             color: const Color(0xFF949D9E),

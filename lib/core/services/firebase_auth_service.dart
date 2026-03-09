@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fruits_hub/core/errors/exceptions.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
@@ -31,18 +32,18 @@ class FirebaseAuthService {
       log("Exception in FirebaseAuthService.createUserWithEmailAndPassword: ${e.toString()} and code is ${e.code}");
       if (e.code == 'email-already-in-use') {
         throw CustomException(
-            message: 'لقد قمت بالتسجيل مسبقاً. الرجاء تسجيل الدخول.');
+            message: S.current.alreadyRegisteredPleaseSignIn);
       } else if (e.code == 'network-request-failed') {
-        throw CustomException(message: 'تاكد من اتصالك بالانترنت.');
+        throw CustomException(message: S.current.checkInternetConnectionTypo);
       } else {
         throw CustomException(
-            message: 'لقد حدث خطأ ما. الرجاء المحاولة مرة اخرى.');
+            message: S.current.somethingWentWrongTryAgain);
       }
     } catch (e) {
       log("Exception in FirebaseAuthService.createUserWithEmailAndPassword: ${e.toString()}");
 
       throw CustomException(
-          message: 'لقد حدث خطأ ما. الرجاء المحاولة مرة اخرى.');
+          message: S.current.somethingWentWrongTryAgain);
     }
   }
 
@@ -67,22 +68,22 @@ class FirebaseAuthService {
     switch (e.code) {
       case 'user-not-found':
         throw CustomException(
-          message: 'البريد الإلكتروني غير مسجل مسبقًا.',
+          message: S.current.emailNotRegistered,
         );
 
       case 'invalid-credential':
         throw CustomException(
-          message: 'بيانات تسجيل الدخول غير صحيحة.',
+          message: S.current.invalidCredentials,
         );
 
       case 'network-request-failed':
         throw CustomException(
-          message: 'تأكد من اتصالك بالإنترنت.',
+          message: S.current.checkInternetConnection,
         );
 
       default:
         throw CustomException(
-          message: 'حدث خطأ غير متوقع، الرجاء المحاولة لاحقًا.',
+          message: S.current.unexpectedErrorTryLater,
         );
     }
   } catch (e) {
@@ -91,7 +92,7 @@ class FirebaseAuthService {
     );
 
     throw CustomException(
-      message: 'حدث خطأ غير متوقع، الرجاء المحاولة مرة أخرى.',
+      message: S.current.unexpectedErrorTryAgain,
     );
   }
 }
@@ -104,9 +105,9 @@ class FirebaseAuthService {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        throw CustomException(message: 'هذا البريد غير مسجل.');
+        throw CustomException(message: S.current.thisEmailIsNotRegistered);
       } else {
-        throw CustomException(message: 'فشل إرسال رابط إعادة التعيين.');
+        throw CustomException(message: S.current.failedToSendResetLink);
       }
     }
   }
@@ -115,7 +116,7 @@ class FirebaseAuthService {
   final account = await GetGoogleAccount()._getGoogleAccount();
 
   if (account == null) {
-    throw CustomException(message: 'تم إلغاء تسجيل الدخول');
+    throw CustomException(message: S.current.signInCancelled);
   }
 
   final googleAuth =  account.authentication;

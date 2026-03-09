@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/sign_in_view_body.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 
 class SignInView extends StatelessWidget {
   const SignInView({super.key});
@@ -11,8 +12,8 @@ class SignInView extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(
         context,
-        title: 'تسجيل الدخول',
-        showBackBottom: false
+        title: S.of(context).signIn,
+        showBackBottom: false,
       ),
       body: SignInViewBody(),
     );

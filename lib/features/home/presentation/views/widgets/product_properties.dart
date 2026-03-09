@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 
 class ProductProperties extends StatelessWidget {
   const ProductProperties({super.key, required this.product});
@@ -20,22 +21,22 @@ class ProductProperties extends StatelessWidget {
       children: [
         PropertyItem(
           icon: Icons.eco,
-          title: 'اوجانيك',
-          value: product.isOrganic ? 'نعم' : 'لا',
+          title: S.of(context).organic,
+          value: product.isOrganic ? S.of(context).yes : S.of(context).no,
         ),
         PropertyItem(
           icon: Icons.calendar_today,
-          title: 'الصلاحية',
-          value: '${product.expirationMonths} أشهر',
+          title: S.of(context).expiry,
+          value: S.of(context).monthsCount(product.expirationMonths.toString()),
         ),
         PropertyItem(
           icon: Icons.local_fire_department,
-          title: 'سعرات',
+          title: S.of(context).calories,
           value: product.numberOfCalories.toString(),
         ),
         PropertyItem(
           icon: Icons.star,
-          title: 'التقييم',
+          title: S.of(context).rating,
           value: product.avgRating.toString(),
         ),
       ],

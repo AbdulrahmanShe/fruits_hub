@@ -3,6 +3,7 @@ import 'package:fruits_hub/features/search/presentation/controller/voice_search_
 import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/errors/failures.dart';
 import 'package:fruits_hub/core/repos/products_repo/products_repo.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class ProductsController extends GetxController {
@@ -21,7 +22,7 @@ class ProductsController extends GetxController {
   // Filter
 final minPrice = 0.0.obs;
 final maxPrice = 20.0.obs;
-final selectedCategory = 'الكل'.obs;
+final selectedCategory = S.current.allCategory.obs;
 final availableCategories = <String>[].obs;
 
   final currentView = ProductsListView.featured.obs;
@@ -35,7 +36,7 @@ final availableCategories = <String>[].obs;
 
   List<ProductEntity> get displayProducts {
   if (searchQuery.isNotEmpty ||
-      selectedCategory.value != 'الكل' ||
+      selectedCategory.value != S.current.allCategory ||
       minPrice.value != 0 ||
       maxPrice.value != 20) {
     return filteredProducts;
@@ -54,7 +55,7 @@ final availableCategories = <String>[].obs;
   final result = await productsRepo.getProducts();
   isLoading.value = false;
   
-  return handleProductsResult(result,target: products, successMessage: 'تم تحميل المنتجات بنجاح');
+  return handleProductsResult(result,target: products, successMessage: S.current.productsLoadedSuccessfully);
 
   } 
 
@@ -68,7 +69,7 @@ final availableCategories = <String>[].obs;
   final result = await productsRepo.getFeaturedProducts();
   isLoading.value = false;
   
-  return handleProductsResult(result,target: featuredProducts, successMessage: 'تم تحميل المنتجات المميزة بنجاح');
+  return handleProductsResult(result,target: featuredProducts, successMessage: S.current.featuredProductsLoadedSuccessfully);
   
 	  }
 	    
@@ -91,7 +92,7 @@ final availableCategories = <String>[].obs;
           (failure) {
             errorMessage.value = failure.message;
       Get.snackbar(
-        'خطأ',
+        S.current.error,
         failure.message,
         snackPosition: SnackPosition.BOTTOM,
       );
@@ -170,7 +171,7 @@ void applyFilter() {
         product.price <= maxPrice.value;
 
     final matchesCategory =
-        category == 'الكل' ||
+        category == S.current.allCategory ||
         product.category == category;
 
     final matchesSearch =
@@ -186,10 +187,10 @@ void applyFilter() {
   List<String> get categories {
     if (availableCategories.isEmpty) {
       final set = activeProducts.map((e) => e.category).toSet().toList();
-      set.insert(0, 'الكل');
+      set.insert(0, S.current.allCategory);
       return set;
     }
-    return ['الكل', ...availableCategories];
+    return [S.current.allCategory, ...availableCategories];
   }
 void selectCategory(String category) {
   selectedCategory.value = category;
@@ -209,7 +210,7 @@ void selectCategory(String category) {
 
   /// أسماء التصنيفات (مع الكل)
   List<String> get categorie {
-    return ['الكل', ...categoriesWithProduct.keys];
+    return [S.current.allCategory, ...categoriesWithProduct.keys];
   }
 
   void setView(ProductsListView view) {
@@ -217,7 +218,7 @@ void selectCategory(String category) {
     // Reset filters when switching views so category selection
     // in one view doesn't affect the other.
     searchQuery.value = '';
-    selectedCategory.value = 'الكل';
+    selectedCategory.value = S.current.allCategory;
     minPrice.value = 0;
     maxPrice.value = 20;
     filteredProducts.clear();

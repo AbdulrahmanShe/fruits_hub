@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/features/home/presentation/controller/cart_controller.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class CartHeader extends StatelessWidget {
@@ -15,7 +16,7 @@ class CartHeader extends StatelessWidget {
       child: Center(
         child: Obx((){
           return Text(
-            'لديك ${controller.totalItems} منتجات في سله التسوق', //${controller.totalItems} 
+            S.of(context).youHaveItemsInCart(controller.totalItems.toString()),
             style: const TextStyle(
               color: Color(0xFF1B5E37),
               fontSize: 13,

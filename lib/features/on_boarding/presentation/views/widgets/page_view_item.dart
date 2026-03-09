@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/services/shared_preferences_singleton.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
 import 'package:svg_flutter/svg_flutter.dart';
 
@@ -52,7 +53,7 @@ class PageViewItem extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Text(
-                      'تخط',
+                      S.of(context).skip,
                       style: TextStyles.regular13.copyWith(
                         color: const Color(0xFF949D9E),
                       ),
