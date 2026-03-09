@@ -1,4 +1,5 @@
 import 'package:fruits_hub/features/home/presentation/controller/cart_controller.dart';
+import 'package:fruits_hub/features/home/presentation/controller/profile_controller.dart';
 import 'package:get/get.dart';
 
 class GlobalBinding extends Bindings {
@@ -6,6 +7,10 @@ class GlobalBinding extends Bindings {
   void dependencies() {
     Get.put<CartController>(
       CartController(),
+      permanent: true,
+    );
+    Get.put<ProfileController>(
+      ProfileController(),
       permanent: true,
     );
   }
