@@ -8,6 +8,7 @@ import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
+import 'package:fruits_hub/features/home/presentation/controller/profile_controller.dart';
 import 'package:fruits_hub/features/home/presentation/views/about_us_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/help_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/language_view.dart';
@@ -26,6 +27,7 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   static const String notificationsEnabledKey = 'notificationsEnabled';
   static const String designModeEnabledKey = 'designModeEnabled';
+  final ProfileController profileController = Get.find<ProfileController>();
 
   _UserData userData = const _UserData(name: '', email: '');
   bool notificationsEnabled = true;
@@ -36,6 +38,7 @@ class _ProfileViewState extends State<ProfileView> {
     super.initState();
     _readUserData();
     _readSettings();
+    profileController.loadFromLocal();
   }
 
   void _readUserData() {
@@ -287,47 +290,60 @@ class _ProfileTop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ClipOval(
-          child: Image.asset(
-            Assets.imagesProfileImage,
-            width: 80,
-            height: 80,
-            fit: BoxFit.cover,
+    final profileController = Get.find<ProfileController>();
+
+    return Obx(() {
+      final avatarPath =
+          profileController.gender.value == 'female'
+              ? Assets.imagesProfileImageFemale
+              : Assets.imagesProfileImageMale;
+      final displayName =
+          profileController.userName.value.isEmpty
+              ? name
+              : profileController.userName.value;
+
+      return Row(
+        children: [
+          ClipOval(
+            child: Image.asset(
+              avatarPath,
+              width: 80,
+              height: 80,
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        const SizedBox(width: 22),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Color(0xFF121212),
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
+          const SizedBox(width: 22),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  displayName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF121212),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                email,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Color(0xFF898F93),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
+                const SizedBox(height: 4),
+                Text(
+                  email,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF898F93),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    });
   }
 }
 
