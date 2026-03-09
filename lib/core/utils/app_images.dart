@@ -70,9 +70,13 @@ class Assets {
   /// assets/images/plant.svg
   static const String imagesPlant = "assets/images/plant.svg";
 
-  /// Assets for imagesProfileImage
-  /// assets/images/profile_image.png
-  static const String imagesProfileImage = "assets/images/profile_image.png";
+  /// Assets for imagesProfileImageFemale
+  /// assets/images/profile_image_female.png
+  static const String imagesProfileImageFemale = "assets/images/profile_image_female.png";
+
+  /// Assets for imagesProfileImageMale
+  /// assets/images/profile_image_male.png
+  static const String imagesProfileImageMale = "assets/images/profile_image_male.png";
 
   /// Assets for imagesSearchIcon
   /// assets/images/search_icon.svg
