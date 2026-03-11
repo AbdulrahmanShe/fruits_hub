@@ -20,24 +20,26 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
-  static String m0(months) => "${months} أشهر";
+  static String m0(amount) => "${amount} شيكل";
 
-  static String m1(date) => "تاريخ الطلب: ${date}";
+  static String m1(months) => "${months} أشهر";
 
-  static String m2(orderNumber) => "طلب رقم ${orderNumber}";
+  static String m2(date) => "تاريخ الطلب: ${date}";
 
-  static String m3(total, quantity) =>
+  static String m3(orderNumber) => "طلب رقم ${orderNumber}";
+
+  static String m4(total, quantity) =>
       "الإجمالي ${total}  |  عدد المنتجات: ${quantity}";
 
-  static String m4(amount) => "الدفع ${amount} جنيه";
+  static String m5(amount) => "الدفع ${amount} جنيه";
 
-  static String m5(method) => "طريقة الدفع: ${method}";
+  static String m6(method) => "طريقة الدفع: ${method}";
 
-  static String m6(count) => "${count} نتائج";
+  static String m7(count) => "${count} نتائج";
 
-  static String m7(price) => "${price} شيكل / الكيلو";
+  static String m8(price) => "${price} ₪ / الكيلو";
 
-  static String m8(count) => "لديك ${count} منتجات في سله التسوق";
+  static String m9(count) => "لديك ${count} منتجات في سله التسوق";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -63,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
     "banana": MessageLookupByLibrary.simpleMessage("موز"),
     "calories": MessageLookupByLibrary.simpleMessage("سعرات"),
+    "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
     "cart": MessageLookupByLibrary.simpleMessage("السلة"),
     "cartIsEmpty": MessageLookupByLibrary.simpleMessage("السلة فارغة"),
     "cashOnDelivery": MessageLookupByLibrary.simpleMessage(
@@ -79,6 +82,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "تاكد من اتصالك بالانترنت.",
     ),
     "city": MessageLookupByLibrary.simpleMessage("المدينه"),
+    "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
+    "confirmLogoutMessage": MessageLookupByLibrary.simpleMessage(
+      "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+    ),
+    "confirmLogoutTitle": MessageLookupByLibrary.simpleMessage(
+      "تأكيد تسجيل الخروج",
+    ),
     "contactSupport": MessageLookupByLibrary.simpleMessage("التواصل مع الدعم"),
     "continuousUpdates": MessageLookupByLibrary.simpleMessage("تحديث مستمر"),
     "createAccount": MessageLookupByLibrary.simpleMessage("قم بإنشاء حساب "),
@@ -184,6 +194,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "howTrackOrderStatus": MessageLookupByLibrary.simpleMessage(
       "كيف أتابع حالة طلبي؟",
     ),
+    "ilsAmount": m0,
     "invalidCredentials": MessageLookupByLibrary.simpleMessage(
       "بيانات تسجيل الدخول غير صحيحة.",
     ),
@@ -203,7 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "microphoneAccessRequired": MessageLookupByLibrary.simpleMessage(
       "يجب السماح بالوصول إلى المايك",
     ),
-    "monthsCount": m0,
+    "monthsCount": m1,
     "more": MessageLookupByLibrary.simpleMessage("المزيد"),
     "mustAcceptTerms": MessageLookupByLibrary.simpleMessage(
       "يجب الموافقة على الشروط والأحكام",
@@ -231,11 +242,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "onlinePayment": MessageLookupByLibrary.simpleMessage("الدفع اونلاين"),
     "or": MessageLookupByLibrary.simpleMessage("أو"),
     "orangeFruit": MessageLookupByLibrary.simpleMessage("برتقال"),
-    "orderDateLabel": m1,
+    "orderDateLabel": m2,
     "orderInvoice": MessageLookupByLibrary.simpleMessage("فاتورة الطلب"),
-    "orderNumberLabel": m2,
+    "orderNumberLabel": m3,
     "orderSummary": MessageLookupByLibrary.simpleMessage("ملخص الطلب"),
-    "orderSummaryLabel": m3,
+    "orderSummaryLabel": m4,
     "organic": MessageLookupByLibrary.simpleMessage("اوجانيك"),
     "ourMission": MessageLookupByLibrary.simpleMessage("رسالتنا"),
     "ourProducts": MessageLookupByLibrary.simpleMessage("منتجاتنا"),
@@ -257,8 +268,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "payWithStripe": MessageLookupByLibrary.simpleMessage("الدفع عبر Stripe"),
     "payment": MessageLookupByLibrary.simpleMessage("الدفع"),
-    "paymentAmount": m4,
-    "paymentMethodLabel": m5,
+    "paymentAmount": m5,
+    "paymentMethodLabel": m6,
     "phoneIncomplete": MessageLookupByLibrary.simpleMessage(
       "رقم الهاتف غير مكتمل",
     ),
@@ -286,7 +297,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "عمليات البحث الأخيرة",
     ),
     "redApple": MessageLookupByLibrary.simpleMessage("تفاح أحمر"),
-    "resultsCount": m6,
+    "resultsCount": m7,
     "saveChanges": MessageLookupByLibrary.simpleMessage("حفظ التغييرات"),
     "saving": MessageLookupByLibrary.simpleMessage("جاري الحفظ..."),
     "search": MessageLookupByLibrary.simpleMessage("البحث"),
@@ -296,7 +307,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "securePayment": MessageLookupByLibrary.simpleMessage("دفع آمن"),
     "sending": MessageLookupByLibrary.simpleMessage("جاري الإرسال..."),
-    "shekelPerKilo": m7,
+    "shekelPerKilo": m8,
     "shipping": MessageLookupByLibrary.simpleMessage("الشحن"),
     "shippingAddress": MessageLookupByLibrary.simpleMessage("عنوان التوصيل"),
     "shopNow": MessageLookupByLibrary.simpleMessage("تسوق الان"),
@@ -379,6 +390,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "whatWeCommitTo": MessageLookupByLibrary.simpleMessage("ما نلتزم به"),
     "whyFruitHub": MessageLookupByLibrary.simpleMessage("لماذا FruitHub؟"),
     "yes": MessageLookupByLibrary.simpleMessage("نعم"),
-    "youHaveItemsInCart": m8,
+    "youHaveItemsInCart": m9,
   };
 }

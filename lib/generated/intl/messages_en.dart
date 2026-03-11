@@ -20,25 +20,25 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m9(amount) => "${amount} ILS";
+  static String m0(amount) => "${amount} ILS";
 
-  static String m0(months) => "${months} months";
+  static String m1(months) => "${months} months";
 
-  static String m1(date) => "Order date: ${date}";
+  static String m2(date) => "Order date: ${date}";
 
-  static String m2(orderNumber) => "Order No. ${orderNumber}";
+  static String m3(orderNumber) => "Order No. ${orderNumber}";
 
-  static String m3(total, quantity) => "Total ${total} | Items: ${quantity}";
+  static String m4(total, quantity) => "Total ${total} | Items: ${quantity}";
 
-  static String m4(amount) => "Pay ${amount} EGP";
+  static String m5(amount) => "Pay ${amount} ILS";
 
-  static String m5(method) => "Payment method: ${method}";
+  static String m6(method) => "Payment method: ${method}";
 
-  static String m6(count) => "${count} results";
+  static String m7(count) => "${count} results";
 
-  static String m7(price) => "${price} ₪ / kg";
+  static String m8(price) => "${price} ₪ / kg";
 
-  static String m8(count) => "You have ${count} items in your cart";
+  static String m9(count) => "You have ${count} items in your cart";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -64,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
     "banana": MessageLookupByLibrary.simpleMessage("Banana"),
     "calories": MessageLookupByLibrary.simpleMessage("Calories"),
+    "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "cart": MessageLookupByLibrary.simpleMessage("Cart"),
     "cartIsEmpty": MessageLookupByLibrary.simpleMessage("Cart is empty"),
     "cashOnDelivery": MessageLookupByLibrary.simpleMessage("Cash on delivery"),
@@ -78,6 +79,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "Check your internet connection.",
     ),
     "city": MessageLookupByLibrary.simpleMessage("City"),
+    "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+    "confirmLogoutMessage": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to log out?",
+    ),
+    "confirmLogoutTitle": MessageLookupByLibrary.simpleMessage(
+      "Confirm logout",
+    ),
     "contactSupport": MessageLookupByLibrary.simpleMessage("Contact Support"),
     "continuousUpdates": MessageLookupByLibrary.simpleMessage(
       "Continuous Updates",
@@ -89,7 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "creatingAccount": MessageLookupByLibrary.simpleMessage(
       "Creating account...",
     ),
-    "currencyShekel": MessageLookupByLibrary.simpleMessage("Shekel"),
+    "currencyShekel": MessageLookupByLibrary.simpleMessage("ILS"),
     "date1March2026": MessageLookupByLibrary.simpleMessage("March 1, 2026"),
     "date27Feb2026": MessageLookupByLibrary.simpleMessage("February 27, 2026"),
     "date2March2026": MessageLookupByLibrary.simpleMessage("March 2, 2026"),
@@ -193,7 +201,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "howTrackOrderStatus": MessageLookupByLibrary.simpleMessage(
       "How do I track my order?",
     ),
-    "ilsAmount": m9,
+    "ilsAmount": m0,
     "invalidCredentials": MessageLookupByLibrary.simpleMessage(
       "Invalid sign-in credentials.",
     ),
@@ -213,7 +221,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "microphoneAccessRequired": MessageLookupByLibrary.simpleMessage(
       "Microphone permission is required.",
     ),
-    "monthsCount": m0,
+    "monthsCount": m1,
     "more": MessageLookupByLibrary.simpleMessage("More"),
     "mustAcceptTerms": MessageLookupByLibrary.simpleMessage(
       "You must accept terms and conditions",
@@ -241,11 +249,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "onlinePayment": MessageLookupByLibrary.simpleMessage("Online payment"),
     "or": MessageLookupByLibrary.simpleMessage("or"),
     "orangeFruit": MessageLookupByLibrary.simpleMessage("Orange"),
-    "orderDateLabel": m1,
+    "orderDateLabel": m2,
     "orderInvoice": MessageLookupByLibrary.simpleMessage("Order Invoice"),
-    "orderNumberLabel": m2,
+    "orderNumberLabel": m3,
     "orderSummary": MessageLookupByLibrary.simpleMessage("Order Summary"),
-    "orderSummaryLabel": m3,
+    "orderSummaryLabel": m4,
     "organic": MessageLookupByLibrary.simpleMessage("Organic"),
     "ourMission": MessageLookupByLibrary.simpleMessage("Our Mission"),
     "ourProducts": MessageLookupByLibrary.simpleMessage("Our Products"),
@@ -267,8 +275,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "payWithStripe": MessageLookupByLibrary.simpleMessage("Pay with Stripe"),
     "payment": MessageLookupByLibrary.simpleMessage("Payment"),
-    "paymentAmount": m4,
-    "paymentMethodLabel": m5,
+    "paymentAmount": m5,
+    "paymentMethodLabel": m6,
     "phoneIncomplete": MessageLookupByLibrary.simpleMessage(
       "Phone number is incomplete",
     ),
@@ -296,7 +304,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "rating": MessageLookupByLibrary.simpleMessage("Rating"),
     "recentSearches": MessageLookupByLibrary.simpleMessage("Recent Searches"),
     "redApple": MessageLookupByLibrary.simpleMessage("Red Apple"),
-    "resultsCount": m6,
+    "resultsCount": m7,
     "saveChanges": MessageLookupByLibrary.simpleMessage("Save Changes"),
     "saving": MessageLookupByLibrary.simpleMessage("Saving..."),
     "search": MessageLookupByLibrary.simpleMessage("Search"),
@@ -306,7 +314,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "securePayment": MessageLookupByLibrary.simpleMessage("Secure Payment"),
     "sending": MessageLookupByLibrary.simpleMessage("Sending..."),
-    "shekelPerKilo": m7,
+    "shekelPerKilo": m8,
     "shipping": MessageLookupByLibrary.simpleMessage("Shipping"),
     "shippingAddress": MessageLookupByLibrary.simpleMessage("Shipping Address"),
     "shopNow": MessageLookupByLibrary.simpleMessage("Shop now"),
@@ -387,6 +395,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "whatWeCommitTo": MessageLookupByLibrary.simpleMessage("What We Commit To"),
     "whyFruitHub": MessageLookupByLibrary.simpleMessage("Why FruitHub?"),
     "yes": MessageLookupByLibrary.simpleMessage("Yes"),
-    "youHaveItemsInCart": m8,
+    "youHaveItemsInCart": m9,
   };
 }

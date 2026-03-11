@@ -37,21 +37,30 @@ class FruitItem extends StatelessWidget {
         child: Stack(
           children: [
             /// ❤️ Favorite Icon
-            Positioned(
+            PositionedDirectional(
               top: 4,
-              right: 4,
+              start: 4,
               child: Obx(() {
-                final isFav =
-                    favoriteController.isFavorite(productEntity);
+                final isFav = favoriteController.isFavorite(productEntity);
       
-                return IconButton(
-                  icon: Icon(
-                    isFav ? Icons.favorite : Icons.favorite_border,
-                    color: isFav ? Colors.red : Colors.grey,
+                return Material(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  // elevation: 2,
+                  borderRadius: BorderRadius.circular(999),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(999),
+                    onTap: () {
+                      favoriteController.toggleFavorite(productEntity);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: Icon(
+                        isFav ? Icons.favorite : Icons.favorite_border,
+                        color: isFav ? Colors.red : const Color(0xFF8A9294),
+                        size: 20,
+                      ),
+                    ),
                   ),
-                  onPressed: () {
-                    favoriteController.toggleFavorite(productEntity);
-                  },
                 );
               }),
             ),

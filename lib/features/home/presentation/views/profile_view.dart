@@ -78,6 +78,32 @@ class _ProfileViewState extends State<ProfileView> {
     Get.offAllNamed(SignInView.routeName);
   }
 
+  Future<void> _confirmLogout() async {
+    final strings = S.of(context);
+    final shouldLogout = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(strings.confirmLogoutTitle),
+          content: Text(strings.confirmLogoutMessage),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(strings.cancel),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(strings.confirm),
+            ),
+          ],
+        );
+      },
+    );
+    if (shouldLogout == true) {
+      await _logout();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final name = userData.name.isEmpty ? 'abed' : userData.name;
@@ -252,7 +278,7 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: _logout,
+                  onTap: _confirmLogout,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(

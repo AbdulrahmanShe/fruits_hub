@@ -224,6 +224,36 @@ class S {
     );
   }
 
+  /// `Confirm`
+  String get confirm {
+    return Intl.message('Confirm', name: 'confirm', desc: '', args: []);
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
+  }
+
+  /// `Confirm logout`
+  String get confirmLogoutTitle {
+    return Intl.message(
+      'Confirm logout',
+      name: 'confirmLogoutTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to log out?`
+  String get confirmLogoutMessage {
+    return Intl.message(
+      'Are you sure you want to log out?',
+      name: 'confirmLogoutMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Continuous Updates`
   String get continuousUpdates {
     return Intl.message(
@@ -264,9 +294,9 @@ class S {
     );
   }
 
-  /// `Shekel`
+  /// `ILS`
   String get currencyShekel {
-    return Intl.message('Shekel', name: 'currencyShekel', desc: '', args: []);
+    return Intl.message('ILS', name: 'currencyShekel', desc: '', args: []);
   }
 
   /// `March 1, 2026`
@@ -1054,10 +1084,10 @@ class S {
     return Intl.message('Payment', name: 'payment', desc: '', args: []);
   }
 
-  /// `Pay {amount} EGP`
+  /// `Pay {amount} ILS`
   String paymentAmount(String amount) {
     return Intl.message(
-      'Pay $amount EGP',
+      'Pay $amount ILS',
       name: 'paymentAmount',
       desc: '',
       args: [amount],

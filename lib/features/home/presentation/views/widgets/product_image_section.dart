@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
+import 'package:fruits_hub/features/home/presentation/controller/favorite_controller.dart';
 import 'package:get/get.dart';
 import 'package:svg_flutter/svg.dart';
 
@@ -10,6 +11,8 @@ class ProductImageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favoriteController = Get.find<FavoriteController>();
+
     return Stack(
       children: [ 
             CircleAvatar(
@@ -23,9 +26,9 @@ class ProductImageSection extends StatelessWidget {
           ),
 
         // زر الرجوع
-        Positioned(
+        PositionedDirectional(
           top: 12,
-          right: 12,
+          start: 12,
           child: CircleAvatar(
             backgroundColor: Colors.white,
             child: IconButton(
@@ -35,6 +38,31 @@ class ProductImageSection extends StatelessWidget {
               icon: Icon(Icons.arrow_back),
               ),
           ),
+        ),
+
+        PositionedDirectional(
+          top: 12,
+          end: 12,
+          child: Obx(() {
+            final isFav = favoriteController.isFavorite(product);
+            return Material(
+              color: Colors.white.withValues(alpha: 0.95),
+              // elevation: 2,
+              borderRadius: BorderRadius.circular(999),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(999),
+                onTap: () => favoriteController.toggleFavorite(product),
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Icon(
+                    isFav ? Icons.favorite : Icons.favorite_border,
+                    color: isFav ? Colors.red : const Color(0xFF8A9294),
+                    size: 22,
+                  ),
+                ),
+              ),
+            );
+          }),
         ),
       ],
     );
