@@ -28,6 +28,8 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
     return TextFormField(
       controller: controller,
       validator:
@@ -46,20 +48,26 @@ class CustomTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
         hintText: hintText,
-        hintStyle: TextStyles.bold13.copyWith(color: Color(0xFF949D9E)),
+        hintStyle: TextStyles.bold13.copyWith(
+          color: colors.onSurface.withValues(alpha: 0.5),
+        ),
         filled: true,
-        fillColor: Color(0xFFF9FAFA),
-        border: buildBorder(),
-        enabledBorder: buildBorder(),
-        focusedBorder: buildBorder(),
+        fillColor: theme.inputDecorationTheme.fillColor ?? colors.surface,
+        border: buildBorder(context),
+        enabledBorder: buildBorder(context),
+        focusedBorder: buildBorder(context),
       ),
     );
   }
 
-  OutlineInputBorder buildBorder() {
+  OutlineInputBorder buildBorder(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(4),
-      borderSide: BorderSide(width: 1, color: Color(0xFFE6E9E9)),
+      borderSide: BorderSide(
+        width: 1,
+        color: colors.outline.withValues(alpha: 0.4),
+      ),
     );
   }
 }
