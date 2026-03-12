@@ -19,6 +19,8 @@ class FruitItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final FavoriteController favoriteController =
         Get.find<FavoriteController>();
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return GestureDetector(
       onTap: () {
@@ -29,7 +31,7 @@ class FruitItem extends StatelessWidget {
   },
       child: Container(
         decoration: ShapeDecoration(
-          color: const Color(0xFFF3F5F7),
+          color: theme.cardColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4),
           ),
@@ -44,7 +46,7 @@ class FruitItem extends StatelessWidget {
                 final isFav = favoriteController.isFavorite(productEntity);
       
                 return Material(
-                  color: Colors.white.withValues(alpha: 0.9),
+                  color: colors.surface.withValues(alpha: 0.9),
                   // elevation: 2,
                   borderRadius: BorderRadius.circular(999),
                   child: InkWell(
@@ -56,7 +58,9 @@ class FruitItem extends StatelessWidget {
                       padding: const EdgeInsets.all(6),
                       child: Icon(
                         isFav ? Icons.favorite : Icons.favorite_border,
-                        color: isFav ? Colors.red : const Color(0xFF8A9294),
+                        color: isFav
+                            ? Colors.red
+                            : colors.onSurface.withValues(alpha: 0.6),
                         size: 20,
                       ),
                     ),
@@ -90,6 +94,7 @@ class FruitItem extends StatelessWidget {
                     subtitle: Text(
                       S.of(context).shekelPerKilo(productEntity.price.toString()),
                       textAlign: TextAlign.right,
+                      style: TextStyles.semiBold13.copyWith(color: colors.primary),
                     ),
                     trailing: GestureDetector(
                       onTap: () {
