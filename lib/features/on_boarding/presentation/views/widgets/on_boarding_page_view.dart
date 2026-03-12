@@ -42,7 +42,7 @@ final PageController pageController;
             ],
           ),
         ),
-         PageViewItem(
+        PageViewItem(
           isVisible: ( pageController.hasClients ? pageController.page!.round() : 0) == 0,//false
           image: Assets.imagesPageViewItem2Image,
           backgroundImage: Assets.imagesPageViewItem2BackgroundImage,
@@ -52,7 +52,7 @@ final PageController pageController;
             S.of(context).searchAndShop,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Color(0xFF0C0D0D),
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: 23,
               fontFamily: 'Cairo',
               fontWeight: FontWeight.w700,

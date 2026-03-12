@@ -57,7 +57,7 @@ late String? hintText;
               obscureText ?
             Icons.remove_red_eye :
             Icons.visibility_off,
-            color: Color(0xffC9CECF),
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.45),
             ) , 
             ),
           );

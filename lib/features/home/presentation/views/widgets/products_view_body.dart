@@ -41,6 +41,7 @@ class _ProductsViewBodyState extends State<ProductsViewBody> {
                   height: kTopPaddding,
                 ),
                 buildAppBarNotification( 
+                  context,
                   title: S.of(context).products,
                   showBackBottom: false,
                 ),

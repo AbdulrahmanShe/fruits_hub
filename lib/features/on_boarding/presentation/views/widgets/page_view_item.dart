@@ -23,6 +23,7 @@ class PageViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Column(
       children: [
         SizedBox(
@@ -55,7 +56,7 @@ class PageViewItem extends StatelessWidget {
                     child: Text(
                       S.of(context).skip,
                       style: TextStyles.regular13.copyWith(
-                        color: const Color(0xFF949D9E),
+                        color: colors.onSurface.withValues(alpha: 0.6),
                       ),
                     ),
                   ),
@@ -79,7 +80,7 @@ class PageViewItem extends StatelessWidget {
             subtitle,
             textAlign: TextAlign.center,
             style: TextStyles.semiBold13.copyWith(
-              color: const Color(0xFF4E5456),
+              color: colors.onSurface.withValues(alpha: 0.7),
             ),
           ),
           

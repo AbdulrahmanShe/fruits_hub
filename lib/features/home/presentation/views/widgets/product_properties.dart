@@ -58,22 +58,29 @@ class PropertyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: colors.outline.withValues(alpha: 0.4)),
       ),
       child: Row(
         children: [
-          Icon(icon, color: Colors.green),
+          Icon(icon, color: colors.primary),
           const SizedBox(width: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(title, style: TextStyles.semiBold13),
-              Text(value, style: TextStyles.bold16),
+              Text(
+                title,
+                style: TextStyles.semiBold13.copyWith(color: colors.onSurface),
+              ),
+              Text(
+                value,
+                style: TextStyles.bold16.copyWith(color: colors.onSurface),
+              ),
               
             ],
           ),

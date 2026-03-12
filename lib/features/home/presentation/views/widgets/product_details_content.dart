@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/entities/product_entity.dart';
-import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/add_to_cart_section.dart';
@@ -12,6 +11,7 @@ class ProductDetailsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -24,12 +24,12 @@ class ProductDetailsContent extends StatelessWidget {
             children: [
                Text(
                 product.name,
-                style: TextStyles.bold16,
+                style: TextStyles.bold16.copyWith(color: colors.onSurface),
               ),
               
               Text(
                 S.of(context).shekelPerKilo(product.price.toString()),
-                style: TextStyles.semiBold13.copyWith(color: AppColors.lightPrimaryColor),
+                style: TextStyles.semiBold13.copyWith(color: colors.primary),
               ),
                
             ],
@@ -40,9 +40,12 @@ class ProductDetailsContent extends StatelessWidget {
           // التقييم
           Row(
             children: [
-              Icon(Icons.star, color: Colors.orange, size: 18),
+              Icon(Icons.star, color: colors.secondary, size: 18),
               SizedBox(width: 4),
-              Text('${product.avgRating} (${product.ratingCount})'),
+              Text(
+                '${product.avgRating} (${product.ratingCount})',
+                style: TextStyles.regular13.copyWith(color: colors.onSurface),
+              ),
             ],
           ),
 
@@ -52,7 +55,7 @@ class ProductDetailsContent extends StatelessWidget {
            Text(
            product.description,
             style: TextStyles.regular13.copyWith(
-              color: const Color(0xFF979899),
+              color: colors.onSurface.withValues(alpha: 0.6),
           ),
            ),
 

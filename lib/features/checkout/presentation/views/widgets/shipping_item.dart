@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 
@@ -16,6 +15,7 @@ class ShippingItem extends StatelessWidget {
   final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -28,10 +28,10 @@ class ShippingItem extends StatelessWidget {
         ),
         clipBehavior: Clip.antiAlias,
         decoration: ShapeDecoration(
-          color: const Color(0x33D9D9D9),
+          color: colors.surface,
           shape: RoundedRectangleBorder(
             side: BorderSide(
-              color: isSelected ? AppColors.primaryColor : Colors.transparent,
+              color: isSelected ? colors.primary : Colors.transparent,
             ),
             borderRadius: BorderRadius.circular(4),
           ),
@@ -51,7 +51,7 @@ class ShippingItem extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyles.semiBold13,
+                    style: TextStyles.semiBold13.copyWith(color: colors.onSurface),
                   ),
                   const SizedBox(
                     height: 6,
@@ -60,7 +60,7 @@ class ShippingItem extends StatelessWidget {
                     subTitle,
                     textAlign: TextAlign.right,
                     style: TextStyles.regular13
-                        .copyWith(color: Colors.black.withValues(alpha: 0.5)),
+                        .copyWith(color: colors.onSurface.withValues(alpha: 0.6)),
                   )
                 ],
               ),
@@ -69,7 +69,7 @@ class ShippingItem extends StatelessWidget {
                 child: Text(
                   S.of(context).ilsAmount(price),
                   style: TextStyles.bold13.copyWith(
-                    color: AppColors.lightPrimaryColor,
+                    color: colors.primary,
                   ),
                 ),
               )
@@ -88,12 +88,13 @@ class InActiveShippingItemDot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Container(
       width: 18,
       height: 18,
-      decoration: const ShapeDecoration(
+      decoration: ShapeDecoration(
         shape: OvalBorder(
-          side: BorderSide(width: 1, color: Color(0xFF949D9E)),
+          side: BorderSide(width: 1, color: colors.outline.withValues(alpha: 0.6)),
         ),
       ),
     );
@@ -107,13 +108,14 @@ class ActiveShippingItemDot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Container(
       width: 18,
       height: 18,
-      decoration: const ShapeDecoration(
-        color: Color(0xFF1B5E37),
+      decoration: ShapeDecoration(
+        color: colors.primary,
         shape: OvalBorder(
-          side: BorderSide(width: 4, color: Colors.white),
+          side: BorderSide(width: 4, color: colors.surface),
         ),
       ),
     );

@@ -12,6 +12,7 @@ class ProductImageSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favoriteController = Get.find<FavoriteController>();
+    final colors = Theme.of(context).colorScheme;
 
     return Stack(
       children: [ 
@@ -30,12 +31,12 @@ class ProductImageSection extends StatelessWidget {
           top: 12,
           start: 12,
           child: CircleAvatar(
-            backgroundColor: Colors.white,
+            backgroundColor: colors.surface,
             child: IconButton(
               onPressed: (){
                 Get.back();
               },
-              icon: Icon(Icons.arrow_back),
+              icon: Icon(Icons.arrow_back, color: colors.onSurface),
               ),
           ),
         ),
@@ -46,7 +47,7 @@ class ProductImageSection extends StatelessWidget {
           child: Obx(() {
             final isFav = favoriteController.isFavorite(product);
             return Material(
-              color: Colors.white.withValues(alpha: 0.95),
+              color: colors.surface.withValues(alpha: 0.95),
               // elevation: 2,
               borderRadius: BorderRadius.circular(999),
               child: InkWell(
@@ -56,7 +57,9 @@ class ProductImageSection extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                   child: Icon(
                     isFav ? Icons.favorite : Icons.favorite_border,
-                    color: isFav ? Colors.red : const Color(0xFF8A9294),
+                    color: isFav
+                        ? Colors.red
+                        : colors.onSurface.withValues(alpha: 0.6),
                     size: 22,
                   ),
                 ),

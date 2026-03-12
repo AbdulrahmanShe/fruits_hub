@@ -14,6 +14,7 @@ class CustomHomeAppBar extends StatelessWidget {
     final profileController = Get.find<ProfileController>();
 
     return Obx(() {
+      final colors = Theme.of(context).colorScheme;
       final avatarPath =
           profileController.gender.value == 'female'
               ? Assets.imagesProfileImageFemale
@@ -35,7 +36,7 @@ class CustomHomeAppBar extends StatelessWidget {
           S.of(context).welcomeBack,
           textAlign: TextAlign.right,
           style: TextStyles.regular16.copyWith(
-            color: const Color(0xFF949D9E),
+            color: colors.onSurface.withValues(alpha: 0.6),
           ),
         ),
         subtitle: Text(

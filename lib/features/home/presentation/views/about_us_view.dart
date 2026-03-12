@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/generated/l10n.dart';
@@ -11,6 +10,7 @@ class AboutUsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: buildAppBar(context, title: S.of(context).aboutUs),
       body: ListView(
@@ -19,9 +19,9 @@ class AboutUsView extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: const Color(0xFFF1F7F3),
+              color: colors.primary.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFFDFECE4)),
+              border: Border.all(color: colors.outline.withValues(alpha: 0.4)),
             ),
             child: Row(
               children: [
@@ -29,7 +29,7 @@ class AboutUsView extends StatelessWidget {
                   width: 42,
                   height: 42,
                   decoration: BoxDecoration(
-                    color: AppColors.primaryColor,
+                    color: colors.primary,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(
@@ -48,7 +48,7 @@ class AboutUsView extends StatelessWidget {
                       Text(
                         S.of(context).easierFreshFruitShoppingExperience,
                         style: TextStyles.regular13.copyWith(
-                          color: const Color(0xFF57615E),
+                          color: colors.onSurface.withValues(alpha: 0.7),
                         ),
                       ),
                     ],
@@ -94,7 +94,7 @@ class AboutUsView extends StatelessWidget {
             S.of(context).thanksForTrustingFruitHub,
             textAlign: TextAlign.center,
             style: TextStyles.semiBold13.copyWith(
-              color: AppColors.primaryColor,
+              color: colors.primary,
             ),
           ),
         ],
@@ -116,28 +116,32 @@ class _SectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colors.surface,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xFFE6E9E9)),
+        border: Border.all(color: colors.outline.withValues(alpha: 0.4)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(icon, size: 18, color: AppColors.primaryColor),
+              Icon(icon, size: 18, color: colors.primary),
               const SizedBox(width: 6),
-              Text(title, style: TextStyles.bold13),
+              Text(
+                title,
+                style: TextStyles.bold13.copyWith(color: colors.onSurface),
+              ),
             ],
           ),
           const SizedBox(height: 8),
           Text(
             body,
             style: TextStyles.regular13.copyWith(
-              color: const Color(0xFF56605D),
+              color: colors.onSurface.withValues(alpha: 0.7),
               height: 1.8,
             ),
           ),
@@ -154,16 +158,19 @@ class _InfoChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFFF7F9F8),
+        color: colors.surface,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE2E6E5)),
+        border: Border.all(color: colors.outline.withValues(alpha: 0.4)),
       ),
       child: Text(
         text,
-        style: TextStyles.regular13.copyWith(color: const Color(0xFF4E5754)),
+        style: TextStyles.regular13.copyWith(
+          color: colors.onSurface.withValues(alpha: 0.7),
+        ),
       ),
     );
   }

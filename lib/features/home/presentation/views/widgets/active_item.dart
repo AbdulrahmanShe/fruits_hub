@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:svg_flutter/svg.dart';
 
@@ -10,11 +9,12 @@ class ActiveItem extends StatelessWidget {
   final String image;
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Center(
       child: Container(
         padding: const EdgeInsets.only(left: 16),
         decoration: ShapeDecoration(
-          color: const Color(0xFFEEEEEE),
+          color: colors.primary.withValues(alpha: 0.12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
@@ -26,7 +26,7 @@ class ActiveItem extends StatelessWidget {
               width: 30,
               height: 30,
               decoration: ShapeDecoration(
-                color: const Color(0xFF1B5E37),
+                color: colors.primary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -38,8 +38,7 @@ class ActiveItem extends StatelessWidget {
             ),
             Text(
               text,
-              style:
-                  TextStyles.semiBold11.copyWith(color: AppColors.primaryColor),
+              style: TextStyles.semiBold11.copyWith(color: colors.primary),
             )
           ],
         ),

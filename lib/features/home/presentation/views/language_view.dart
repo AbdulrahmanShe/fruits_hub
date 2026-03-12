@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/services/shared_preferences_singleton.dart';
-import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/generated/l10n.dart';
@@ -41,6 +40,7 @@ class _LanguageViewState extends State<LanguageView> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: buildAppBar(context, title: S.of(context).language),
       body: Padding(
@@ -67,13 +67,13 @@ class _LanguageViewState extends State<LanguageView> {
               width: double.infinity,
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: const Color(0xFFF3F7F4),
+                color: colors.primary.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
                 S.of(context).languageAppliedImmediatelyAfterSelection,
                 style: TextStyles.regular13.copyWith(
-                  color: const Color(0xFF4A5552),
+                  color: colors.onSurface.withValues(alpha: 0.7),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -102,6 +102,7 @@ class _LanguageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return InkWell(
       borderRadius: BorderRadius.circular(12),
       onTap: () => onChanged(value),
@@ -112,8 +113,8 @@ class _LanguageTile extends StatelessWidget {
           border: Border.all(
             color:
                 groupValue == value
-                    ? AppColors.primaryColor
-                    : const Color(0xFFE1E4E3),
+                    ? colors.primary
+                    : colors.outline.withValues(alpha: 0.4),
           ),
         ),
         child: Row(
@@ -122,12 +123,15 @@ class _LanguageTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: TextStyles.bold16),
+                  Text(
+                    title,
+                    style: TextStyles.bold16.copyWith(color: colors.onSurface),
+                  ),
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
                     style: TextStyles.regular13.copyWith(
-                      color: const Color(0xFF7C8481),
+                      color: colors.onSurface.withValues(alpha: 0.6),
                     ),
                   ),
                 ],
@@ -139,8 +143,8 @@ class _LanguageTile extends StatelessWidget {
                   : Icons.radio_button_off,
               color:
                   groupValue == value
-                      ? AppColors.primaryColor
-                      : const Color(0xFFB6BFBC),
+                      ? colors.primary
+                      : colors.onSurface.withValues(alpha: 0.4),
             ),
           ],
         ),

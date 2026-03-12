@@ -8,16 +8,34 @@ class FeaturedItemButton extends StatelessWidget {
   final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return SizedBox(
       height: 32,
       child: TextButton(
-        style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              4,
+        style: ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll(colors.surface),
+          foregroundColor: MaterialStatePropertyAll(colors.primary),
+          overlayColor: MaterialStateProperty.resolveWith(
+            (states) {
+              if (states.contains(MaterialState.pressed)) {
+                return colors.primary.withValues(alpha: 0.12);
+              }
+              if (states.contains(MaterialState.hovered)) {
+                return colors.primary.withValues(alpha: 0.08);
+              }
+              return null;
+            },
+          ),
+          side: MaterialStatePropertyAll(
+            BorderSide(
+              color: colors.primary.withValues(alpha: 0.24),
             ),
           ),
-          backgroundColor: Colors.white,
+          shape: MaterialStatePropertyAll(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
         ),
         onPressed: onPressed,
         child: Padding(
@@ -26,7 +44,7 @@ class FeaturedItemButton extends StatelessWidget {
             child: Text(
               S.of(context).shopNow,
               style: TextStyles.bold13.copyWith(
-                color: AppColors.primaryColor,
+                color: colors.primary,
               ),
             ),
           ),

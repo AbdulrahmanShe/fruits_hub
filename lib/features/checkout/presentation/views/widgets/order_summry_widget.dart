@@ -13,6 +13,7 @@ class OrderSummryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CheckoutController controller = Get.find<CheckoutController>();
+    final colors = Theme.of(context).colorScheme;
 
     return PaymentItem(
       tile: S.of(context).orderSummary,
@@ -23,7 +24,7 @@ class OrderSummryWidget extends StatelessWidget {
               Text(
                 S.of(context).subtotalLabel,
                 style: TextStyles.regular13.copyWith(
-                  color: const Color(0xFF4E5556),
+                  color: colors.onSurface.withValues(alpha: 0.7),
                 ),
               ),
               const Spacer(),
@@ -31,7 +32,7 @@ class OrderSummryWidget extends StatelessWidget {
                 controller.cartTotal.toStringAsFixed(0),
                 // '20 USD',
                 textAlign: TextAlign.right,
-                style: TextStyles.semiBold16,
+                style: TextStyles.semiBold16.copyWith(color: colors.onSurface),
               ),
             ],
           ),
@@ -43,7 +44,7 @@ class OrderSummryWidget extends StatelessWidget {
               Text(
                 S.of(context).deliveryLabel,
                 style: TextStyles.regular13.copyWith(
-                  color: const Color(0xFF4E5556),
+                  color: colors.onSurface.withValues(alpha: 0.7),
                 ),
               ),
               const Spacer(),
@@ -51,7 +52,7 @@ class OrderSummryWidget extends StatelessWidget {
                 S.of(context).ilsAmount('30'),
                 textAlign: TextAlign.right,
                 style: TextStyles.regular13.copyWith(
-                  color: const Color(0xFF4E5556),
+                  color: colors.onSurface.withValues(alpha: 0.7),
                 ),
               )
             ],
@@ -59,20 +60,20 @@ class OrderSummryWidget extends StatelessWidget {
           const SizedBox(
             height: 9,
           ),
-          const Divider(
-            thickness: .5,
-            color: Color(0xFFCACECE),
-          ),
+          Divider(thickness: .5, color: colors.outline.withValues(alpha: 0.4)),
           const SizedBox(
             height: 9,
           ),
           Row(
             children: [
-              Text(S.of(context).totalLabel, style: TextStyles.bold16),
+              Text(
+                S.of(context).totalLabel,
+                style: TextStyles.bold16.copyWith(color: colors.onSurface),
+              ),
               const Spacer(),
               Text(
                 (controller.cartTotal + 30).toStringAsFixed(0),
-                style: TextStyles.bold16,
+                style: TextStyles.bold16.copyWith(color: colors.primary),
               ),
             ],
           ),

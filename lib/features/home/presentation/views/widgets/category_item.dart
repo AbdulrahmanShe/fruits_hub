@@ -14,6 +14,7 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Column(
       children: [
         Container(
@@ -22,7 +23,7 @@ class CategoryItem extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: isSelected ? Colors.green : Colors.transparent,
+              color: isSelected ? colors.primary : Colors.transparent,
               width: 2,
             ),
             image: DecorationImage(
@@ -37,6 +38,7 @@ class CategoryItem extends StatelessWidget {
           style: TextStyle(
             fontSize: 12,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            color: colors.onSurface,
           ),
         ),
       ],

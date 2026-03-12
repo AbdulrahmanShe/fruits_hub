@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/services/shared_preferences_singleton.dart';
-import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
@@ -27,12 +26,11 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
   static const String notificationsEnabledKey = 'notificationsEnabled';
-  static const String designModeEnabledKey = 'designModeEnabled';
   final ProfileController profileController = Get.find<ProfileController>();
 
   _UserData userData = const _UserData(name: '', email: '');
   bool notificationsEnabled = true;
-  bool designModeEnabled = true;
+  bool designModeEnabled = false;
 
   @override
   void initState() {
@@ -60,7 +58,7 @@ class _ProfileViewState extends State<ProfileView> {
 
   void _readSettings() {
     notificationsEnabled = Prefs.getBool(notificationsEnabledKey);
-    designModeEnabled = Prefs.getBool(designModeEnabledKey);
+    designModeEnabled = Prefs.getBool(kAppDarkMode);
   }
 
   void _onNotificationsChanged(bool value) {
@@ -70,7 +68,8 @@ class _ProfileViewState extends State<ProfileView> {
 
   void _onDesignModeChanged(bool value) {
     setState(() => designModeEnabled = value);
-    Prefs.setBool(designModeEnabledKey, value);
+    Prefs.setBool(kAppDarkMode, value);
+    Get.changeThemeMode(value ? ThemeMode.dark : ThemeMode.light);
   }
 
   Future<void> _logout() async {
@@ -106,6 +105,8 @@ class _ProfileViewState extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     final name = userData.name.isEmpty ? 'abed' : userData.name;
     final email =
         userData.email.isEmpty ? 'abed2003shehab@gmail.com' : userData.email;
@@ -115,7 +116,7 @@ class _ProfileViewState extends State<ProfileView> {
             : S.of(context).arabic;
 
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: buildAppBar(
         context,
         title: S.of(context).myAccount,
@@ -134,14 +135,16 @@ class _ProfileViewState extends State<ProfileView> {
                           _ProfileTop(name: name, email: email),
                           const SizedBox(height: 28),
                           Align(
-                            alignment: Alignment.centerRight,
+                            alignment:
+                                isRtl ? Alignment.centerRight : Alignment.centerLeft,
                             child: Text(
                               S.of(context).general,
-                              style: const TextStyle(
-                                color: Color(0xFF1C1D1D),
-                                fontSize: 14,
+                              style: TextStyle(
+                                color: colors.onSurface,
+                                fontSize: 13,
                                 fontWeight: FontWeight.w600,
                               ),
+                              textAlign: isRtl ? TextAlign.right : TextAlign.left,
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -201,16 +204,16 @@ class _ProfileViewState extends State<ProfileView> {
                                 Text(
                                   languageValue,
                                   style:  TextStyle(
-                                    color: AppColors.primaryColor,
+                                    color: colors.primary,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 const SizedBox(width: 8),
-                                const Icon(
+                                Icon(
                                   Icons.arrow_forward_ios,
                                   size: 15,
-                                  color: Color(0xFF1F2021),
+                                  color: colors.onSurface,
                                 ),
                               ],
                             ),
@@ -237,14 +240,16 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           const SizedBox(height: 14),
                           Align(
-                            alignment: Alignment.centerRight,
+                            alignment:
+                                isRtl ? Alignment.centerRight : Alignment.centerLeft,
                             child: Text(
                               S.of(context).helpSection,
-                              style: const TextStyle(
-                                color: Color(0xFF1C1D1D),
-                                fontSize: 14,
+                              style: TextStyle(
+                                color: colors.onSurface,
+                                fontSize: 13,
                                 fontWeight: FontWeight.w600,
                               ),
+                              textAlign: isRtl ? TextAlign.right : TextAlign.left,
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -288,17 +293,17 @@ class _ProfileViewState extends State<ProfileView> {
                           child: Center(
                             child: Text(
                               S.of(context).logout,
-                              style: const TextStyle(
-                                color: AppColors.primaryColor,
+                              style: TextStyle(
+                                color: colors.primary,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),
                         ),
-                        const Icon(
+                        Icon(
                           Icons.logout,
-                          color: AppColors.primaryColor,
+                          color: colors.primary,
                           size: 25,
                         ),
                         const SizedBox(width: 22),
@@ -323,6 +328,7 @@ class _ProfileTop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     final profileController = Get.find<ProfileController>();
 
     return Obx(() {
@@ -354,8 +360,8 @@ class _ProfileTop extends StatelessWidget {
                   displayName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF121212),
+                  style: TextStyle(
+                    color: colors.onSurface,
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                   ),
@@ -365,8 +371,8 @@ class _ProfileTop extends StatelessWidget {
                   email,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF898F93),
+                  style: TextStyle(
+                    color: colors.onSurface.withValues(alpha: 0.6),
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),
@@ -396,25 +402,27 @@ class _ProfileLineItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isClickable = onTap != null;
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return InkWell(
       onTap: onTap,
       child: Container(
         height: 36,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           border: Border(
-            bottom: BorderSide(color: Color(0xFFE2E3E4), width: 1.1),
+            bottom: BorderSide(color: theme.dividerColor, width: 1.1),
           ),
         ),
         child: Row(
           children: [
-            Icon(icon, size: 25, color: AppColors.primaryColor),
+            Icon(icon, size: 25, color: colors.primary),
             const SizedBox(width: 14),
             Expanded(
               child: Text(
                 title,
-                style: const TextStyle(
-                  color: Color(0xFF7E8487),
+                style: TextStyle(
+                  color: colors.onSurface.withValues(alpha: 0.7),
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),
@@ -423,10 +431,10 @@ class _ProfileLineItem extends StatelessWidget {
             if (trailing != null)
               trailing!
             else if (isClickable)
-              const Icon(
+              Icon(
                 Icons.arrow_forward_ios,
                 size: 15,
-                color: Color(0xFF1F2021),
+                color: colors.onSurface.withValues(alpha: 0.7),
               )
             else
               const SizedBox(width: 24),
@@ -445,15 +453,16 @@ class _StyledSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Transform.scale(
       scale: 0.7,
       child: Switch(
         value: value,
         onChanged: onChanged,
-        activeThumbColor: const Color(0xFF176E45),
-        activeTrackColor: const Color(0xFF8BB19F),
-        inactiveThumbColor: AppColors.white,
-        inactiveTrackColor: const Color(0xFFD8DEDA),
+        activeThumbColor: colors.primary,
+        activeTrackColor: colors.primary.withValues(alpha: 0.4),
+        inactiveThumbColor: colors.surface,
+        inactiveTrackColor: colors.outline.withValues(alpha: 0.4),
       ),
     );
   }

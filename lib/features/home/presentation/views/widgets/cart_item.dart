@@ -1,5 +1,4 @@
-  import 'package:flutter/widgets.dart';
-import 'package:fruits_hub/core/utils/app_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_network_image.dart';
@@ -16,9 +15,11 @@ class CartItem extends StatelessWidget {
 
 final CartController controller = Get.find<CartController>();
 
-   
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return Obx((){
       return IntrinsicHeight(
             child: Row(
@@ -26,7 +27,13 @@ final CartController controller = Get.find<CartController>();
                 Container(
                   width: 73,
                   height: 92,
-                  decoration: const BoxDecoration(color: Color(0xFFF3F5F7)),
+                  decoration: BoxDecoration(
+                    color: colors.surface,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: theme.dividerColor.withValues(alpha: 0.7),
+                    ),
+                  ),
                   child: CustomNetworkImage(
                     imageUrl: carItemEntity.productEntity.imageUrl!,
                   ),
@@ -43,7 +50,9 @@ final CartController controller = Get.find<CartController>();
                         children: [
                           Text(
                             carItemEntity.productEntity.name,
-                            style: TextStyles.bold13,
+                            style: TextStyles.bold13.copyWith(
+                              color: colors.onSurface,
+                            ),
                           ),
                           const Spacer(),
                           GestureDetector(
@@ -52,6 +61,10 @@ final CartController controller = Get.find<CartController>();
                             },
                             child: SvgPicture.asset(
                               Assets.imagesTrash,
+                              colorFilter: ColorFilter.mode(
+                                colors.onSurface.withValues(alpha: 0.6),
+                                BlendMode.srcIn,
+                              ),
                             ),
                           )
                         ],
@@ -60,7 +73,7 @@ final CartController controller = Get.find<CartController>();
                         '${carItemEntity.calculateTotalWeight()} ${S.of(context).kmUnit}',
                         textAlign: TextAlign.right,
                         style: TextStyles.regular13.copyWith(
-                          color: AppColors.secondaryColor,
+                          color: colors.onSurface.withValues(alpha: 0.7),
                         ),
                       ),
                       Row(
@@ -72,7 +85,7 @@ final CartController controller = Get.find<CartController>();
                           Text(
                             '${carItemEntity.calculateTotalPrice()} ${S.of(context).currencyShekel}',
                             style: TextStyles.bold16
-                                .copyWith(color: AppColors.secondaryColor),
+                                .copyWith(color: colors.primary),
                           )
                         ],
                       )

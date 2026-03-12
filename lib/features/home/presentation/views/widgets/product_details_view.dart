@@ -15,7 +15,7 @@ class ProductDetailsView extends StatelessWidget {
         Get.arguments as ProductEntity;
         
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [

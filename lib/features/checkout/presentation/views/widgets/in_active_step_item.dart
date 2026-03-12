@@ -8,15 +8,16 @@ class InActiveStepItem extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CircleAvatar(
           radius: 10,
-          backgroundColor: const Color(0xFFF2F3F3),
+          backgroundColor: colors.surface,
           child: Text(
             index,
-            style: TextStyles.semiBold13,
+            style: TextStyles.semiBold13.copyWith(color: colors.onSurface),
           ),
         ),
         const SizedBox(
@@ -25,7 +26,7 @@ class InActiveStepItem extends StatelessWidget {
         Text(
           text,
           style: TextStyles.semiBold13.copyWith(
-            color: const Color(0xFFAAAAAA),
+            color: colors.onSurface.withValues(alpha: 0.5),
           ),
         )
       ],

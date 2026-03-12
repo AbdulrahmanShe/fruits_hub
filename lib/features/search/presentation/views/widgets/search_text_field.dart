@@ -50,13 +50,15 @@ class _SearchTextFieldState extends State<SearchTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Color(0x0A000000),
+            color: theme.shadowColor.withValues(alpha: 0.08),
             blurRadius: 9,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
             spreadRadius: 0,
           )
         ],
@@ -89,9 +91,9 @@ class _SearchTextFieldState extends State<SearchTextField> {
                    if (widget.readOnly == true)
                      GestureDetector(
                        onTap: () => _openSearchAndRun('voice'),
-                       child: const Icon(
+                       child: Icon(
                          Icons.mic_none,
-                         color: Color(0xFF949D9E),
+                         color: colors.onSurface.withValues(alpha: 0.5),
                        ),
                      )
                    else
@@ -131,25 +133,25 @@ class _SearchTextFieldState extends State<SearchTextField> {
             ),
             
             hintStyle: TextStyles.regular13.copyWith(
-              color: const Color(0xFF949D9E),
+              color: colors.onSurface.withValues(alpha: 0.5),
             ),
             hintText: S.of(context).searchByVoiceOrTyping,
             filled: true,
-            fillColor: Colors.grey.shade100, //Colors.white,
-            border: buildBorder(),
-            enabledBorder: buildBorder(),
-            focusedBorder: buildBorder(),
+            fillColor: colors.surface,
+            border: buildBorder(theme),
+            enabledBorder: buildBorder(theme),
+            focusedBorder: buildBorder(theme),
           ),
         ),
       );
   }
 
-  OutlineInputBorder buildBorder() {
+  OutlineInputBorder buildBorder(ThemeData theme) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(4),
-      borderSide: const BorderSide(
+      borderSide: BorderSide(
         width: 1,
-        color: Colors.white,
+        color: theme.dividerColor,
       ),
     );
   }

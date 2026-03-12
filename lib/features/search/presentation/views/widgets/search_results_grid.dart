@@ -12,6 +12,7 @@ class SearchResultsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ProductsController>();
+    final colors = Theme.of(context).colorScheme;
 
     return Obx(() {
       final query = controller.searchQuery.value;
@@ -30,14 +31,16 @@ class SearchResultsGrid extends StatelessWidget {
                 SizedBox(height: 16,),
                 Text(
                   S.of(context).search,
-                  style: TextStyles.bold16,
+                  style: TextStyles.bold16.copyWith(
+                    color: colors.onSurface,
+                  ),
                   ),
                 
                 SizedBox(height: 16,),
                 Text(
                   S.of(context).sorryDataUnavailableNow,
                   style: TextStyles.regular13.copyWith(
-                    color: const Color(0xFF949D9E),
+                    color: colors.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
               ],

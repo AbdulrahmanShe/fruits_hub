@@ -9,6 +9,7 @@ class ProductsViewHeader extends StatelessWidget {
   final int productsLength;
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Row(
       children: [
         Text(
@@ -20,9 +21,9 @@ class ProductsViewHeader extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: ShapeDecoration(
-            color: Colors.white.withValues(alpha: 0.1),
+            color: colors.surface,
             shape: RoundedRectangleBorder(
-              side: const BorderSide(width: 1, color: Color(0x66CACECE)),
+              side: BorderSide(width: 1, color: colors.outline.withValues(alpha: 0.4)),
               borderRadius: BorderRadius.circular(4),
             ),
           ),

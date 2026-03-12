@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/generated/l10n.dart';
@@ -11,6 +10,7 @@ class HelpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     final faqs = <_FaqItem>[
       _FaqItem(
         question: S.of(context).howTrackOrderStatus,
@@ -41,18 +41,18 @@ class HelpView extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: const Color(0xFFF3F7F4),
+              color: colors.primary.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: const Color(0xFFE1E8E3)),
+              border: Border.all(color: colors.outline.withValues(alpha: 0.4)),
             ),
             child: Row(
               children: [
-                const Icon(Icons.support_agent, color: AppColors.primaryColor),
+                Icon(Icons.support_agent, color: colors.primary),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     S.of(context).howCanWeHelpToday,
-                    style: TextStyles.bold13,
+                    style: TextStyles.bold13.copyWith(color: colors.onSurface),
                   ),
                 ),
               ],
@@ -64,14 +64,17 @@ class HelpView extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: colors.surface,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: const Color(0xFFE6E9E9)),
+              border: Border.all(color: colors.outline.withValues(alpha: 0.4)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(S.of(context).contactSupport, style: TextStyles.bold13),
+                Text(
+                  S.of(context).contactSupport,
+                  style: TextStyles.bold13.copyWith(color: colors.onSurface),
+                ),
                 const SizedBox(height: 8),
                 _ContactRow(
                   icon: Icons.email_outlined,
@@ -103,24 +106,28 @@ class _FaqTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colors.surface,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFFE6E9E9)),
+        border: Border.all(color: colors.outline.withValues(alpha: 0.4)),
       ),
       child: ExpansionTile(
         tilePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         childrenPadding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-        title: Text(item.question, style: TextStyles.semiBold13),
+        title: Text(
+          item.question,
+          style: TextStyles.semiBold13.copyWith(color: colors.onSurface),
+        ),
         children: [
           Align(
             alignment: Alignment.centerRight,
             child: Text(
               item.answer,
               style: TextStyles.regular13.copyWith(
-                color: const Color(0xFF5E6966),
+                color: colors.onSurface.withValues(alpha: 0.7),
               ),
             ),
           ),
@@ -138,15 +145,16 @@ class _ContactRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Row(
       children: [
-        Icon(icon, size: 18, color: const Color(0xFF6B7572)),
+        Icon(icon, size: 18, color: colors.onSurface.withValues(alpha: 0.6)),
         const SizedBox(width: 8),
         Expanded(
           child: Text(
             text,
             style: TextStyles.regular13.copyWith(
-              color: const Color(0xFF5E6966),
+              color: colors.onSurface.withValues(alpha: 0.7),
             ),
           ),
         ),

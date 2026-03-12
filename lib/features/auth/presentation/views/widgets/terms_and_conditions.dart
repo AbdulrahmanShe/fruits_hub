@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/custom_check_box.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/terms_and_conditions_view.dart';
@@ -20,6 +19,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return  
     // Transform.translate(
     //   offset: const Offset(14, 0),
@@ -46,7 +46,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                 TextSpan(
                   text: S.of(context).termsAcceptancePrefix,
                   style: TextStyles.semiBold13.copyWith(
-                    color: const Color(0xFF949D9E),
+                    color: colors.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
                 TextSpan(
@@ -55,7 +55,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                       },
                   text: S.of(context).ourTermsAndConditions,
                   style: TextStyles.semiBold13.copyWith(
-                    color: AppColors.lightPrimaryColor,
+                    color: colors.primary,
                   ),
                 ),
               ],

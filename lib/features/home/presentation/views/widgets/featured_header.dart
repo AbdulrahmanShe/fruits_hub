@@ -10,6 +10,7 @@ class FeaturedHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return GestureDetector(
       onTap: () {
         final controller = Get.find<ProductsController>();
@@ -28,7 +29,7 @@ class FeaturedHeader extends StatelessWidget {
             S.of(context).more,
             textAlign: TextAlign.center,
             style: TextStyles.regular13.copyWith(
-              color: const Color(0xFF949D9E),
+              color: colors.onSurface.withValues(alpha: 0.6),
             ),
           )
         ],

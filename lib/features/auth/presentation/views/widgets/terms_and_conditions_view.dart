@@ -9,6 +9,7 @@ class TermsAndConditionsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: buildAppBar(
         context, 
@@ -20,7 +21,7 @@ class TermsAndConditionsView extends StatelessWidget {
           child: Text(
             S.of(context).termsAndConditionsContent,
             style: TextStyles.semiBold16.copyWith(
-                        color: const Color(0xFF949D9E),
+                        color: colors.onSurface.withValues(alpha: 0.6),
               height: 1.5,
             ),
           ),

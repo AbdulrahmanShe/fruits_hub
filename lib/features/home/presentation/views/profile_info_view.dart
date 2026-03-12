@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/services/shared_preferences_singleton.dart';
-import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/utils/backend_endpoint.dart';
@@ -161,6 +160,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     final avatarPath =
         selectedGender == 'female'
             ? Assets.imagesProfileImageFemale
@@ -185,9 +185,11 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                             width: double.infinity,
                             padding: const EdgeInsets.all(14),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFF1F7F3),
+                              color: colors.primary.withValues(alpha: 0.12),
                               borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: const Color(0xFFDFECE4)),
+                              border: Border.all(
+                                color: colors.outline.withValues(alpha: 0.4),
+                              ),
                             ),
                             child: Row(
                               children: [
@@ -204,13 +206,15 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                                     children: [
                                       Text(
                                         S.of(context).profileInfo,
-                                        style: TextStyles.bold16,
+                                        style: TextStyles.bold16.copyWith(
+                                          color: colors.onSurface,
+                                        ),
                                       ),
                                       const SizedBox(height: 2),
                                       Text(
                                         S.of(context).updateDataHint,
                                         style: TextStyles.regular13.copyWith(
-                                          color: const Color(0xFF5A6662),
+                                          color: colors.onSurface.withValues(alpha: 0.6),
                                         ),
                                       ),
                                     ],
@@ -312,9 +316,9 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
             if (isSaving)
               Positioned.fill(
                 child: Container(
-                  color: Colors.black.withValues(alpha: 0.08),
+                  color: colors.scrim.withValues(alpha: 0.2),
                   alignment: Alignment.center,
-                  child: const CircularProgressIndicator(color: AppColors.primaryColor),
+                  child: CircularProgressIndicator(color: colors.primary),
                 ),
               ),
           ],
@@ -337,23 +341,30 @@ class _GenderButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 11),
         decoration: BoxDecoration(
-          color: selected ? const Color(0xFFEFF7F2) : const Color(0xFFF9FAFA),
+          color: selected
+              ? colors.primary.withValues(alpha: 0.12)
+              : colors.surface,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: selected ? AppColors.primaryColor : const Color(0xFFE1E4E3),
+            color: selected
+                ? colors.primary
+                : colors.outline.withValues(alpha: 0.4),
           ),
         ),
         child: Center(
           child: Text(
             title,
             style: TextStyles.semiBold13.copyWith(
-              color: selected ? AppColors.primaryColor : const Color(0xFF596260),
+              color: selected
+                  ? colors.primary
+                  : colors.onSurface.withValues(alpha: 0.7),
             ),
           ),
         ),
@@ -370,12 +381,13 @@ class _LabeledField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
-          style: TextStyles.semiBold13.copyWith(color: const Color(0xFF45504D)),
+          style: TextStyles.semiBold13.copyWith(color: colors.onSurface),
         ),
         const SizedBox(height: 6),
         child,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:svg_flutter/svg.dart';
 
-import '../../../../../core/utils/app_colors.dart';
 
 class CustomCheckBox extends StatelessWidget {
   const CustomCheckBox(
@@ -11,6 +10,7 @@ class CustomCheckBox extends StatelessWidget {
   final ValueChanged<bool> onChecked;
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return GestureDetector(
       onTap: () {
         onChecked(!isChecked);
@@ -20,11 +20,13 @@ class CustomCheckBox extends StatelessWidget {
         height: 24,
         duration: const Duration(milliseconds: 100),
         decoration: ShapeDecoration(
-          color: isChecked ? AppColors.primaryColor : Colors.white,
+          color: isChecked ? colors.primary : colors.surface,
           shape: RoundedRectangleBorder(
             side: BorderSide(
               width: 1.50,
-              color: isChecked ? Colors.transparent : const Color(0xFFDCDEDE),
+              color: isChecked
+                  ? Colors.transparent
+                  : colors.outline.withValues(alpha: 0.5),
             ),
             borderRadius: BorderRadius.circular(8),
           ),

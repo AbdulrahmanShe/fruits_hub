@@ -9,16 +9,20 @@ class CartHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 20),
-      decoration: const BoxDecoration(color: Color(0xFFEBF9F1)),
+      decoration: BoxDecoration(
+        color: colors.primary.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: Center(
         child: Obx((){
           return Text(
             S.of(context).youHaveItemsInCart(controller.totalItems.toString()),
-            style: const TextStyle(
-              color: Color(0xFF1B5E37),
+            style: TextStyle(
+              color: colors.primary,
               fontSize: 13,
               fontFamily: 'Cairo',
               fontWeight: FontWeight.w400,

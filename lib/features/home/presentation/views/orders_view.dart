@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/generated/l10n.dart';
@@ -83,11 +82,12 @@ class _OrderCardState extends State<_OrderCard> {
   @override
   Widget build(BuildContext context) {
     final order = widget.order;
+    final colors = Theme.of(context).colorScheme;
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFF9FAFA),
+        color: colors.surface,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFFE3E6E5)),
+        border: Border.all(color: colors.outline.withValues(alpha: 0.4)),
       ),
       child: Column(
         children: [
@@ -110,7 +110,7 @@ class _OrderCardState extends State<_OrderCard> {
                       children: [
                         Text(
                           S.of(context).orderNumberLabel(order.orderNumber),
-                          style: TextStyles.bold13,
+                          style: TextStyles.bold13.copyWith(color: colors.onSurface),
                         ),
                         const SizedBox(height: 4),
                         Text(
@@ -119,15 +119,15 @@ class _OrderCardState extends State<_OrderCard> {
                             order.quantity.toString(),
                           ),
                           style: TextStyles.regular13.copyWith(
-                            color: const Color(0xFF6D7573),
+                            color: colors.onSurface.withValues(alpha: 0.6),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const Icon(
+                  Icon(
                     Icons.receipt_long_outlined,
-                    color: Color(0xFF6D7573),
+                    color: colors.onSurface.withValues(alpha: 0.6),
                   ),
                 ],
               ),
@@ -147,6 +147,7 @@ class _OrderInvoice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     final subtotal = order.items.fold<int>(
       0,
       (sum, item) => sum + (item.unitPrice * item.quantity),
@@ -177,14 +178,17 @@ class _OrderInvoice extends StatelessWidget {
       margin: const EdgeInsets.fromLTRB(12, 0, 12, 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colors.surface,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFFE6E9E9)),
+        border: Border.all(color: colors.outline.withValues(alpha: 0.4)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(S.of(context).orderInvoice, style: TextStyles.bold13),
+          Text(
+            S.of(context).orderInvoice,
+            style: TextStyles.bold13.copyWith(color: colors.onSurface),
+          ),
           const SizedBox(height: 10),
           ...order.items.map((item) {
             final itemTotal = item.unitPrice * item.quantity;
@@ -196,14 +200,14 @@ class _OrderInvoice extends StatelessWidget {
                     child: Text(
                       '${item.title} x${item.quantity}',
                       style: TextStyles.regular13.copyWith(
-                        color: const Color(0xFF56605D),
+                        color: colors.onSurface.withValues(alpha: 0.7),
                       ),
                     ),
                   ),
                   Text(
                     S.of(context).ilsAmount(itemTotal.toString()),
                     style: TextStyles.semiBold13.copyWith(
-                      color: AppColors.primaryColor,
+                      color: colors.primary,
                     ),
                   ),
                 ],
@@ -230,14 +234,14 @@ class _OrderInvoice extends StatelessWidget {
           Text(
             S.of(context).paymentMethodLabel(order.paymentMethod),
             style: TextStyles.regular13.copyWith(
-              color: const Color(0xFF6D7573),
+              color: colors.onSurface.withValues(alpha: 0.6),
             ),
           ),
           const SizedBox(height: 4),
           Text(
             S.of(context).orderDateLabel(order.createdAt),
             style: TextStyles.regular13.copyWith(
-              color: const Color(0xFF6D7573),
+              color: colors.onSurface.withValues(alpha: 0.6),
             ),
           ),
           const SizedBox(height: 12),
@@ -247,22 +251,25 @@ class _OrderInvoice extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: colors.surface,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: const Color(0xFFE6E9E9)),
+                    border: Border.all(color: colors.outline.withValues(alpha: 0.4)),
                   ),
                   child: QrImageView(
                     data: qrPayload,
                     version: QrVersions.auto,
                     size: 120,
-                    backgroundColor: Colors.white,
+                    backgroundColor:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : colors.surface,
                   ),
                 ),
                 const SizedBox(height: 6),
                 Text(
                   S.of(context).invoiceQr,
                   style: TextStyles.regular13.copyWith(
-                    color: const Color(0xFF6D7573),
+                    color: colors.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
               ],
@@ -287,19 +294,20 @@ class _InvoiceSummaryRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Row(
       children: [
         Text(
           title,
           style: (isTotal ? TextStyles.bold13 : TextStyles.regular13).copyWith(
-            color: const Color(0xFF434D4A),
+            color: colors.onSurface,
           ),
         ),
         const Spacer(),
         Text(
           value,
           style: (isTotal ? TextStyles.bold13 : TextStyles.semiBold13).copyWith(
-            color: isTotal ? AppColors.primaryColor : const Color(0xFF434D4A),
+            color: isTotal ? colors.primary : colors.onSurface,
           ),
         ),
       ],

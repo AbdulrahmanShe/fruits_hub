@@ -18,6 +18,7 @@ class ShippingAddressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CheckoutController controller = Get.find<CheckoutController>();
+    final colors = Theme.of(context).colorScheme;
     log(controller.orderEntity.toString());
     return PaymentItem(
       tile: S.of(context).shippingAddress,
@@ -33,7 +34,7 @@ class ShippingAddressWidget extends StatelessWidget {
             ' ${controller.orderEntity.shippingAddressEntity}',
             textAlign: TextAlign.right,
             style: TextStyles.regular13.copyWith(
-              color: const Color(0xFF4E5556),
+              color: colors.onSurface.withValues(alpha: 0.7),
             ),
           ),
           const Spacer(),
@@ -55,7 +56,7 @@ class ShippingAddressWidget extends StatelessWidget {
                   Text(
                     S.of(context).edit,
                     style: TextStyles.semiBold13.copyWith(
-                      color: const Color(0xFF949D9E),
+                      color: colors.onSurface.withValues(alpha: 0.6),
                     ),
                   )
                 ],

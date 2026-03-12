@@ -26,6 +26,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: buildAppBar(context, title: S.of(context).forgotPassword),
       body: Padding(
@@ -39,7 +40,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               Text(
                 S.of(context).passwordResetInstruction,
                       style: TextStyles.semiBold16.copyWith(
-                        color: const Color(0xFF949D9E),
+                        color: colors.onSurface.withValues(alpha: 0.6),
                           ),
                           ),
               const SizedBox(height: 24),

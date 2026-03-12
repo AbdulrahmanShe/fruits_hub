@@ -61,7 +61,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
               children: [
                 const SizedBox(height: kTopPaddding),
 
-                buildAppBarSearch(title: S.of(context).search),
+                buildAppBarSearch(context, title: S.of(context).search),
 
                 const SizedBox(height: 16),
                  SearchTextField(),
