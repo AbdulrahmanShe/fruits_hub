@@ -3,3 +3,4 @@ const kTopPaddding = 16.0;
 const kIsOnBoardingViewSeen = 'isOnBoardingViewSeen';
 const kUserData = 'userData';
 const kAppLanguage = 'appLanguage';
+const kAppDarkMode = 'appDarkMode';
