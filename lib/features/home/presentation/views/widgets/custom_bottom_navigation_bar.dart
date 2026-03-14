@@ -3,15 +3,37 @@ import 'package:fruits_hub/features/home/domain/entites/bottom_navigation_bar_en
 import 'naivation_bar_item.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
-  const CustomBottomNavigationBar({super.key, required this.onItemTapped});
+  const CustomBottomNavigationBar({
+    super.key,
+    required this.onItemTapped,
+    required this.currentIndex,
+  });
   final ValueChanged<int> onItemTapped;
+  final int currentIndex;
   @override
   State<CustomBottomNavigationBar> createState() =>
       _CustomBottomNavigationBarState();
 }
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
-  int selectedIndex = 0;
+  late int selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedIndex = widget.currentIndex;
+  }
+
+  @override
+  void didUpdateWidget(covariant CustomBottomNavigationBar oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.currentIndex != widget.currentIndex &&
+        selectedIndex != widget.currentIndex) {
+      setState(() {
+        selectedIndex = widget.currentIndex;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

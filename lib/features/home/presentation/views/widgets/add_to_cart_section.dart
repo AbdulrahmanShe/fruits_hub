@@ -4,7 +4,7 @@ import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/home/presentation/controller/cart_controller.dart';
-import 'package:fruits_hub/features/home/presentation/views/cart_view.dart';
+import 'package:fruits_hub/features/home/presentation/views/main_view.dart';
 import 'package:get/get.dart';
 
 class AddToCartSection extends StatelessWidget {
@@ -21,12 +21,10 @@ class AddToCartSection extends StatelessWidget {
       child: ElevatedButton(
         onPressed: (){
           if (controller.cartEntity.value.isExis(product)) {
-              Get.to(() => const CartView());
-
+            Get.offAllNamed(MainView.routeName, arguments: 2);
             } else {
               controller.addProduct(product);
-              Get.to(() => const CartView());
-
+              Get.offAllNamed(MainView.routeName, arguments: 2);
             }
           },
         style: ElevatedButton.styleFrom(

@@ -165,11 +165,7 @@ class _ProfileViewState extends State<ProfileView> {
                             title: S.of(context).myOrders,
                             icon: Icons.inventory_2_outlined,
                             onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute<void>(
-                                  builder: (_) => const OrdersView(),
-                                ),
-                              );
+                              Get.toNamed(OrdersView.routeName);
                             },
                           ),
                           const SizedBox(height: 8),
