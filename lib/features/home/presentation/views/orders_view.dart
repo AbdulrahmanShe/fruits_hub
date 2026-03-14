@@ -3,65 +3,109 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
+import 'package:fruits_hub/features/checkout/domain/entites/order_history_entity.dart';
+import 'package:fruits_hub/features/home/presentation/controller/orders_controller.dart';
 import 'package:fruits_hub/generated/l10n.dart';
+import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class OrdersView extends StatelessWidget {
+class OrdersView extends GetView<OrdersController> {
   const OrdersView({super.key});
 
   static const routeName = '/ordersView';
 
   @override
   Widget build(BuildContext context) {
-    final orders = <_OrderItem>[
-      _OrderItem(
-        orderNumber: '#1234567',
-        total: S.of(context).ilsAmount('250'),
-        quantity: 3,
-        createdAt: S.of(context).date2March2026,
-        paymentMethod: 'Visa **** 4887',
-        shipping: 20,
-        items: [
-          _InvoiceLine(title: S.of(context).redApple, quantity: 2, unitPrice: 40),
-          _InvoiceLine(title: S.of(context).banana, quantity: 1, unitPrice: 30),
-          _InvoiceLine(title: S.of(context).pineapple, quantity: 1, unitPrice: 120),
-        ],
-      ),
-      _OrderItem(
-        orderNumber: '#1234568',
-        total: S.of(context).ilsAmount('180'),
-        quantity: 2,
-        createdAt: S.of(context).date1March2026,
-        paymentMethod: 'MasterCard **** 1234',
-        shipping: 15,
-        items: [
-          _InvoiceLine(title: S.of(context).grapes, quantity: 2, unitPrice: 55),
-          _InvoiceLine(title: S.of(context).orangeFruit, quantity: 2, unitPrice: 20),
-        ],
-      ),
-      _OrderItem(
-        orderNumber: '#1234569',
-        total: S.of(context).ilsAmount('95'),
-        quantity: 2,
-        createdAt: S.of(context).date27Feb2026,
-        paymentMethod: S.of(context).cashOnDelivery,
-        shipping: 10,
-        items: [
-          _InvoiceLine(title: S.of(context).strawberry, quantity: 1, unitPrice: 45),
-          _InvoiceLine(title: S.of(context).kiwi, quantity: 1, unitPrice: 40),
-        ],
-      ),
-    ];
-
     return Scaffold(
       appBar: buildAppBar(context, title: S.of(context).myOrders),
-      body: ListView.separated(
-        padding: const EdgeInsets.all(16),
-        itemCount: orders.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 12),
-        itemBuilder: (context, index) {
-          return _OrderCard(order: orders[index]);
-        },
+      body: Obx(() {
+        if (controller.isLoading.value && controller.orders.isEmpty) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (controller.errorMessage.isNotEmpty &&
+            controller.orders.isEmpty) {
+          return _OrdersMessage(
+            title: S.of(context).ordersLoadFailedTitle,
+            subtitle: S.of(context).somethingWentWrongTryAgain,
+            actionLabel: S.of(context).reload,
+            onAction: controller.refreshOrders,
+          );
+        }
+
+        if (controller.orders.isEmpty) {
+          return _OrdersMessage(
+            title: S.of(context).ordersEmptyTitle,
+            subtitle: S.of(context).ordersEmptySubtitle,
+          );
+        }
+
+        return RefreshIndicator(
+          onRefresh: controller.refreshOrders,
+          child: ListView.separated(
+            padding: const EdgeInsets.all(16),
+            itemCount: controller.orders.length,
+            separatorBuilder: (_, __) => const SizedBox(height: 12),
+            itemBuilder: (context, index) {
+              return _OrderCard(order: controller.orders[index]);
+            },
+          ),
+        );
+      }),
+    );
+  }
+}
+
+class _OrdersMessage extends StatelessWidget {
+  const _OrdersMessage({
+    required this.title,
+    required this.subtitle,
+    this.actionLabel,
+    this.onAction,
+  });
+
+  final String title;
+  final String subtitle;
+  final String? actionLabel;
+  final VoidCallback? onAction;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.inventory_2_outlined,
+              color: colors.primary,
+              size: 48,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              title,
+              style: TextStyles.bold13.copyWith(color: colors.onSurface),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 6),
+            Text(
+              subtitle,
+              style: TextStyles.regular13.copyWith(
+                color: colors.onSurface.withValues(alpha: 0.7),
+              ),
+              textAlign: TextAlign.center,
+            ),
+            if (actionLabel != null && onAction != null) ...[
+              const SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: onAction,
+                child: Text(actionLabel!),
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }
@@ -70,7 +114,7 @@ class OrdersView extends StatelessWidget {
 class _OrderCard extends StatefulWidget {
   const _OrderCard({required this.order});
 
-  final _OrderItem order;
+  final OrderHistoryEntity order;
 
   @override
   State<_OrderCard> createState() => _OrderCardState();
@@ -83,6 +127,7 @@ class _OrderCardState extends State<_OrderCard> {
   Widget build(BuildContext context) {
     final order = widget.order;
     final colors = Theme.of(context).colorScheme;
+    final total = order.totalWithShipping;
     return Container(
       decoration: BoxDecoration(
         color: colors.surface,
@@ -109,14 +154,18 @@ class _OrderCardState extends State<_OrderCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          S.of(context).orderNumberLabel(order.orderNumber),
-                          style: TextStyles.bold13.copyWith(color: colors.onSurface),
+                          S.of(context).orderNumberLabel(
+                            order.displayOrderNumber,
+                          ),
+                          style: TextStyles.bold13.copyWith(
+                            color: colors.onSurface,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           S.of(context).orderSummaryLabel(
-                            order.total,
-                            order.quantity.toString(),
+                            S.of(context).ilsAmount(_formatAmount(total)),
+                            order.totalQuantity.toString(),
                           ),
                           style: TextStyles.regular13.copyWith(
                             color: colors.onSurface.withValues(alpha: 0.6),
@@ -143,32 +192,33 @@ class _OrderCardState extends State<_OrderCard> {
 class _OrderInvoice extends StatelessWidget {
   const _OrderInvoice({required this.order});
 
-  final _OrderItem order;
+  final OrderHistoryEntity order;
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    final subtotal = order.items.fold<int>(
-      0,
-      (sum, item) => sum + (item.unitPrice * item.quantity),
-    );
-    final total = subtotal + order.shipping;
+    final subtotal = order.subtotal;
+    final shipping = order.shippingCost;
+    final total = order.totalWithShipping;
+    final paymentMethod = _mapPaymentMethod(context, order.paymentMethod);
+    final dateLabel = _formatDate(context, order);
+
     final qrPayload = jsonEncode({
       'invoiceType': 'FruitHubOrderInvoice',
-      'orderNumber': order.orderNumber,
-      'createdAt': order.createdAt,
-      'paymentMethod': order.paymentMethod,
+      'orderNumber': order.orderId,
+      'createdAt': order.createdAtRaw ?? '',
+      'paymentMethod': paymentMethod,
       'subtotal': subtotal,
-      'shipping': order.shipping,
+      'shipping': shipping,
       'total': total,
       'items':
           order.items
               .map(
                 (item) => {
-                  'title': item.title,
+                  'title': item.name,
                   'quantity': item.quantity,
-                  'unitPrice': item.unitPrice,
-                  'lineTotal': item.unitPrice * item.quantity,
+                  'unitPrice': item.price,
+                  'lineTotal': item.price * item.quantity,
                 },
               )
               .toList(),
@@ -191,21 +241,21 @@ class _OrderInvoice extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           ...order.items.map((item) {
-            final itemTotal = item.unitPrice * item.quantity;
+            final itemTotal = item.price * item.quantity;
             return Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: Row(
                 children: [
                   Expanded(
                     child: Text(
-                      '${item.title} x${item.quantity}',
+                      '${item.name} x${item.quantity}',
                       style: TextStyles.regular13.copyWith(
                         color: colors.onSurface.withValues(alpha: 0.7),
                       ),
                     ),
                   ),
                   Text(
-                    S.of(context).ilsAmount(itemTotal.toString()),
+                    S.of(context).ilsAmount(_formatAmount(itemTotal)),
                     style: TextStyles.semiBold13.copyWith(
                       color: colors.primary,
                     ),
@@ -217,29 +267,29 @@ class _OrderInvoice extends StatelessWidget {
           const Divider(height: 20),
           _InvoiceSummaryRow(
             title: S.of(context).subtotal,
-            value: S.of(context).ilsAmount(subtotal.toString()),
+            value: S.of(context).ilsAmount(_formatAmount(subtotal)),
           ),
           const SizedBox(height: 6),
           _InvoiceSummaryRow(
             title: S.of(context).shipping,
-            value: S.of(context).ilsAmount(order.shipping.toString()),
+            value: S.of(context).ilsAmount(_formatAmount(shipping)),
           ),
           const SizedBox(height: 6),
           _InvoiceSummaryRow(
             title: S.of(context).finalTotal,
-            value: S.of(context).ilsAmount(total.toString()),
+            value: S.of(context).ilsAmount(_formatAmount(total)),
             isTotal: true,
           ),
           const SizedBox(height: 10),
           Text(
-            S.of(context).paymentMethodLabel(order.paymentMethod),
+            S.of(context).paymentMethodLabel(paymentMethod),
             style: TextStyles.regular13.copyWith(
               color: colors.onSurface.withValues(alpha: 0.6),
             ),
           ),
           const SizedBox(height: 4),
           Text(
-            S.of(context).orderDateLabel(order.createdAt),
+            S.of(context).orderDateLabel(dateLabel),
             style: TextStyles.regular13.copyWith(
               color: colors.onSurface.withValues(alpha: 0.6),
             ),
@@ -315,34 +365,21 @@ class _InvoiceSummaryRow extends StatelessWidget {
   }
 }
 
-class _OrderItem {
-  const _OrderItem({
-    required this.orderNumber,
-    required this.total,
-    required this.quantity,
-    required this.items,
-    required this.paymentMethod,
-    required this.createdAt,
-    required this.shipping,
-  });
-
-  final String orderNumber;
-  final String total;
-  final int quantity;
-  final List<_InvoiceLine> items;
-  final String paymentMethod;
-  final String createdAt;
-  final int shipping;
+String _formatAmount(num value) {
+  if (value % 1 == 0) return value.toStringAsFixed(0);
+  return value.toStringAsFixed(2);
 }
 
-class _InvoiceLine {
-  const _InvoiceLine({
-    required this.title,
-    required this.quantity,
-    required this.unitPrice,
-  });
+String _formatDate(BuildContext context, OrderHistoryEntity order) {
+  final date = order.createdAt;
+  if (date != null) {
+    return MaterialLocalizations.of(context).formatFullDate(date);
+  }
+  return order.createdAtRaw ?? '';
+}
 
-  final String title;
-  final int quantity;
-  final int unitPrice;
+String _mapPaymentMethod(BuildContext context, String method) {
+  final value = method.toLowerCase();
+  if (value == 'cash') return S.of(context).cashOnDelivery;
+  return method;
 }
