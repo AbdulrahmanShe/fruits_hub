@@ -20,6 +20,15 @@ class _MainViewState extends State<MainView> {
   final ProductsController controller = Get.find<ProductsController>();
   final List<Widget?> _pages = List.filled(4, null);
 
+  @override
+  void initState() {
+    super.initState();
+    final args = Get.arguments;
+    if (args is int && args >= 0 && args < 4) {
+      currentViewIndex = args;
+    }
+  }
+
   Widget _buildPage(int index) {
     if (_pages[index] == null && index == currentViewIndex) {
       _pages[index] = switch (index) {
@@ -36,6 +45,7 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CustomBottomNavigationBar(
+        currentIndex: currentViewIndex,
         onItemTapped: (index) { 
           currentViewIndex = index;
           if (index == 0) {
