@@ -254,6 +254,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "orderNumberLabel": m3,
     "orderSummary": MessageLookupByLibrary.simpleMessage("Order Summary"),
     "orderSummaryLabel": m4,
+    "ordersEmptySubtitle": MessageLookupByLibrary.simpleMessage(
+      "Once you place an order, it will show up here.",
+    ),
+    "ordersEmptyTitle": MessageLookupByLibrary.simpleMessage("No orders yet"),
+    "ordersLoadFailedTitle": MessageLookupByLibrary.simpleMessage(
+      "Couldn\'t load orders",
+    ),
     "organic": MessageLookupByLibrary.simpleMessage("Organic"),
     "ourMission": MessageLookupByLibrary.simpleMessage("Our Mission"),
     "ourProducts": MessageLookupByLibrary.simpleMessage("Our Products"),
@@ -304,6 +311,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "rating": MessageLookupByLibrary.simpleMessage("Rating"),
     "recentSearches": MessageLookupByLibrary.simpleMessage("Recent Searches"),
     "redApple": MessageLookupByLibrary.simpleMessage("Red Apple"),
+    "reload": MessageLookupByLibrary.simpleMessage("Retry"),
     "resultsCount": m7,
     "saveChanges": MessageLookupByLibrary.simpleMessage("Save Changes"),
     "saving": MessageLookupByLibrary.simpleMessage("Saving..."),

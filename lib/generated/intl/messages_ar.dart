@@ -247,6 +247,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "orderNumberLabel": m3,
     "orderSummary": MessageLookupByLibrary.simpleMessage("ملخص الطلب"),
     "orderSummaryLabel": m4,
+    "ordersEmptySubtitle": MessageLookupByLibrary.simpleMessage(
+      "عند تنفيذ أول طلب، سيظهر هنا.",
+    ),
+    "ordersEmptyTitle": MessageLookupByLibrary.simpleMessage(
+      "لا توجد طلبات بعد",
+    ),
+    "ordersLoadFailedTitle": MessageLookupByLibrary.simpleMessage(
+      "تعذر تحميل الطلبات",
+    ),
     "organic": MessageLookupByLibrary.simpleMessage("اوجانيك"),
     "ourMission": MessageLookupByLibrary.simpleMessage("رسالتنا"),
     "ourProducts": MessageLookupByLibrary.simpleMessage("منتجاتنا"),
@@ -297,6 +306,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "عمليات البحث الأخيرة",
     ),
     "redApple": MessageLookupByLibrary.simpleMessage("تفاح أحمر"),
+    "reload": MessageLookupByLibrary.simpleMessage("إعادة المحاولة"),
     "resultsCount": m7,
     "saveChanges": MessageLookupByLibrary.simpleMessage("حفظ التغييرات"),
     "saving": MessageLookupByLibrary.simpleMessage("جاري الحفظ..."),

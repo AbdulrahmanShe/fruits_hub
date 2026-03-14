@@ -1634,6 +1634,41 @@ class S {
     return Intl.message('Yes', name: 'yes', desc: '', args: []);
   }
 
+  /// `No orders yet`
+  String get ordersEmptyTitle {
+    return Intl.message(
+      'No orders yet',
+      name: 'ordersEmptyTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Once you place an order, it will show up here.`
+  String get ordersEmptySubtitle {
+    return Intl.message(
+      'Once you place an order, it will show up here.',
+      name: 'ordersEmptySubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Couldn't load orders`
+  String get ordersLoadFailedTitle {
+    return Intl.message(
+      'Couldn\'t load orders',
+      name: 'ordersLoadFailedTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Retry`
+  String get reload {
+    return Intl.message('Retry', name: 'reload', desc: '', args: []);
+  }
+
   /// `You have {count} items in your cart`
   String youHaveItemsInCart(String count) {
     return Intl.message(

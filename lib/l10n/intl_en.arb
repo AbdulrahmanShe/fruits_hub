@@ -196,6 +196,10 @@
     "whatWeCommitTo":  "What We Commit To",
     "whyFruitHub":  "Why FruitHub?",
     "yes":  "Yes",
+    "ordersEmptyTitle":  "No orders yet",
+    "ordersEmptySubtitle":  "Once you place an order, it will show up here.",
+    "ordersLoadFailedTitle":  "Couldn't load orders",
+    "reload":  "Retry",
     "youHaveItemsInCart":  "You have {count} items in your cart",
     "@ilsAmount":  {
                        "placeholders":  {

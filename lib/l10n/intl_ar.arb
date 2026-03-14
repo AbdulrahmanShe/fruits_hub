@@ -196,6 +196,10 @@
     "whatWeCommitTo":  "ما نلتزم به",
     "whyFruitHub":  "لماذا FruitHub؟",
     "yes":  "نعم",
+    "ordersEmptyTitle":  "لا توجد طلبات بعد",
+    "ordersEmptySubtitle":  "عند تنفيذ أول طلب، سيظهر هنا.",
+    "ordersLoadFailedTitle":  "تعذر تحميل الطلبات",
+    "reload":  "إعادة المحاولة",
     "youHaveItemsInCart":  "لديك {count} منتجات في سله التسوق",
     "@egpAmount":  {
                        "placeholders":  {
