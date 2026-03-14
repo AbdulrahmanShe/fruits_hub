@@ -16,13 +16,20 @@ class OrdersController extends GetxController {
   final orders = <OrderHistoryEntity>[].obs;
   final errorMessage = ''.obs;
 
-  Future<void> fetchOrders({bool force = false}) async {
-    if (!force && orders.isNotEmpty) return;
+  Future<void> fetchOrders() async {
+    if (orders.isNotEmpty) return;
+    await _loadOrders();
+  }
+
+  Future<void> refreshOrders() async {
+    orders.clear();
+    await _loadOrders();
+  }
+
+  Future<void> _loadOrders() async {
+    if (isLoading.value) return;
     isLoading.value = true;
     errorMessage.value = '';
-    if (force) {
-      orders.clear();
-    }
 
     final result = await ordersRepo.getOrders(userId: userId);
     isLoading.value = false;
@@ -41,8 +48,6 @@ class OrdersController extends GetxController {
       },
     );
   }
-
-  Future<void> refreshOrders() => fetchOrders(force: true);
 
   @override
   void onInit() {
