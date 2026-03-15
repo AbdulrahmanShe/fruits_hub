@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/utils/show_snack_bar.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
@@ -35,7 +36,7 @@ class VoiceSearchController extends GetxController {
     /// 🛑 اطلب الإذن أولًا
     final status = await Permission.microphone.request();
     if (!status.isGranted) {
-      Get.snackbar(
+      showSnackBar(
         S.current.alert,
         S.current.microphoneAccessRequired,
       );

@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:fruits_hub/core/errors/failures.dart';
 import 'package:fruits_hub/features/auth/domin/entites/user_entity.dart';
 import 'package:fruits_hub/features/auth/domin/repos/auth_repo.dart';
+import 'package:fruits_hub/core/utils/show_snack_bar.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 class AuthController extends GetxController{
@@ -74,19 +75,11 @@ Future<bool> signInWithGoogle() async {
   Future<bool> handleAuthResult(Either<Failure, UserEntity> result,{required String successMessage}) async{
     return result.fold(
           (failure) {
-      Get.snackbar(
-        S.current.error,
-        failure.message,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      showSnackBar(S.current.error, failure.message);
       return false;
     },
          (user) {
-      Get.snackbar(
-        S.current.success,
-        successMessage,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      showSnackBar(S.current.success, successMessage);
       return true;
 
     },
@@ -96,19 +89,11 @@ Future<bool> signInWithGoogle() async {
   Future<bool> handleUnitResult(Either<Failure, Unit> result,{required String successMessage}) async{
     return result.fold(
           (failure) {
-      Get.snackbar(
-        S.current.error,
-        failure.message,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      showSnackBar(S.current.error, failure.message);
       return false;
     },
          (_) {
-      Get.snackbar(
-        S.current.success,
-        successMessage,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      showSnackBar(S.current.success, successMessage);
       return true;
 
     },

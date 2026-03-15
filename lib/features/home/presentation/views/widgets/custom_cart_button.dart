@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/widgets/custom_bottom.dart';
+import 'package:fruits_hub/core/utils/show_snack_bar.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/checkout_view.dart';
 import 'package:fruits_hub/features/home/presentation/controller/cart_controller.dart';
@@ -24,11 +25,10 @@ class CustomCartButton extends StatelessWidget {
                   arguments: controller.cartEntity.value,
                 );
               } else {
-                Get.snackbar(
-          S.of(context).alertExclamation,
-          S.of(context).noProductsInCart,
-          snackPosition: SnackPosition.BOTTOM,
-        );
+                showSnackBar(
+                  S.of(context).alertExclamation,
+                  S.of(context).noProductsInCart,
+                );
               }
             },
              text:

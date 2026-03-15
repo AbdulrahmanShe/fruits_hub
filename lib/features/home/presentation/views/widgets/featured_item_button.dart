@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 
@@ -13,25 +12,25 @@ class FeaturedItemButton extends StatelessWidget {
       height: 32,
       child: TextButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStatePropertyAll(colors.surface),
-          foregroundColor: MaterialStatePropertyAll(colors.primary),
-          overlayColor: MaterialStateProperty.resolveWith(
+          backgroundColor: WidgetStatePropertyAll(colors.surface),
+          foregroundColor: WidgetStatePropertyAll(colors.primary),
+          overlayColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.pressed)) {
+              if (states.contains(WidgetState.pressed)) {
                 return colors.primary.withValues(alpha: 0.12);
               }
-              if (states.contains(MaterialState.hovered)) {
+              if (states.contains(WidgetState.hovered)) {
                 return colors.primary.withValues(alpha: 0.08);
               }
               return null;
             },
           ),
-          side: MaterialStatePropertyAll(
+          side: WidgetStatePropertyAll(
             BorderSide(
               color: colors.primary.withValues(alpha: 0.24),
             ),
           ),
-          shape: MaterialStatePropertyAll(
+          shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4),
             ),

@@ -1,4 +1,5 @@
 import 'package:fruits_hub/core/repos/orders_repo/orders_repo.dart';
+import 'package:fruits_hub/core/utils/show_snack_bar.dart';
 import 'package:fruits_hub/features/checkout/domain/entites/order_history_entity.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
@@ -37,11 +38,7 @@ class OrdersController extends GetxController {
     result.fold(
       (failure) {
         errorMessage.value = failure.message;
-        Get.snackbar(
-          S.current.error,
-          failure.message,
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        showSnackBar(S.current.error, failure.message);
       },
       (items) {
         orders.assignAll(items);

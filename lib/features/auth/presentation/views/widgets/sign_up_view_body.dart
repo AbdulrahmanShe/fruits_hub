@@ -4,6 +4,7 @@ import 'package:fruits_hub/core/widgets/custom_bottom.dart';
 import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
 import 'package:fruits_hub/core/widgets/email_field.dart';
 import 'package:fruits_hub/core/widgets/password_field.dart';
+import 'package:fruits_hub/core/utils/show_snack_bar.dart';
 import 'package:fruits_hub/features/auth/presentation/controller/auth_controller.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/have_an_account_widget.dart';
@@ -102,10 +103,9 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                     }
 
                     if (!isTermsAccepted) {
-                      Get.snackbar(
+                      showSnackBar(
                         S.of(context).alert,
                         S.of(context).mustAcceptTerms,
-                        snackPosition: SnackPosition.BOTTOM,
                       );
                       return;
                     }

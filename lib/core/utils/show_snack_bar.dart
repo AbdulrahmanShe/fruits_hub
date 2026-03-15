@@ -7,6 +7,6 @@ SnackbarController showSnackBar(String title, String subTitle) {
       title,
       subTitle,
       snackPosition: SnackPosition.BOTTOM,
-      duration: Duration(seconds: 1)
+      duration: Duration(milliseconds: 800)
     );
   }

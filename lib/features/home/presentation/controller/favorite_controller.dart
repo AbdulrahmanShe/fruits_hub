@@ -1,4 +1,5 @@
 import 'package:fruits_hub/core/entities/product_entity.dart';
+import 'package:fruits_hub/core/utils/show_snack_bar.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/home/domain/repo/favorite_repo.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,7 @@ class FavoriteController extends GetxController {
 
     result.fold(
       (failure) {
-        Get.snackbar(S.current.error, failure.message);
+        showSnackBar(S.current.error, failure.message);
       },
       (ids) {
         favoriteIds
@@ -43,7 +44,7 @@ class FavoriteController extends GetxController {
 
     final id = product.productId;
     if (id.isEmpty) {
-      Get.snackbar(S.current.error, S.current.productIdUnavailable);
+      showSnackBar(S.current.error, S.current.productIdUnavailable);
       isUpdating.value = false;
       return;
     }
@@ -62,7 +63,7 @@ class FavoriteController extends GetxController {
 
     result.fold((failure) {
       isFav ? favoriteIds.add(id) : favoriteIds.remove(id);
-      Get.snackbar(S.current.error, failure.message);
+      showSnackBar(S.current.error, failure.message);
     }, (_) {});
 
     isUpdating.value = false;

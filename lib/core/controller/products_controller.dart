@@ -3,6 +3,7 @@ import 'package:fruits_hub/features/search/presentation/controller/voice_search_
 import 'package:fruits_hub/core/entities/product_entity.dart';
 import 'package:fruits_hub/core/errors/failures.dart';
 import 'package:fruits_hub/core/repos/products_repo/products_repo.dart';
+import 'package:fruits_hub/core/utils/show_snack_bar.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
@@ -91,11 +92,7 @@ final availableCategories = <String>[].obs;
     return result.fold(
           (failure) {
             errorMessage.value = failure.message;
-      Get.snackbar(
-        S.current.error,
-        failure.message,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      showSnackBar(S.current.error, failure.message);
     },
          (productsList) {
           target.value = productsList;

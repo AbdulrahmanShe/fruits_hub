@@ -1,4 +1,5 @@
 import 'package:fruits_hub/core/entities/product_entity.dart';
+import 'package:fruits_hub/core/utils/show_snack_bar.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/home/domain/entites/car_item_entity.dart';
 import 'package:fruits_hub/features/home/domain/entites/cart_entity.dart';
@@ -14,17 +15,15 @@ class CartController extends GetxController{
 
     if (isProductExist) {
       cartItem.increaseQuantity();
-      Get.snackbar(
+      showSnackBar(
         S.current.success,
         S.current.addedSuccessfully,
-        snackPosition: SnackPosition.BOTTOM,
       );
     } else {
       cart.addCartItem(cartItem);
-       Get.snackbar(
+      showSnackBar(
         S.current.success,
         S.current.addedSuccessfully,
-        snackPosition: SnackPosition.BOTTOM,
       );
     }
     cartEntity.refresh();
