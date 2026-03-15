@@ -7,6 +7,7 @@ import 'package:fruits_hub/features/auth/presentation/views/widgets/terms_and_co
 import 'package:fruits_hub/features/checkout/binding/checkout_binding.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/checkout_view.dart';
 import 'package:fruits_hub/features/home/bindings/favorit_binding.dart';
+import 'package:fruits_hub/features/home/bindings/main_binding.dart';
 import 'package:fruits_hub/features/home/bindings/orders_binding.dart';
 import 'package:fruits_hub/features/home/presentation/views/about_us_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/help_view.dart';
@@ -39,7 +40,7 @@ class AppPages {
     GetPage(
       name: MainView.routeName,
       page: () => const MainView(),
-      bindings: [ProductsBinding(), FavoritBinding()],
+      bindings: [MainBinding(), ProductsBinding(), FavoritBinding()],
     ),
     GetPage(
       name: SearchView.routeName,

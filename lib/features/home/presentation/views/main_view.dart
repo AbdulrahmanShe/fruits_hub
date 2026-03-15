@@ -5,6 +5,7 @@ import 'package:fruits_hub/features/home/presentation/views/profile_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/custom_bottom_navigation_bar.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/home_view.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
+import 'package:fruits_hub/features/home/presentation/controller/main_controller.dart';
 import 'package:get/get.dart';
 
 class MainView extends StatefulWidget {
@@ -16,53 +17,49 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  int currentViewIndex = 0;
   final ProductsController controller = Get.find<ProductsController>();
-  final List<Widget?> _pages = List.filled(4, null);
+  final MainController mainController = Get.find<MainController>();
 
-  @override
-  void initState() {
-    super.initState();
-    final args = Get.arguments;
-    if (args is int && args >= 0 && args < 4) {
-      currentViewIndex = args;
-    }
-  }
+  final List<Widget> pages = const [
+    HomeView(),
+    ProductsView(),
+    CartView(),
+    ProfileView(),
+  ];
 
-  Widget _buildPage(int index) {
-    if (_pages[index] == null && index == currentViewIndex) {
-      _pages[index] = switch (index) {
-        0 => const HomeView(),
-        1 => const ProductsView(),
-        2 => const CartView(),
-        _ => const ProfileView(),
-      };
+  void _handleTabChange(int index) {
+    mainController.setIndex(index);
+
+    switch (index) {
+      case 0:
+        controller.clearSearch();
+        controller.setView(ProductsListView.featured);
+        controller.getFeaturedProducts();
+        break;
+
+      case 1:
+        controller.setView(ProductsListView.all);
+        controller.getProducts();
+        break;
     }
-    return _pages[index] ?? const SizedBox.shrink();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: CustomBottomNavigationBar(
-        currentIndex: currentViewIndex,
-        onItemTapped: (index) { 
-          currentViewIndex = index;
-          if (index == 0) {
-            controller.clearSearch();
-            controller.setView(ProductsListView.featured);
-            controller.getFeaturedProducts();
-          } else if (index == 1) {
-            controller.setView(ProductsListView.all);
-            controller.getProducts();
-          }
-          setState(() {});
-         },),
-      body: SafeArea(child: IndexedStack(
-      index: currentViewIndex,
-      children: List.generate(4, _buildPage),
-    ),
-    ),
-    );
+    return Obx(() {
+      final currentIndex = mainController.currentIndex.value;
+      return Scaffold(
+        bottomNavigationBar: CustomBottomNavigationBar(
+          currentIndex: currentIndex,
+          onItemTapped: _handleTabChange,
+        ),
+        body: SafeArea(
+          child: IndexedStack(
+            index: currentIndex,
+            children: pages,
+          ),
+        ),
+      );
+    });
   }
 }
