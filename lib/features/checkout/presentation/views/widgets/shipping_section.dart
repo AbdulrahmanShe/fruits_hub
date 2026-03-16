@@ -23,32 +23,29 @@ class _ShippingSectionState extends State<ShippingSection> with AutomaticKeepAli
         ),
 
         ShippingItem(
-          onTap: (){
-          controller.selectedShippingIndex.value = 0;
+          onTap: () {
+            controller.selectedShippingIndex.value = 0;
             setState(() {});
             controller.orderEntity.payWithCash = true;
           },
-          
           isSelected: controller.selectedShippingIndex.value == 0,
           title: S.of(context).cashOnDelivery,
           subTitle: S.of(context).deliveryFromLocation,
-          price: (controller.cartTotal + 30).toStringAsFixed(0),
+          price: (5).toStringAsFixed(0),
         ),
-
         const SizedBox(
           height: 16,
         ),
-
         ShippingItem(
-          onTap: (){
-          controller.selectedShippingIndex.value = 1;
+          onTap: () {
+            controller.selectedShippingIndex.value = 1;
             setState(() {});
             controller.orderEntity.payWithCash = false;
           },
           isSelected: controller.selectedShippingIndex.value == 1,
-          title: S.of(context).onlinePayment,
-          subTitle: S.of(context).pleaseSelectPaymentMethod,
-          price: controller.cartTotal.toStringAsFixed(0),
+          title: S.of(context).payWithStripe,
+          subTitle: S.of(context).onlinePayment,
+          price: (5).toStringAsFixed(0),
         ),
       ],
     );

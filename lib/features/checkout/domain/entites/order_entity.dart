@@ -14,11 +14,10 @@ class OrderInputEntity {
   });
 
   double calculateShippingCost() {
-    if (payWithCash!) {
-      return 30;
-    } else {
+    if (payWithCash == null) {
       return 0;
     }
+    return 5;
   }
 
   double calcualteShippingDiscount() {

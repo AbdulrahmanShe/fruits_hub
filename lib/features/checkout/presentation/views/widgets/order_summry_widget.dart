@@ -49,7 +49,7 @@ class OrderSummryWidget extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                S.of(context).ilsAmount('30'),
+                S.of(context).ilsAmount(controller.shippingCost.toStringAsFixed(0)),
                 textAlign: TextAlign.right,
                 style: TextStyles.regular13.copyWith(
                   color: colors.onSurface.withValues(alpha: 0.7),
@@ -72,7 +72,7 @@ class OrderSummryWidget extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                (controller.cartTotal + 30).toStringAsFixed(0),
+                controller.finalTotal.toStringAsFixed(0),
                 style: TextStyles.bold16.copyWith(color: colors.primary),
               ),
             ],

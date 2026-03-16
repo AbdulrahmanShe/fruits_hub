@@ -125,6 +125,10 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
       case 1:
         return S.of(context).next;
       case 2:
+        final payWithCash = controllerCheckout.orderEntity.payWithCash;
+        if (payWithCash == true) {
+          return S.of(context).confirmOrder;
+        }
         return S.of(context).payWithStripe;
       default:
         return S.of(context).next;

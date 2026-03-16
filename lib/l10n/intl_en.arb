@@ -133,6 +133,7 @@
     "paymentAmount":  "Pay {amount} ILS",
     "paymentMethodLabel":  "Payment method: {method}",
     "payWithStripe":  "Pay with Stripe",
+    "confirmOrder":  "Confirm order",
     "phoneIncomplete":  "Phone number is incomplete",
     "phoneNumber":  "Phone Number",
     "phoneRequired":  "Phone number is required",

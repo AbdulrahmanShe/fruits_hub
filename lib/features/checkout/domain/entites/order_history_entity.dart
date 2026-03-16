@@ -33,7 +33,7 @@ class OrderHistoryEntity {
       );
 
   double get shippingCost =>
-      paymentMethod.toLowerCase() == 'cash' ? 10 : 5;
+      5;
 
   double get totalWithShipping => subtotal + shippingCost;
 

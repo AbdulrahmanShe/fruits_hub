@@ -86,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirmLogoutTitle": MessageLookupByLibrary.simpleMessage(
       "Confirm logout",
     ),
+    "confirmOrder": MessageLookupByLibrary.simpleMessage("Confirm order"),
     "contactSupport": MessageLookupByLibrary.simpleMessage("Contact Support"),
     "continuousUpdates": MessageLookupByLibrary.simpleMessage(
       "Continuous Updates",

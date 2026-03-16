@@ -31,7 +31,7 @@ class OrderModel {
                 cartItemEntity: e,
               ))
           .toList(),
-      paymentMethod: orderEntity.payWithCash! ? 'Cash' : 'Paypal',
+      paymentMethod: orderEntity.payWithCash! ? 'Cash' : 'Stripe',
     );
   }
   toJson() => {

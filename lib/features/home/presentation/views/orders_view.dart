@@ -381,5 +381,6 @@ String _formatDate(BuildContext context, OrderHistoryEntity order) {
 String _mapPaymentMethod(BuildContext context, String method) {
   final value = method.toLowerCase();
   if (value == 'cash') return S.of(context).cashOnDelivery;
+  if (value == 'stripe') return S.of(context).payWithStripe;
   return method;
 }

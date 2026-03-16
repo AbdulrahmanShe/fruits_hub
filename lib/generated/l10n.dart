@@ -1114,6 +1114,16 @@ class S {
     );
   }
 
+  /// `Confirm order`
+  String get confirmOrder {
+    return Intl.message(
+      'Confirm order',
+      name: 'confirmOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Phone number is incomplete`
   String get phoneIncomplete {
     return Intl.message(

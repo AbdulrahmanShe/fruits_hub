@@ -22,6 +22,9 @@ class CheckoutController extends GetxController {
       uID: getUser().uId, // لاحقًا من AuthController
       shippingAddressEntity: ShippingAddressEntity(),
     );
+    // Payment method will be selected by the user.
+    orderEntity.payWithCash = null;
+    selectedShippingIndex.value = -1;
   }
 
   // ================== Actions ==================
@@ -38,8 +41,9 @@ class CheckoutController extends GetxController {
       orderEntity.cartEntity.calculateTotalPrice();
 
   double get shippingCost =>
-      orderEntity.payWithCash == true ? 30 : 0;
+      orderEntity.payWithCash == null ? 0 : 5;
 
   double get finalTotal =>
       orderEntity.calculateTotalPriceAfterDiscountAndShipping();
 }
+

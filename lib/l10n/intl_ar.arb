@@ -133,6 +133,7 @@
     "paymentAmount":  "الدفع {amount} جنيه",
     "paymentMethodLabel":  "طريقة الدفع: {method}",
     "payWithStripe":  "الدفع عبر Stripe",
+    "confirmOrder":  "تأكيد الطلب",
     "phoneIncomplete":  "رقم الهاتف غير مكتمل",
     "phoneNumber":  "رقم الهاتف",
     "phoneRequired":  "رقم الهاتف مطلوب",

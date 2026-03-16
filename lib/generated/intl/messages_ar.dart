@@ -89,6 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirmLogoutTitle": MessageLookupByLibrary.simpleMessage(
       "تأكيد تسجيل الخروج",
     ),
+    "confirmOrder": MessageLookupByLibrary.simpleMessage("تأكيد الطلب"),
     "contactSupport": MessageLookupByLibrary.simpleMessage("التواصل مع الدعم"),
     "continuousUpdates": MessageLookupByLibrary.simpleMessage("تحديث مستمر"),
     "createAccount": MessageLookupByLibrary.simpleMessage("قم بإنشاء حساب "),
