@@ -5,6 +5,11 @@ import 'package:fruits_hub/features/checkout/presentation/controller/add_order_c
 import 'package:fruits_hub/features/checkout/presentation/controller/checkout_controller.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/widgets/checkout_steps.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/widgets/checkout_steps_page_view.dart';
+import 'package:fruits_hub/features/checkout/presentation/views/payment_success_view.dart';
+import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
+import 'package:fruits_hub/features/payment/data/models/payment_intent_input_model.dart';
+import 'package:fruits_hub/features/payment/data/repos/payment_repo_impl.dart';
+import 'package:fruits_hub/features/payment/presentation/controller/payment_controller.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +25,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   late PageController pageController;
   ValueNotifier<AutovalidateMode> valueNotifier =
     ValueNotifier(AutovalidateMode.disabled);
+  late final PaymentController paymentController;
 
 
     @override
@@ -30,6 +36,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         currentPageIndex = pageController.page!.round();
       });
     });
+    paymentController = Get.put(PaymentController(PaymentRepoImpl()));
     super.initState();
   }
 
@@ -86,21 +93,53 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                 formKey: _formKey,
               ),
             ),
-            CustomBottom(
-                onPressed: () {
+            Obx(() {
+              final isLoading = paymentController.isLoading.value;
+              final payWithCash = controllerCheckout.orderEntity.payWithCash;
+              final isStripeLoading = currentPageIndex == 2 &&
+                  payWithCash == false &&
+                  isLoading;
+              return CustomBottom(
+                onPressed: () async {
                   if (currentPageIndex == 0) {
                     handleShippingSectionValidation(context);
                   } else if (currentPageIndex == 1) {
                     handleAddressValidation();
                   } else {
-                    // _processPayment(context);
-                    var orderEntity = controllerCheckout.orderEntity;
-                    controllerAddOrder.addOrder(order: orderEntity);
-
+                    if (_redirectToSignInIfNeeded(context)) {
+                      return;
+                    }
+                    if (payWithCash == true) {
+                      var orderEntity = controllerCheckout.orderEntity;
+                      final success =
+                          await controllerAddOrder.addOrder(order: orderEntity);
+                      if (success) {
+                        Get.offAllNamed(
+                          PaymentSuccessView.routeName,
+                          arguments: {
+                            'orderId': orderEntity.orderId,
+                            'amount': orderEntity
+                                .calculateTotalPriceAfterDiscountAndShipping(),
+                            'currency': 'ILS',
+                            'paymentMethod': 'Cash',
+                            'status': 'بانتظار التأكيد',
+                          },
+                        );
+                      }
+                    } else if (payWithCash == false) {
+                      await _handleStripePayment(context);
+                    } else {
+                      showSnackBar(
+                        S.of(context).alertExclamation,
+                        S.of(context).pleaseSelectPaymentMethod,
+                      );
+                    }
                   }
-                  
                 },
-                text: getNextButtonText(currentPageIndex)),
+                text: getNextButtonText(currentPageIndex),
+                isLoading: isStripeLoading,
+              );
+            }),
             const SizedBox(
               height: 32,
             ),
@@ -143,5 +182,71 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
     } else {
       valueNotifier.value = AutovalidateMode.always;
     }
+  }
+
+  Future<void> _handleStripePayment(BuildContext context) async {
+    if (paymentController.isLoading.value) {
+      return;
+    }
+    try {
+      if (_redirectToSignInIfNeeded(context)) {
+        return;
+      }
+      final total = controllerCheckout.orderEntity
+          .calculateTotalPriceAfterDiscountAndShipping();
+      if (total.isNaN || total.isInfinite || total <= 0) {
+        showSnackBar(
+          S.of(context).alertExclamation,
+          S.of(context).pleaseSelectPaymentMethod,
+        );
+        return;
+      }
+      final paymentIntentInputModel = PaymentIntentInputModel(
+        amount: total.toStringAsFixed(0),
+        currency: 'ils',
+      );
+      await paymentController.makePayment(
+        paymentIntentInputModel: paymentIntentInputModel,
+      );
+      if (paymentController.isSuccess.value) {
+        final success = await controllerAddOrder.addOrder(
+          order: controllerCheckout.orderEntity,
+        );
+        paymentController.isSuccess.value = false;
+        if (success) {
+          Get.offAllNamed(
+            PaymentSuccessView.routeName,
+            arguments: {
+              'orderId': controllerCheckout.orderEntity.orderId,
+              'amount': total,
+              'currency': 'ILS',
+              'paymentMethod': 'Stripe',
+              'status': 'تم الاستلام',
+            },
+          );
+        }
+      } else if (paymentController.errorMessage.isNotEmpty) {
+        showSnackBar(
+          S.of(context).failed,
+          paymentController.errorMessage.value,
+        );
+        paymentController.errorMessage.value = '';
+      }
+    } catch (e) {
+      showSnackBar(S.of(context).failed, e.toString());
+    }
+  }
+
+  bool _redirectToSignInIfNeeded(BuildContext context) {
+    final userId = controllerCheckout.orderEntity.uID;
+    if (userId.isNotEmpty) {
+      return false;
+    }
+    showSnackBar(
+      S.of(context).alertExclamation,
+      S.of(context).alreadyRegisteredPleaseSignIn,
+    );
+    Get.offAllNamed(SignInView.routeName);
+    return true;
   }
 }
