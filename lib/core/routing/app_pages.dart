@@ -6,6 +6,7 @@ import 'package:fruits_hub/features/auth/presentation/views/widgets/forgot_passw
 import 'package:fruits_hub/features/auth/presentation/views/widgets/terms_and_conditions_view.dart';
 import 'package:fruits_hub/features/checkout/binding/checkout_binding.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/checkout_view.dart';
+import 'package:fruits_hub/features/checkout/presentation/views/payment_success_view.dart';
 import 'package:fruits_hub/features/home/bindings/favorit_binding.dart';
 import 'package:fruits_hub/features/home/bindings/main_binding.dart';
 import 'package:fruits_hub/features/home/bindings/orders_binding.dart';
@@ -60,6 +61,10 @@ class AppPages {
       name: CheckoutView.routeName,
       page: () => const CheckoutView(),
       binding: CheckoutBinding(),
+    ),
+    GetPage(
+      name: PaymentSuccessView.routeName,
+      page: () => const PaymentSuccessView(),
     ),
     GetPage(name: FeaturedView.routeName, page: () => const FeaturedView()),
     GetPage(

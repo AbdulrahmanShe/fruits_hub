@@ -9,23 +9,26 @@ class PaymentSection extends StatelessWidget {
   final PageController pageController;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 24,
-        ),
-        OrderSummryWidget(),
-        const SizedBox(
-          height: 16,
-        ),
-        const StripePaymentMethod(),
-        const SizedBox(
-          height: 16,
-        ),
-        ShippingAddressWidget(
-          pageController: pageController,
-        ), 
-      ],
+    return SingleChildScrollView(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 24,
+          ),
+          OrderSummryWidget(),
+          const SizedBox(
+            height: 16,
+          ),
+          const StripePaymentMethod(),
+          const SizedBox(
+            height: 16,
+          ),
+          ShippingAddressWidget(
+            pageController: pageController,
+          ),
+        ],
+      ),
     );
   }
 }

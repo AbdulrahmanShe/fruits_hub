@@ -30,11 +30,15 @@ class ShippingAddressWidget extends StatelessWidget {
           const SizedBox(
             width: 8,
           ),
-          Text(
-            ' ${controller.orderEntity.shippingAddressEntity}',
-            textAlign: TextAlign.right,
-            style: TextStyles.regular13.copyWith(
-              color: colors.onSurface.withValues(alpha: 0.7),
+          Expanded(
+            child: Text(
+              ' ${controller.orderEntity.shippingAddressEntity}',
+              textAlign: TextAlign.right,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyles.regular13.copyWith(
+                color: colors.onSurface.withValues(alpha: 0.7),
+              ),
             ),
           ),
           const Spacer(),

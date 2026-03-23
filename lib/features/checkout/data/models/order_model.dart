@@ -21,7 +21,9 @@ class OrderModel {
 
   factory OrderModel.fromEntity(OrderInputEntity orderEntity) {
     return OrderModel(
-      orderId: const Uuid().v4(),
+      orderId: orderEntity.orderId.isNotEmpty
+          ? orderEntity.orderId
+          : const Uuid().v4(),
       totalPrice: orderEntity.cartEntity.calculateTotalPrice(),
       uId: orderEntity.uID,
       shippingAddressModel:

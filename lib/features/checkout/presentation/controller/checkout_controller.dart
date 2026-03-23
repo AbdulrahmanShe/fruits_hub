@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:fruits_hub/features/checkout/domain/entites/order_entity.dart';
 import 'package:fruits_hub/features/checkout/domain/entites/shipping_address_entity.dart';
 import 'package:fruits_hub/features/home/domain/entites/cart_entity.dart';
+import 'package:uuid/uuid.dart';
 
 class CheckoutController extends GetxController {
   late OrderInputEntity orderEntity;
@@ -22,6 +23,7 @@ class CheckoutController extends GetxController {
       uID: getUser().uId, // لاحقًا من AuthController
       shippingAddressEntity: ShippingAddressEntity(),
     );
+    orderEntity.orderId = const Uuid().v4();
     // Payment method will be selected by the user.
     orderEntity.payWithCash = null;
     selectedShippingIndex.value = -1;

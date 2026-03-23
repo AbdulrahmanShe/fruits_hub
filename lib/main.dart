@@ -1,17 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fruits_hub/core/bindings/global_binding.dart';
 import 'package:fruits_hub/core/constants.dart';
 import 'package:fruits_hub/core/services/shared_preferences_singleton.dart';
 import 'package:fruits_hub/features/splash/presentation/views/splash_view.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
+import 'package:fruits_hub/core/utils/api_keys.dart';
 import 'package:fruits_hub/firebase_options.dart';
 import 'generated/l10n.dart';
 import 'package:get/get.dart';
 import 'package:fruits_hub/core/routing/app_pages.dart';
 
 void main() async {
+  Stripe.publishableKey = ApiKeys.puplishableKey;
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Prefs.init();

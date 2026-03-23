@@ -10,17 +10,18 @@ class AddOrderController extends GetxController{
   AddOrderController({required this.ordersRepo});
   final isLoading = false.obs;
 
-  void addOrder({required OrderInputEntity order}) async {
+  Future<bool> addOrder({required OrderInputEntity order}) async {
     isLoading.value = true;
     // emit(AddOrderLoading());
     final result = await ordersRepo.addOrder(order: order);
 
     isLoading.value = false;
-    result.fold(
-      (failure) => showSnackBar(S.current.failed, failure.message),
-      // emit(AddOrderFailure(failure.message)),
-      (success) => null,
-      // emit(AddOrderSuccess()),
+    return result.fold(
+      (failure) {
+        showSnackBar(S.current.failed, failure.message);
+        return false;
+      },
+      (success) => true,
     );
   }
   
