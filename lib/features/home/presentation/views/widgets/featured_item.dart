@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
-import 'package:fruits_hub/generated/l10n.dart';
 import 'package:fruits_hub/features/home/presentation/views/widgets/featured_item_button.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:svg_flutter/svg.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg;
-
 
 class FeaturedItem extends StatelessWidget {
-  const FeaturedItem({super.key});
+  const FeaturedItem({
+    super.key,
+    required this.title,
+    required this.discount,
+    required this.imageAsset,
+  });
+
+  final String title;
+  final String discount;
+  final String imageAsset;
 
   @override
   Widget build(BuildContext context) {
     var itemWidth = MediaQuery.sizeOf(context).width - 32;
     final theme = Theme.of(context);
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     return Material(
       color: theme.cardColor,
       elevation: theme.brightness == Brightness.dark ? 0.5 : 1,
@@ -27,63 +34,122 @@ class FeaturedItem extends StatelessWidget {
             aspectRatio: 342 / 158,
             child: Stack(
               children: [
-                Positioned(
-                  left: 0,
-                  top: 0,
-                  bottom: 0,
-                  right: itemWidth * .4,
-                  child: SvgPicture.asset(
-                    Assets.imagesPageViewItem2Image,
-                    fit: BoxFit.fill,
+                Positioned.fill(
+                  child: _buildImage(),
+                ),
+                Positioned.fill(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: isRtl
+                            ? Alignment.centerLeft
+                            : Alignment.centerRight,
+                        end: isRtl
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
+                        colors: [
+                          Colors.transparent,
+                          Colors.black.withValues(alpha: 0.55),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-                Container(
-                  width: itemWidth * .5,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: svg.Svg(Assets.imagesFeaturedItemBackground),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                      right: 33,
+                    padding: const EdgeInsetsDirectional.only(
+                      start: 18,
+                      end: 80,
+                      top: 12,
+                      bottom: 10,
                     ),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          height: 25,
+                        _DiscountBadge(text: discount),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              title,
+                              textAlign: TextAlign.start,
+                              style: TextStyles.bold19.copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              S.of(context).limitedTime,
+                              textAlign: TextAlign.start,
+                              style: TextStyles.regular13.copyWith(
+                                color: Colors.white.withValues(alpha: 0.9),
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          S.of(context).holidayOffers,
-                          style: TextStyles.regular13.copyWith(
-                            color: Colors.white,
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: FeaturedItemButton(
+                            onPressed: () {},
                           ),
-                        ),
-                        const Spacer(),
-                        Text(
-                          S.of(context).discount25,
-                          style: TextStyles.bold19.copyWith(
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 11,
-                        ),
-                        FeaturedItemButton(
-                          onPressed: () {},
-                        ),
-                        const SizedBox(
-                          height: 29,
                         ),
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildImage() {
+    final lower = imageAsset.toLowerCase();
+    if (lower.endsWith('.png') ||
+        lower.endsWith('.jpg') ||
+        lower.endsWith('.jpeg')) {
+      return Image.asset(
+        imageAsset,
+        fit: BoxFit.cover,
+      );
+    }
+    return SvgPicture.asset(
+      imageAsset,
+      fit: BoxFit.cover,
+    );
+  }
+}
+
+class _DiscountBadge extends StatelessWidget {
+  const _DiscountBadge({required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.primary,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.2),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Text(
+        text,
+        style: TextStyles.regular13.copyWith(
+          color: Colors.white,
         ),
       ),
     );
