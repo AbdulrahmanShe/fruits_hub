@@ -369,6 +369,11 @@ class S {
     return Intl.message('Mode', name: 'designMode', desc: '', args: []);
   }
 
+  /// `30% OFF`
+  String get discount30 {
+    return Intl.message('30% OFF', name: 'discount30', desc: '', args: []);
+  }
+
   /// `25% OFF`
   String get discount25 {
     return Intl.message('25% OFF', name: 'discount25', desc: '', args: []);
@@ -599,6 +604,16 @@ class S {
     );
   }
 
+  /// `Limited time`
+  String get limitedTime {
+    return Intl.message(
+      'Limited time',
+      name: 'limitedTime',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Forgot Password`
   String get forgotPassword {
     return Intl.message(
@@ -614,6 +629,16 @@ class S {
     return Intl.message(
       'Forgot password?',
       name: 'forgotPasswordQuestion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fruit deals`
+  String get fruitDealsTitle {
+    return Intl.message(
+      'Fruit deals',
+      name: 'fruitDealsTitle',
       desc: '',
       args: [],
     );
@@ -789,6 +814,16 @@ class S {
     return Intl.message(
       'Language will be applied immediately after selection.',
       name: 'languageAppliedImmediatelyAfterSelection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vegetable deals`
+  String get vegetableDealsTitle {
+    return Intl.message(
+      'Vegetable deals',
+      name: 'vegetableDealsTitle',
       desc: '',
       args: [],
     );

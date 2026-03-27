@@ -112,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "لهذا صممنا تجربة شراء واضحة من اختيار المنتج حتى استلام الطلب.",
     ),
     "discount25": MessageLookupByLibrary.simpleMessage("خصم 25%"),
+    "discount30": MessageLookupByLibrary.simpleMessage("خصم 30%"),
     "done": MessageLookupByLibrary.simpleMessage("تم"),
     "dontHaveAccount": MessageLookupByLibrary.simpleMessage("لا تمتلك حساب؟ "),
     "easierFreshFruitShoppingExperience": MessageLookupByLibrary.simpleMessage(
@@ -171,6 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "fromMyOrdersOpenOrder": MessageLookupByLibrary.simpleMessage(
       "من صفحة \"طلباتي\" افتح الطلب المطلوب وستجد تفاصيل الطلب والفاتورة.",
     ),
+    "fruitDealsTitle": MessageLookupByLibrary.simpleMessage("خصم على الفواكه"),
     "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
     "fullNameRequired": MessageLookupByLibrary.simpleMessage(
       "الاسم الكامل مطلوب",
@@ -210,6 +212,7 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "سيتم تطبيق اللغة مباشرة بعد الاختيار.",
         ),
+    "limitedTime": MessageLookupByLibrary.simpleMessage("لفترة محدودة"),
     "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
     "male": MessageLookupByLibrary.simpleMessage("ذكر"),
     "microphoneAccessRequired": MessageLookupByLibrary.simpleMessage(
@@ -379,6 +382,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "updateDataHint": MessageLookupByLibrary.simpleMessage(
       "حدّث بياناتك وسيتم حفظها محليًا.",
+    ),
+    "vegetableDealsTitle": MessageLookupByLibrary.simpleMessage(
+      "خصم على الخضروات",
     ),
     "weBelieveFreshProductsShouldBeSimpleAndFast":
         MessageLookupByLibrary.simpleMessage(

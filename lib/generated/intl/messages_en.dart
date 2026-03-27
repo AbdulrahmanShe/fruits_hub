@@ -113,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "So we designed a clear purchase journey from product selection to delivery.",
     ),
     "discount25": MessageLookupByLibrary.simpleMessage("25% OFF"),
+    "discount30": MessageLookupByLibrary.simpleMessage("30% OFF"),
     "done": MessageLookupByLibrary.simpleMessage("Done"),
     "dontHaveAccount": MessageLookupByLibrary.simpleMessage(
       "Don\'t have an account?",
@@ -176,6 +177,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "fromMyOrdersOpenOrder": MessageLookupByLibrary.simpleMessage(
       "From \"My Orders\", open the order to view details and invoice.",
     ),
+    "fruitDealsTitle": MessageLookupByLibrary.simpleMessage("Fruit deals"),
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "fullNameRequired": MessageLookupByLibrary.simpleMessage(
       "Full name is required",
@@ -217,6 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Language will be applied immediately after selection.",
         ),
+    "limitedTime": MessageLookupByLibrary.simpleMessage("Limited time"),
     "logout": MessageLookupByLibrary.simpleMessage("Log out"),
     "male": MessageLookupByLibrary.simpleMessage("Male"),
     "microphoneAccessRequired": MessageLookupByLibrary.simpleMessage(
@@ -382,6 +385,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "updateDataHint": MessageLookupByLibrary.simpleMessage(
       "Update your data and it will be saved locally.",
+    ),
+    "vegetableDealsTitle": MessageLookupByLibrary.simpleMessage(
+      "Vegetable deals",
     ),
     "weBelieveFreshProductsShouldBeSimpleAndFast":
         MessageLookupByLibrary.simpleMessage(
