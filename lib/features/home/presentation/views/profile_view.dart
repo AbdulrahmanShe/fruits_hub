@@ -25,11 +25,9 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  static const String notificationsEnabledKey = 'notificationsEnabled';
   final ProfileController profileController = Get.find<ProfileController>();
 
   _UserData userData = const _UserData(name: '', email: '');
-  bool notificationsEnabled = true;
   bool designModeEnabled = false;
 
   @override
@@ -57,13 +55,7 @@ class _ProfileViewState extends State<ProfileView> {
   }
 
   void _readSettings() {
-    notificationsEnabled = Prefs.getBool(notificationsEnabledKey);
     designModeEnabled = Prefs.getBool(kAppDarkMode);
-  }
-
-  void _onNotificationsChanged(bool value) {
-    setState(() => notificationsEnabled = value);
-    Prefs.setBool(notificationsEnabledKey, value);
   }
 
   void _onDesignModeChanged(bool value) {
@@ -179,16 +171,6 @@ class _ProfileViewState extends State<ProfileView> {
                                 ),
                               );
                             },
-                          ),
-                          const SizedBox(height: 8),
-                          _ProfileLineItem(
-                            title: S.of(context).notifications,
-                            icon: Icons.notifications_none,
-                            trailing: _StyledSwitch(
-                              value: notificationsEnabled,
-                              onChanged: _onNotificationsChanged,
-                            ),
-                            onTap: null,
                           ),
                           const SizedBox(height: 8),
                           _ProfileLineItem(
