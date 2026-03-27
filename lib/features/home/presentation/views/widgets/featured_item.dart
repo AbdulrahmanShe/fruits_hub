@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
-import 'package:fruits_hub/features/home/presentation/views/widgets/featured_item_button.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 import 'package:svg_flutter/svg.dart';
 
@@ -90,12 +89,7 @@ class FeaturedItem extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Align(
-                          alignment: AlignmentDirectional.centerStart,
-                          child: FeaturedItemButton(
-                            onPressed: () {},
-                          ),
-                        ),
+                        const SizedBox.shrink(),
                       ],
                     ),
                   ),
