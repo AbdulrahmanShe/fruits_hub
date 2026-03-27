@@ -34,6 +34,10 @@ class Assets {
   /// assets/images/google_icon.svg
   static const String imagesGoogleIcon = "assets/images/google_icon.svg";
 
+  /// Assets for imagesFruits
+  /// assets/images/fruits.png
+  static const String imagesFruits = "assets/images/fruits.png";
+
   /// Assets for imagesLocation
   /// assets/images/location.svg
   static const String imagesLocation = "assets/images/location.svg";
@@ -126,8 +130,11 @@ class Assets {
   /// assets/images/vuesax/outline/user.svg
   static const String imagesVuesaxOutlineUser = "assets/images/vuesax/outline/user.svg";
 
+  /// Assets for imagesVegetable
+  /// assets/images/vegetable.png
+  static const String imagesVegetable = "assets/images/vegetable.png";
+
   /// Assets for imagesWatermelonTest
   /// assets/images/watermelon_test.png
   static const String imagesWatermelonTest = "assets/images/watermelon_test.png";
 }
-
