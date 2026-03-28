@@ -60,13 +60,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "alreadyRegisteredPleaseSignIn": MessageLookupByLibrary.simpleMessage(
       "You are already registered. Please sign in.",
     ),
+    "amountLabel": MessageLookupByLibrary.simpleMessage("Amount"),
     "applyFilter": MessageLookupByLibrary.simpleMessage("Apply Filter"),
     "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
+    "backToShopping": MessageLookupByLibrary.simpleMessage("Back to shopping"),
     "banana": MessageLookupByLibrary.simpleMessage("Banana"),
     "calories": MessageLookupByLibrary.simpleMessage("Calories"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "cart": MessageLookupByLibrary.simpleMessage("Cart"),
     "cartIsEmpty": MessageLookupByLibrary.simpleMessage("Cart is empty"),
+    "cash": MessageLookupByLibrary.simpleMessage("Cash"),
     "cashOnDelivery": MessageLookupByLibrary.simpleMessage("Cash on delivery"),
     "category": MessageLookupByLibrary.simpleMessage("Category"),
     "checkInternetAndCardThenRetry": MessageLookupByLibrary.simpleMessage(
@@ -124,6 +127,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "edit": MessageLookupByLibrary.simpleMessage("Edit"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
+    "emailExample": MessageLookupByLibrary.simpleMessage("name@example.com"),
     "emailNotRegistered": MessageLookupByLibrary.simpleMessage(
       "Email is not registered.",
     ),
@@ -255,6 +259,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "or": MessageLookupByLibrary.simpleMessage("or"),
     "orangeFruit": MessageLookupByLibrary.simpleMessage("Orange"),
     "orderDateLabel": m2,
+    "orderIdLabel": MessageLookupByLibrary.simpleMessage("Order ID"),
     "orderInvoice": MessageLookupByLibrary.simpleMessage("Order Invoice"),
     "orderNumberLabel": m3,
     "orderSummary": MessageLookupByLibrary.simpleMessage("Order Summary"),
@@ -288,7 +293,24 @@ class MessageLookup extends MessageLookupByLibrary {
     "payWithStripe": MessageLookupByLibrary.simpleMessage("Pay with Stripe"),
     "payment": MessageLookupByLibrary.simpleMessage("Payment"),
     "paymentAmount": m5,
+    "paymentDetailsTitle": MessageLookupByLibrary.simpleMessage(
+      "Payment details",
+    ),
     "paymentMethodLabel": m6,
+    "paymentMethodLabelShort": MessageLookupByLibrary.simpleMessage(
+      "Payment method",
+    ),
+    "paymentPendingStatus": MessageLookupByLibrary.simpleMessage(
+      "Pending confirmation",
+    ),
+    "paymentReceivedStatus": MessageLookupByLibrary.simpleMessage("Received"),
+    "paymentSuccessSubtitle": MessageLookupByLibrary.simpleMessage(
+      "Your payment has been confirmed",
+    ),
+    "paymentSuccessTitle": MessageLookupByLibrary.simpleMessage(
+      "Payment successful",
+    ),
+    "phoneExample": MessageLookupByLibrary.simpleMessage("05x xxx xxxx"),
     "phoneIncomplete": MessageLookupByLibrary.simpleMessage(
       "Phone number is incomplete",
     ),
@@ -352,7 +374,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Sorry, this information is currently unavailable.",
     ),
     "startNow": MessageLookupByLibrary.simpleMessage("Start now"),
+    "statusLabel": MessageLookupByLibrary.simpleMessage("Status"),
     "strawberry": MessageLookupByLibrary.simpleMessage("Strawberry"),
+    "stripe": MessageLookupByLibrary.simpleMessage("Stripe"),
     "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
     "subtotalLabel": MessageLookupByLibrary.simpleMessage("Subtotal:"),
     "success": MessageLookupByLibrary.simpleMessage("Success"),
@@ -390,6 +414,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "vegetableDealsTitle": MessageLookupByLibrary.simpleMessage(
       "Vegetable deals",
     ),
+    "viewOrders": MessageLookupByLibrary.simpleMessage("View orders"),
     "weBelieveFreshProductsShouldBeSimpleAndFast":
         MessageLookupByLibrary.simpleMessage(
           "We believe access to fresh high-quality products should be simple and fast for every home.",

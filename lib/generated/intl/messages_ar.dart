@@ -61,13 +61,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "alreadyRegisteredPleaseSignIn": MessageLookupByLibrary.simpleMessage(
       "لقد قمت بالتسجيل مسبقاً. الرجاء تسجيل الدخول.",
     ),
+    "amountLabel": MessageLookupByLibrary.simpleMessage("المبلغ"),
     "applyFilter": MessageLookupByLibrary.simpleMessage("تصفيه"),
     "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
+    "backToShopping": MessageLookupByLibrary.simpleMessage("الرجوع للتسوق"),
     "banana": MessageLookupByLibrary.simpleMessage("موز"),
     "calories": MessageLookupByLibrary.simpleMessage("سعرات"),
     "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
     "cart": MessageLookupByLibrary.simpleMessage("السلة"),
     "cartIsEmpty": MessageLookupByLibrary.simpleMessage("السلة فارغة"),
+    "cash": MessageLookupByLibrary.simpleMessage("نقدًا"),
     "cashOnDelivery": MessageLookupByLibrary.simpleMessage(
       "الدفع عند الاستلام",
     ),
@@ -121,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
     "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
+    "emailExample": MessageLookupByLibrary.simpleMessage("name@example.com"),
     "emailNotRegistered": MessageLookupByLibrary.simpleMessage(
       "البريد الإلكتروني غير مسجل مسبقًا.",
     ),
@@ -248,6 +252,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "or": MessageLookupByLibrary.simpleMessage("أو"),
     "orangeFruit": MessageLookupByLibrary.simpleMessage("برتقال"),
     "orderDateLabel": m2,
+    "orderIdLabel": MessageLookupByLibrary.simpleMessage("رقم الطلب"),
     "orderInvoice": MessageLookupByLibrary.simpleMessage("فاتورة الطلب"),
     "orderNumberLabel": m3,
     "orderSummary": MessageLookupByLibrary.simpleMessage("ملخص الطلب"),
@@ -283,7 +288,26 @@ class MessageLookup extends MessageLookupByLibrary {
     "payWithStripe": MessageLookupByLibrary.simpleMessage("الدفع عبر Stripe"),
     "payment": MessageLookupByLibrary.simpleMessage("الدفع"),
     "paymentAmount": m5,
+    "paymentDetailsTitle": MessageLookupByLibrary.simpleMessage(
+      "تفاصيل العملية",
+    ),
     "paymentMethodLabel": m6,
+    "paymentMethodLabelShort": MessageLookupByLibrary.simpleMessage(
+      "طريقة الدفع",
+    ),
+    "paymentPendingStatus": MessageLookupByLibrary.simpleMessage(
+      "بانتظار التأكيد",
+    ),
+    "paymentReceivedStatus": MessageLookupByLibrary.simpleMessage(
+      "تم الاستلام",
+    ),
+    "paymentSuccessSubtitle": MessageLookupByLibrary.simpleMessage(
+      "تم تأكيد عملية الدفع بنجاح",
+    ),
+    "paymentSuccessTitle": MessageLookupByLibrary.simpleMessage(
+      "تم الدفع بنجاح",
+    ),
+    "phoneExample": MessageLookupByLibrary.simpleMessage("05x xxx xxxx"),
     "phoneIncomplete": MessageLookupByLibrary.simpleMessage(
       "رقم الهاتف غير مكتمل",
     ),
@@ -349,7 +373,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "عفوًا... هذه المعلومات غير متوفرة للحظة",
     ),
     "startNow": MessageLookupByLibrary.simpleMessage("ابدأ الان"),
+    "statusLabel": MessageLookupByLibrary.simpleMessage("الحالة"),
     "strawberry": MessageLookupByLibrary.simpleMessage("فراولة"),
+    "stripe": MessageLookupByLibrary.simpleMessage("Stripe"),
     "subtotal": MessageLookupByLibrary.simpleMessage("المجموع"),
     "subtotalLabel": MessageLookupByLibrary.simpleMessage("المجموع الفرعي :"),
     "success": MessageLookupByLibrary.simpleMessage("نجاح"),
@@ -387,6 +413,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "vegetableDealsTitle": MessageLookupByLibrary.simpleMessage(
       "خصم على الخضروات",
     ),
+    "viewOrders": MessageLookupByLibrary.simpleMessage("عرض الطلبات"),
     "weBelieveFreshProductsShouldBeSimpleAndFast":
         MessageLookupByLibrary.simpleMessage(
           "نؤمن أن الوصول إلى منتجات طازجة بجودة عالية يجب أن يكون بسيطًا وسريعًا لكل بيت.",

@@ -424,6 +424,16 @@ class S {
     return Intl.message('Email', name: 'email', desc: '', args: []);
   }
 
+  /// `name@example.com`
+  String get emailExample {
+    return Intl.message(
+      'name@example.com',
+      name: 'emailExample',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Email is not registered.`
   String get emailNotRegistered {
     return Intl.message(
@@ -1139,6 +1149,106 @@ class S {
     );
   }
 
+  /// `Payment successful`
+  String get paymentSuccessTitle {
+    return Intl.message(
+      'Payment successful',
+      name: 'paymentSuccessTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your payment has been confirmed`
+  String get paymentSuccessSubtitle {
+    return Intl.message(
+      'Your payment has been confirmed',
+      name: 'paymentSuccessSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment details`
+  String get paymentDetailsTitle {
+    return Intl.message(
+      'Payment details',
+      name: 'paymentDetailsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order ID`
+  String get orderIdLabel {
+    return Intl.message('Order ID', name: 'orderIdLabel', desc: '', args: []);
+  }
+
+  /// `Amount`
+  String get amountLabel {
+    return Intl.message('Amount', name: 'amountLabel', desc: '', args: []);
+  }
+
+  /// `Payment method`
+  String get paymentMethodLabelShort {
+    return Intl.message(
+      'Payment method',
+      name: 'paymentMethodLabelShort',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Status`
+  String get statusLabel {
+    return Intl.message('Status', name: 'statusLabel', desc: '', args: []);
+  }
+
+  /// `Pending confirmation`
+  String get paymentPendingStatus {
+    return Intl.message(
+      'Pending confirmation',
+      name: 'paymentPendingStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Received`
+  String get paymentReceivedStatus {
+    return Intl.message(
+      'Received',
+      name: 'paymentReceivedStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View orders`
+  String get viewOrders {
+    return Intl.message('View orders', name: 'viewOrders', desc: '', args: []);
+  }
+
+  /// `Back to shopping`
+  String get backToShopping {
+    return Intl.message(
+      'Back to shopping',
+      name: 'backToShopping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cash`
+  String get cash {
+    return Intl.message('Cash', name: 'cash', desc: '', args: []);
+  }
+
+  /// `Stripe`
+  String get stripe {
+    return Intl.message('Stripe', name: 'stripe', desc: '', args: []);
+  }
+
   /// `Payment method: {method}`
   String paymentMethodLabel(String method) {
     return Intl.message(
@@ -1194,6 +1304,16 @@ class S {
     return Intl.message(
       'Phone number is required',
       name: 'phoneRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `05x xxx xxxx`
+  String get phoneExample {
+    return Intl.message(
+      '05x xxx xxxx',
+      name: 'phoneExample',
       desc: '',
       args: [],
     );
