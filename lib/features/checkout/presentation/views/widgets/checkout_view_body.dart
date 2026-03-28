@@ -15,8 +15,9 @@ import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class CheckoutViewBody extends StatefulWidget {
-  const CheckoutViewBody({super.key,});
-  
+  const CheckoutViewBody({super.key, required this.stepIndex});
+
+  final ValueNotifier<int> stepIndex;
 
   @override
   State<CheckoutViewBody> createState() => _CheckoutViewBodyState();
@@ -33,9 +34,12 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   void initState() {
     pageController = PageController();
     pageController.addListener(() {
+      final nextIndex = pageController.page!.round();
+      if (currentPageIndex == nextIndex) return;
       setState(() {
-        currentPageIndex = pageController.page!.round();
+        currentPageIndex = nextIndex;
       });
+      widget.stepIndex.value = nextIndex;
     });
     paymentController = Get.put(PaymentController(PaymentRepoImpl()));
     super.initState();
@@ -127,9 +131,9 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                           arguments: {
                             'orderId': orderEntity.orderId,
                             'amount': totalAmount,
-                            'currency': 'ILS',
-                            'paymentMethod': 'Cash',
-                            'status': 'بانتظار التأكيد',
+                            'currency': S.of(context).currencyShekel,
+                            'paymentMethod': S.of(context).cashOnDelivery,
+                            'status': S.of(context).paymentPendingStatus,
                           },
                         );
                       }
@@ -228,9 +232,9 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             arguments: {
               'orderId': controllerCheckout.orderEntity.orderId,
               'amount': totalAmount,
-              'currency': 'ILS',
-              'paymentMethod': 'Stripe',
-              'status': 'تم الاستلام',
+              'currency': S.of(context).currencyShekel,
+              'paymentMethod': S.of(context).payWithStripe,
+              'status': S.of(context).paymentReceivedStatus,
             },
           );
         }

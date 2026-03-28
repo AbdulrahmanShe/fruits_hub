@@ -18,6 +18,23 @@ class AddressInputSection extends StatefulWidget{
 
 class _AddressInputSectionState extends State<AddressInputSection> with AutomaticKeepAliveClientMixin{
   final CheckoutController controller = Get.find<CheckoutController>();
+  final FocusNode _nameFocus = FocusNode();
+  final FocusNode _emailFocus = FocusNode();
+  final FocusNode _addressFocus = FocusNode();
+  final FocusNode _cityFocus = FocusNode();
+  final FocusNode _floorFocus = FocusNode();
+  final FocusNode _phoneFocus = FocusNode();
+
+  @override
+  void dispose() {
+    _nameFocus.dispose();
+    _emailFocus.dispose();
+    _addressFocus.dispose();
+    _cityFocus.dispose();
+    _floorFocus.dispose();
+    _phoneFocus.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +56,8 @@ class _AddressInputSectionState extends State<AddressInputSection> with Automati
                 },
                 hintText: S.of(context).fullName,
                 textInputType: TextInputType.text,
+                focusNode: _nameFocus,
+                nextFocusNode: _emailFocus,
               ),
               const SizedBox(
                 height: 16,
@@ -49,6 +68,8 @@ class _AddressInputSectionState extends State<AddressInputSection> with Automati
                 },
                 hintText: S.of(context).email,
                 textInputType: TextInputType.text,
+                focusNode: _emailFocus,
+                nextFocusNode: _addressFocus,
               ),
               const SizedBox(
                 height: 16,
@@ -59,6 +80,8 @@ class _AddressInputSectionState extends State<AddressInputSection> with Automati
                 },
                 hintText: S.of(context).address,
                 textInputType: TextInputType.text,
+                focusNode: _addressFocus,
+                nextFocusNode: _cityFocus,
               ),
               const SizedBox(
                 height: 16,
@@ -69,6 +92,8 @@ class _AddressInputSectionState extends State<AddressInputSection> with Automati
                 },
                 hintText: S.of(context).city,
                 textInputType: TextInputType.text,
+                focusNode: _cityFocus,
+                nextFocusNode: _floorFocus,
               ),
               const SizedBox(
                 height: 16,
@@ -79,6 +104,8 @@ class _AddressInputSectionState extends State<AddressInputSection> with Automati
                 },
                 hintText: S.of(context).floorAndApartmentNumber,
                 textInputType: TextInputType.text,
+                focusNode: _floorFocus,
+                nextFocusNode: _phoneFocus,
               ),
               const SizedBox(
                 height: 16,
@@ -89,6 +116,8 @@ class _AddressInputSectionState extends State<AddressInputSection> with Automati
                 },
                 hintText: S.of(context).phoneNumber,
                 textInputType: TextInputType.number,
+                focusNode: _phoneFocus,
+                textInputAction: TextInputAction.done,
               ),
               const SizedBox(
                 height: 16,

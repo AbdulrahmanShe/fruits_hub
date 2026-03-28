@@ -14,6 +14,10 @@ class CustomTextFormField extends StatelessWidget {
     this.onSaved,
     this.controller,
     this.readOnly = false,
+    this.focusNode,
+    this.nextFocusNode,
+    this.textInputAction,
+    this.onFieldSubmitted,
   });
 
   final String hintText;
@@ -25,6 +29,10 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final bool readOnly;
+  final FocusNode? focusNode;
+  final FocusNode? nextFocusNode;
+  final TextInputAction? textInputAction;
+  final ValueChanged<String>? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +40,7 @@ class CustomTextFormField extends StatelessWidget {
     final colors = theme.colorScheme;
     return TextFormField(
       controller: controller,
+      focusNode: focusNode,
       validator:
           validator ??
           (value) {
@@ -41,10 +50,23 @@ class CustomTextFormField extends StatelessWidget {
             return null;
           },
       keyboardType: textInputType,
+      textInputAction:
+          textInputAction ?? (nextFocusNode != null ? TextInputAction.next : null),
       obscureText: obscureText,
       readOnly: readOnly,
       onSaved: onSaved,
       onChanged: onChanged,
+      onFieldSubmitted: (value) {
+        if (onFieldSubmitted != null) {
+          onFieldSubmitted!(value);
+          return;
+        }
+        if (nextFocusNode != null) {
+          FocusScope.of(context).requestFocus(nextFocusNode);
+        } else {
+          FocusScope.of(context).unfocus();
+        }
+      },
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
         hintText: hintText,
