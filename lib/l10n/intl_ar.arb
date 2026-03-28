@@ -134,6 +134,7 @@
     "passwordResetInstruction":  "سيتم ارسال رابط على بريدك الالكتروني لتتمكن من اعادة تعيين كلمة المرور",
     "passwordResetLinkSent":  "تم إرسال رابط إعادة تعيين كلمة المرور",
     "payment":  "الدفع",
+    "checkoutTitle":  "إتمام الطلب",
     "paymentAmount":  "الدفع {amount} جنيه",
     "paymentMethodLabel":  "طريقة الدفع: {method}",
     "payWithStripe":  "الدفع عبر Stripe",

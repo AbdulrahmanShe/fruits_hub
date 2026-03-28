@@ -134,6 +134,7 @@
     "passwordResetInstruction":  "A reset link will be sent to your email.",
     "passwordResetLinkSent":  "Password reset link sent",
     "payment":  "Payment",
+    "checkoutTitle":  "Complete Order",
     "paymentAmount":  "Pay {amount} ILS",
     "paymentMethodLabel":  "Payment method: {method}",
     "payWithStripe":  "Pay with Stripe",

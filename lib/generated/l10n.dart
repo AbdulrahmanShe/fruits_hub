@@ -1119,6 +1119,16 @@ class S {
     return Intl.message('Payment', name: 'payment', desc: '', args: []);
   }
 
+  /// `Complete Order`
+  String get checkoutTitle {
+    return Intl.message(
+      'Complete Order',
+      name: 'checkoutTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Pay {amount} ILS`
   String paymentAmount(String amount) {
     return Intl.message(

@@ -81,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "checkInternetConnectionTypo": MessageLookupByLibrary.simpleMessage(
       "تاكد من اتصالك بالانترنت.",
     ),
+    "checkoutTitle": MessageLookupByLibrary.simpleMessage("إتمام الطلب"),
     "city": MessageLookupByLibrary.simpleMessage("المدينه"),
     "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
     "confirmLogoutMessage": MessageLookupByLibrary.simpleMessage(
