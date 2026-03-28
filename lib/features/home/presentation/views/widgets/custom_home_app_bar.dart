@@ -19,6 +19,7 @@ class CustomHomeAppBar extends StatelessWidget {
 
     return Obx(() {
       final colors = Theme.of(context).colorScheme;
+      final isRtl = Directionality.of(context) == TextDirection.rtl;
       final avatarPath =
           profileController.gender.value == 'female'
               ? Assets.imagesProfileImageFemale
@@ -29,6 +30,8 @@ class CustomHomeAppBar extends StatelessWidget {
               : profileController.userName.value;
 
       return ListTile(
+        horizontalTitleGap: isRtl ? 16 : 8,
+        minLeadingWidth: isRtl ? 0 : 40,
         trailing: InkWell(
           onTap: () {
             mainController.setIndex(2);
@@ -95,14 +98,14 @@ class CustomHomeAppBar extends StatelessWidget {
         ),
         title: Text(
           S.of(context).welcomeBack,
-          textAlign: TextAlign.right,
+          textAlign: isRtl ? TextAlign.right : TextAlign.left,
           style: TextStyles.regular16.copyWith(
             color: colors.onSurface.withValues(alpha: 0.6),
           ),
         ),
         subtitle: Text(
           name,
-          textAlign: TextAlign.right,
+          textAlign: isRtl ? TextAlign.right : TextAlign.left,
           style: TextStyles.bold16,
         ),
       );
