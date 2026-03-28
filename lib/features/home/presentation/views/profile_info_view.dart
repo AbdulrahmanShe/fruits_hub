@@ -242,7 +242,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                             label: S.of(context).email,
                             child: CustomTextFormField(
                               controller: emailController,
-                              hintText: 'mail@example.com',
+                              hintText: S.of(context).emailExample,
                               readOnly: true,
                               textInputType: TextInputType.emailAddress,
                               validator: (value) {
@@ -262,7 +262,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
                             label: S.of(context).phoneNumber,
                             child: CustomTextFormField(
                               controller: phoneController,
-                              hintText: '05x xxx xxxx',
+                              hintText: S.of(context).phoneExample,
                               textInputType: TextInputType.phone,
                               validator: (value) {
                                 if (value == null || value.trim().isEmpty) {

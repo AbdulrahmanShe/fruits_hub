@@ -29,7 +29,7 @@ class StripePaymentMethod extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
             child: Text(
-              payWithCash == true ? 'Cash' : 'Stripe',
+              payWithCash == true ? S.of(context).cash : S.of(context).stripe,
               style: TextStyles.semiBold13.copyWith(color: colors.primary),
             ),
           ),

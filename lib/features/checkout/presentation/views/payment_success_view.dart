@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_bottom.dart';
 import 'package:fruits_hub/features/home/presentation/views/main_view.dart';
 import 'package:fruits_hub/features/home/presentation/views/orders_view.dart';
+import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 
 class PaymentSuccessView extends StatelessWidget {
@@ -12,20 +12,22 @@ class PaymentSuccessView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    final s = S.of(context);
     final args = Get.arguments as Map<String, dynamic>?;
     final orderId = (args?['orderId'] ?? '--').toString();
     final amount = args?['amount'];
     final currency = (args?['currency'] ?? 'ILS').toString();
     final paymentMethod = (args?['paymentMethod'] ?? 'Stripe').toString();
-    final status = (args?['status'] ?? 'بانتظار التأكيد').toString();
+    final status = (args?['status'] ?? s.paymentPendingStatus).toString();
 
     return Scaffold(
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [AppColors.primaryColor, AppColors.lightPrimaryColor],
+            colors: [colors.primary, colors.primaryContainer],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -37,7 +39,7 @@ class PaymentSuccessView extends StatelessWidget {
               right: -40,
               child: _GlowCircle(
                 size: 180,
-                color: AppColors.lightSecondaryColor.withOpacity(0.25),
+                color: colors.secondary.withValues(alpha: 0.22),
               ),
             ),
             Positioned(
@@ -45,7 +47,7 @@ class PaymentSuccessView extends StatelessWidget {
               left: -50,
               child: _GlowCircle(
                 size: 220,
-                color: Colors.white.withOpacity(0.08),
+                color: colors.onPrimary.withValues(alpha: 0.08),
               ),
             ),
             SafeArea(
@@ -64,18 +66,18 @@ class PaymentSuccessView extends StatelessWidget {
                           _SuccessBadge(),
                           const SizedBox(height: 24),
                           Text(
-                            'تم الدفع بنجاح',
+                            s.paymentSuccessTitle,
                             style: TextStyles.bold28.copyWith(
-                              color: Colors.white,
+                              color: colors.onPrimary,
                               height: 1.2,
                             ),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'تم تأكيد عملية الدفع بنجاح',
+                            s.paymentSuccessSubtitle,
                             style: TextStyles.regular16.copyWith(
-                              color: Colors.white.withOpacity(0.9),
+                              color: colors.onPrimary.withValues(alpha: 0.9),
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -95,14 +97,14 @@ class PaymentSuccessView extends StatelessWidget {
                                 Get.toNamed(OrdersView.routeName);
                               });
                             },
-                            text: 'عرض الطلبات',
+                            text: s.viewOrders,
                           ),
                           const SizedBox(height: 12),
                           CustomBottom(
                             onPressed: () {
                               Get.offAllNamed(MainView.routeName, arguments: 0);
                             },
-                            text: 'الرجوع للتسوق',
+                            text: s.backToShopping,
                           ),
                           const SizedBox(height: 24),
                         ],
@@ -122,22 +124,23 @@ class PaymentSuccessView extends StatelessWidget {
 class _SuccessBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Container(
       width: 120,
       height: 120,
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.12),
+        color: colors.onPrimary.withValues(alpha: 0.12),
         shape: BoxShape.circle,
         border: Border.all(
-          color: Colors.white.withOpacity(0.4),
+          color: colors.onPrimary.withValues(alpha: 0.4),
           width: 2,
         ),
       ),
-      child: const Center(
+      child: Center(
         child: Icon(
           Icons.check_circle,
           size: 70,
-          color: Colors.white,
+          color: colors.onPrimary,
         ),
       ),
     );
@@ -161,16 +164,18 @@ class _SummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    final s = S.of(context);
     final amountText = amount == null ? '--' : amount.toString();
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(18),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.12),
+            color: Colors.black.withValues(alpha: 0.12),
             blurRadius: 18,
             offset: const Offset(0, 8),
           ),
@@ -179,29 +184,29 @@ class _SummaryCard extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'تفاصيل العملية',
+            s.paymentDetailsTitle,
             style: TextStyles.bold19.copyWith(
-              color: AppColors.primaryColor,
+              color: colors.primary,
             ),
           ),
           const SizedBox(height: 12),
           _RowItem(
-            label: 'رقم الطلب',
+            label: s.orderIdLabel,
             value: orderId,
           ),
           const SizedBox(height: 8),
           _RowItem(
-            label: 'المبلغ',
+            label: s.amountLabel,
             value: '$amountText $currency',
           ),
           const SizedBox(height: 8),
           _RowItem(
-            label: 'طريقة الدفع',
+            label: s.paymentMethodLabelShort,
             value: paymentMethod,
           ),
           const SizedBox(height: 8),
           _RowItem(
-            label: 'الحالة',
+            label: s.statusLabel,
             value: status,
           ),
         ],
@@ -218,6 +223,7 @@ class _RowItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -226,7 +232,7 @@ class _RowItem extends StatelessWidget {
           child: Text(
             label,
             style: TextStyles.regular16.copyWith(
-              color: Colors.black.withOpacity(0.6),
+              color: colors.onSurface.withValues(alpha: 0.7),
             ),
             overflow: TextOverflow.ellipsis,
           ),
@@ -237,7 +243,7 @@ class _RowItem extends StatelessWidget {
             value,
             textAlign: TextAlign.end,
             style: TextStyles.bold16.copyWith(
-              color: Colors.black87,
+              color: colors.onSurface,
             ),
             overflow: TextOverflow.ellipsis,
           ),

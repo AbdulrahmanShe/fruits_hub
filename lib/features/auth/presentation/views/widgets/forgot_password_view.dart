@@ -45,7 +45,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                           ),
               const SizedBox(height: 24),
               EmailField(
-                hintText: 'user@gmail.com',
+                hintText: S.of(context).emailExample,
                 onChanged: (value) => email = value,
               ),
               const SizedBox(height: 16),
