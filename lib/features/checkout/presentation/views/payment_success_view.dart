@@ -73,7 +73,7 @@ class PaymentSuccessView extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'تم تأكيد عملية الدفع عبر Stripe بنجاح',
+                            'تم تأكيد عملية الدفع بنجاح',
                             style: TextStyles.regular16.copyWith(
                               color: Colors.white.withOpacity(0.9),
                             ),
@@ -90,7 +90,10 @@ class PaymentSuccessView extends StatelessWidget {
                           const SizedBox(height: 32),
                           CustomBottom(
                             onPressed: () {
-                              Get.offAllNamed(OrdersView.routeName);
+                              Get.offAllNamed(MainView.routeName, arguments: 0);
+                              Future.microtask(() {
+                                Get.toNamed(OrdersView.routeName);
+                              });
                             },
                             text: 'عرض الطلبات',
                           ),

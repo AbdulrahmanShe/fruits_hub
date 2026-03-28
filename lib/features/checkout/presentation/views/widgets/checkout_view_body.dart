@@ -7,6 +7,7 @@ import 'package:fruits_hub/features/checkout/presentation/views/widgets/checkout
 import 'package:fruits_hub/features/checkout/presentation/views/widgets/checkout_steps_page_view.dart';
 import 'package:fruits_hub/features/checkout/presentation/views/payment_success_view.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
+import 'package:fruits_hub/features/home/presentation/controller/cart_controller.dart';
 import 'package:fruits_hub/features/payment/data/models/payment_intent_input_model.dart';
 import 'package:fruits_hub/features/payment/data/repos/payment_repo_impl.dart';
 import 'package:fruits_hub/features/payment/presentation/controller/payment_controller.dart';
@@ -52,6 +53,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
 
   final controllerCheckout = Get.find<CheckoutController>();
   final controllerAddOrder = Get.find<AddOrderController>();
+  final cartController = Get.find<CartController>();
 
 
   @override
@@ -95,10 +97,13 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             ),
             Obx(() {
               final isLoading = paymentController.isLoading.value;
+              final isOrderLoading = controllerAddOrder.isLoading.value;
               final payWithCash = controllerCheckout.orderEntity.payWithCash;
               final isStripeLoading = currentPageIndex == 2 &&
                   payWithCash == false &&
                   isLoading;
+              final isCashLoading =
+                  currentPageIndex == 2 && payWithCash == true && isOrderLoading;
               return CustomBottom(
                 onPressed: () async {
                   if (currentPageIndex == 0) {
@@ -114,12 +119,14 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                       final success =
                           await controllerAddOrder.addOrder(order: orderEntity);
                       if (success) {
-                        Get.offAllNamed(
+                        final totalAmount = orderEntity
+                            .calculateTotalPriceAfterDiscountAndShipping();
+                        cartController.clearCart();
+                        Get.toNamed(
                           PaymentSuccessView.routeName,
                           arguments: {
                             'orderId': orderEntity.orderId,
-                            'amount': orderEntity
-                                .calculateTotalPriceAfterDiscountAndShipping(),
+                            'amount': totalAmount,
                             'currency': 'ILS',
                             'paymentMethod': 'Cash',
                             'status': 'بانتظار التأكيد',
@@ -137,7 +144,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                   }
                 },
                 text: getNextButtonText(currentPageIndex),
-                isLoading: isStripeLoading,
+                isLoading: isStripeLoading || isCashLoading,
               );
             }),
             const SizedBox(
@@ -214,11 +221,13 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         );
         paymentController.isSuccess.value = false;
         if (success) {
-          Get.offAllNamed(
+          final totalAmount = total;
+          cartController.clearCart();
+          Get.toNamed(
             PaymentSuccessView.routeName,
             arguments: {
               'orderId': controllerCheckout.orderEntity.orderId,
-              'amount': total,
+              'amount': totalAmount,
               'currency': 'ILS',
               'paymentMethod': 'Stripe',
               'status': 'تم الاستلام',

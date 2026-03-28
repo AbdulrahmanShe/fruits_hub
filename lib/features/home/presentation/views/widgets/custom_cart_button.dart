@@ -20,7 +20,7 @@ class CustomCartButton extends StatelessWidget {
       return CustomBottom(
             onPressed: () {
               if (isNotEmpty) {
-                Get.offNamed(
+                Get.toNamed(
                   CheckoutView.routeName,
                   arguments: controller.cartEntity.value,
                 );
