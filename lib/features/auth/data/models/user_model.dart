@@ -7,6 +7,8 @@ class UserModel extends UserEntity {
     required super.email,
     required super.uId,
     super.role,
+    super.phone,
+    super.gender,
   });
 
 // Firebase Auth (fromFirebaseUser)
@@ -20,6 +22,8 @@ class UserModel extends UserEntity {
       name: user.displayName ?? '',
       email: user.email ?? '',
       uId: user.uid,
+      phone: '',
+      gender: 'male',
     );
   }
 
@@ -29,6 +33,8 @@ class UserModel extends UserEntity {
       email: json['email'] ?? '',
       uId: json['uId'] ?? '',
       role: json['role'] ?? 'viewer',
+      phone: json['phone'] ?? '',
+      gender: json['gender'] ?? 'male',
     );
   }
 
@@ -38,6 +44,8 @@ class UserModel extends UserEntity {
       email: user.email,
       uId: user.uId,
       role: user.role,
+      phone: user.phone,
+      gender: user.gender,
     );
   }
 
@@ -47,6 +55,8 @@ class UserModel extends UserEntity {
       'email': email,
       'uId': uId,
       'role': role,
+      'phone': phone,
+      'gender': gender,
     };
   }
 }

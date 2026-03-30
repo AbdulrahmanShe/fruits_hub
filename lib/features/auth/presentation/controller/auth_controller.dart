@@ -4,6 +4,7 @@ import 'package:fruits_hub/core/errors/failures.dart';
 import 'package:fruits_hub/features/auth/domin/entites/user_entity.dart';
 import 'package:fruits_hub/features/auth/domin/repos/auth_repo.dart';
 import 'package:fruits_hub/core/utils/show_snack_bar.dart';
+import 'package:fruits_hub/features/home/presentation/controller/profile_controller.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 import 'package:get/get.dart';
 class AuthController extends GetxController{
@@ -80,6 +81,9 @@ Future<bool> signInWithGoogle() async {
     },
          (user) {
       showSnackBar(S.current.success, successMessage);
+      if (Get.isRegistered<ProfileController>()) {
+        Get.find<ProfileController>().loadFromLocal();
+      }
       return true;
 
     },

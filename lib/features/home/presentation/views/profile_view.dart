@@ -27,8 +27,9 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   final ProfileController profileController = Get.find<ProfileController>();
 
-  _UserData userData = const _UserData(name: '', email: '');
-  bool designModeEnabled = false;
+  final Rx<_UserData> userData = const _UserData(name: '', email: '').obs;
+  final RxBool designModeEnabled = false.obs;
+  final RxString languageValue = ''.obs;
 
   @override
   void initState() {
@@ -38,34 +39,46 @@ class _ProfileViewState extends State<ProfileView> {
     profileController.loadFromLocal();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _readLanguage();
+  }
+
   void _readUserData() {
     final raw = Prefs.getString(kUserData);
     if (raw.isEmpty) return;
 
     try {
       final map = jsonDecode(raw) as Map<String, dynamic>;
-      if (!mounted) return;
-      setState(() {
-        userData = _UserData(
-          name: (map['name'] ?? '').toString(),
-          email: (map['email'] ?? '').toString(),
-        );
-      });
+      userData.value = _UserData(
+        name: (map['name'] ?? '').toString(),
+        email: (map['email'] ?? '').toString(),
+      );
     } catch (_) {}
   }
 
   void _readSettings() {
-    designModeEnabled = Prefs.getBool(kAppDarkMode);
+    designModeEnabled.value = Prefs.getBool(kAppDarkMode);
+  }
+
+  void _readLanguage() {
+    languageValue.value =
+        Prefs.getString(kAppLanguage) == 'en'
+            ? S.of(context).english
+            : S.of(context).arabic;
   }
 
   void _onDesignModeChanged(bool value) {
-    setState(() => designModeEnabled = value);
+    designModeEnabled.value = value;
     Prefs.setBool(kAppDarkMode, value);
     Get.changeThemeMode(value ? ThemeMode.dark : ThemeMode.light);
   }
 
   Future<void> _logout() async {
     await FirebaseAuth.instance.signOut();
+    await Prefs.setString(kUserData, '');
+    profileController.loadFromLocal();
     Get.offAllNamed(SignInView.routeName);
   }
 
@@ -99,13 +112,6 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     final isRtl = Directionality.of(context) == TextDirection.rtl;
-    final name = userData.name.isEmpty ? 'abed' : userData.name;
-    final email =
-        userData.email.isEmpty ? 'abed2003shehab@gmail.com' : userData.email;
-    final languageValue =
-        Prefs.getString(kAppLanguage) == 'en'
-            ? S.of(context).english
-            : S.of(context).arabic;
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -115,182 +121,195 @@ class _ProfileViewState extends State<ProfileView> {
         showBackBottom: false,
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(24),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          _ProfileTop(name: name, email: email),
-                          const SizedBox(height: 28),
-                          Align(
-                            alignment:
-                                isRtl ? Alignment.centerRight : Alignment.centerLeft,
-                            child: Text(
-                              S.of(context).general,
-                              style: TextStyle(
-                                color: colors.onSurface,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                              ),
-                              textAlign: isRtl ? TextAlign.right : TextAlign.left,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          _ProfileLineItem(
-                            title: S.of(context).profile,
-                            icon: Icons.person_outline,
-                            onTap: () async {
-                              await Navigator.of(context).push(
-                                MaterialPageRoute<void>(
-                                  builder: (_) => const ProfileInfoView(),
-                                ),
-                              );
-                              _readUserData();
-                            },
-                          ),
-                          const SizedBox(height: 8),
-                          _ProfileLineItem(
-                            title: S.of(context).myOrders,
-                            icon: Icons.inventory_2_outlined,
-                            onTap: () {
-                              Get.toNamed(OrdersView.routeName);
-                            },
-                          ),
-                          const SizedBox(height: 8),
-                          _ProfileLineItem(
-                            title: S.of(context).favorites,
-                            icon: Icons.favorite_border,
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute<void>(
-                                  builder: (_) => const FavoritView(),
-                                ),
-                              );
-                            },
-                          ),
-                          const SizedBox(height: 8),
-                          _ProfileLineItem(
-                            title: S.of(context).language,
-                            icon: Icons.language,
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  languageValue,
-                                  style:  TextStyle(
-                                    color: colors.primary,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 15,
+        child: Obx(() {
+          final name =
+              userData.value.name.isEmpty ? 'abed' : userData.value.name;
+          final email =
+              userData.value.email.isEmpty
+                  ? 'abed2003shehab@gmail.com'
+                  : userData.value.email;
+          final resolvedLanguage =
+              languageValue.value.isNotEmpty
+                  ? languageValue.value
+                  : (Prefs.getString(kAppLanguage) == 'en'
+                      ? S.of(context).english
+                      : S.of(context).arabic);
+
+          return Column(
+            children: [
+              Expanded(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            _ProfileTop(name: name, email: email),
+                            const SizedBox(height: 28),
+                            Align(
+                              alignment:
+                                  isRtl ? Alignment.centerRight : Alignment.centerLeft,
+                              child: Text(
+                                S.of(context).general,
+                                style: TextStyle(
                                   color: colors.onSurface,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                              ],
-                            ),
-                            onTap: () async {
-                              await Navigator.of(context).push(
-                                MaterialPageRoute<void>(
-                                  builder: (_) => const LanguageView(),
-                                ),
-                              );
-                              if (mounted) {
-                                setState(() {});
-                              }
-                            },
-                          ),
-                          const SizedBox(height: 8),
-                          _ProfileLineItem(
-                            title: S.of(context).designMode,
-                            icon: Icons.auto_fix_high_outlined,
-                            trailing: _StyledSwitch(
-                              value: designModeEnabled,
-                              onChanged: _onDesignModeChanged,
-                            ),
-                            onTap: null,
-                          ),
-                          const SizedBox(height: 14),
-                          Align(
-                            alignment:
-                                isRtl ? Alignment.centerRight : Alignment.centerLeft,
-                            child: Text(
-                              S.of(context).helpSection,
-                              style: TextStyle(
-                                color: colors.onSurface,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
+                                textAlign: isRtl ? TextAlign.right : TextAlign.left,
                               ),
-                              textAlign: isRtl ? TextAlign.right : TextAlign.left,
+                            ),
+                            const SizedBox(height: 8),
+                            _ProfileLineItem(
+                              title: S.of(context).profile,
+                              icon: Icons.person_outline,
+                              onTap: () async {
+                                await Navigator.of(context).push(
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const ProfileInfoView(),
+                                  ),
+                                );
+                                _readUserData();
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            _ProfileLineItem(
+                              title: S.of(context).myOrders,
+                              icon: Icons.inventory_2_outlined,
+                              onTap: () {
+                                Get.toNamed(OrdersView.routeName);
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            _ProfileLineItem(
+                              title: S.of(context).favorites,
+                              icon: Icons.favorite_border,
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const FavoritView(),
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            _ProfileLineItem(
+                              title: S.of(context).language,
+                              icon: Icons.language,
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    resolvedLanguage,
+                                    style:  TextStyle(
+                                      color: colors.primary,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 15,
+                                    color: colors.onSurface,
+                                  ),
+                                ],
+                              ),
+                              onTap: () async {
+                                await Navigator.of(context).push(
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const LanguageView(),
+                                  ),
+                                );
+                                _readLanguage();
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            _ProfileLineItem(
+                              title: S.of(context).designMode,
+                              icon: Icons.auto_fix_high_outlined,
+                              trailing: _StyledSwitch(
+                                value: designModeEnabled.value,
+                                onChanged: _onDesignModeChanged,
+                              ),
+                              onTap: null,
+                            ),
+                            const SizedBox(height: 14),
+                            Align(
+                              alignment:
+                                  isRtl ? Alignment.centerRight : Alignment.centerLeft,
+                              child: Text(
+                                S.of(context).helpSection,
+                                style: TextStyle(
+                                  color: colors.onSurface,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                textAlign: isRtl ? TextAlign.right : TextAlign.left,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            _ProfileLineItem(
+                              title: S.of(context).aboutUs,
+                              icon: Icons.info_outline,
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const AboutUsView(),
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            _ProfileLineItem(
+                              title: S.of(context).help,
+                              icon: Icons.help_outline,
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const HelpView(),
+                                  ),
+                                );
+                              },
+                            ),
+                             
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: _confirmLogout,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 24),
+                          Expanded(
+                            child: Center(
+                              child: Text(
+                                S.of(context).logout,
+                                style: TextStyle(
+                                  color: colors.primary,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
                           ),
-                          const SizedBox(height: 8),
-                          _ProfileLineItem(
-                            title: S.of(context).aboutUs,
-                            icon: Icons.info_outline,
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute<void>(
-                                  builder: (_) => const AboutUsView(),
-                                ),
-                              );
-                            },
+                          Icon(
+                            Icons.logout,
+                            color: colors.primary,
+                            size: 25,
                           ),
-                          const SizedBox(height: 8),
-                          _ProfileLineItem(
-                            title: S.of(context).help,
-                            icon: Icons.help_outline,
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute<void>(
-                                  builder: (_) => const HelpView(),
-                                ),
-                              );
-                            },
-                          ),
-                           
+                          const SizedBox(width: 22),
                         ],
                       ),
                     ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: _confirmLogout,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 24),
-                        Expanded(
-                          child: Center(
-                            child: Text(
-                              S.of(context).logout,
-                              style: TextStyle(
-                                color: colors.primary,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Icon(
-                          Icons.logout,
-                          color: colors.primary,
-                          size: 25,
-                        ),
-                        const SizedBox(width: 22),
-                      ],
-                    ),
-                  ),
-                ),
-          ],
-        ),
+            ],
+          );
+        }),
            
          
       ),

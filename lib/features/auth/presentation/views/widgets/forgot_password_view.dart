@@ -22,7 +22,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   final AuthController controller = Get.find<AuthController>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late String email;
-  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  final Rx<AutovalidateMode> autovalidateMode =
+      AutovalidateMode.disabled.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +32,12 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       appBar: buildAppBar(context, title: S.of(context).forgotPassword),
       body: Padding(
         padding: const EdgeInsets.all(kHorizintalPadding),
-        child: Form(
-          key: formKey,
-          autovalidateMode: autovalidateMode,
-          child: Column(
-            children: [
+        child: Obx(() {
+          return Form(
+            key: formKey,
+            autovalidateMode: autovalidateMode.value,
+            child: Column(
+              children: [
               const SizedBox(height: 24),
               Text(
                 S.of(context).passwordResetInstruction,
@@ -58,7 +60,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         ? (){}
         : () async {
             if (!formKey.currentState!.validate()) {
-              setState(() => autovalidateMode = AutovalidateMode.always);
+              autovalidateMode.value = AutovalidateMode.always;
               return;
             }
 
@@ -78,7 +80,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
 
             ],
           ),
-        ),
+        );
+        }),
       ),
     );
   }

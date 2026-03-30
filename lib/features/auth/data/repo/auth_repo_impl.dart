@@ -76,17 +76,18 @@ class AuthRepoImpl extends AuthRepo{
 Future<Either<Failure, UserEntity>> signInWithGoogle() async {
   User? user;
   try {
-    var user = await firebaseAuthService.signInWithGoogle();
-    var userEntity = UserModel.fromFirebaseUser(user);
-    var isUserExist = await databaseService.checkIfDataExists(
+    user = await firebaseAuthService.signInWithGoogle();
+    UserEntity userEntity = UserModel.fromFirebaseUser(user);
+    final isUserExist = await databaseService.checkIfDataExists(
       collectionName: BackendEndpoint.isUserExists, 
       docuementId: user.uid
       );
       if (isUserExist) {
-        await getUserData(uid: user.uid);
+        userEntity = await getUserData(uid: user.uid);
       }else{
         await addUserData(user: userEntity);
       }
+    await saveUserData(user: userEntity);
     return right(userEntity);
   } on CustomException catch (e) {
     return left(ServerFailure(e.message));

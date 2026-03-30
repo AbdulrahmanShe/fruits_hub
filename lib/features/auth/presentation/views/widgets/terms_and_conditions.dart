@@ -16,6 +16,22 @@ class TermsAndConditions extends StatefulWidget {
 
 class _TermsAndConditionsState extends State<TermsAndConditions> {
    bool isTermsAccepted = false;
+   late TapGestureRecognizer _tapRecognizer;
+
+@override
+void initState() {
+  super.initState();
+  _tapRecognizer = TapGestureRecognizer()
+    ..onTap = () {
+      Get.toNamed(TermsAndConditionsView.routeName);
+    };
+}
+
+@override
+void dispose() {
+  _tapRecognizer.dispose();
+  super.dispose();
+}
 
   @override
   Widget build(BuildContext context) {
@@ -24,47 +40,48 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
     // Transform.translate(
     //   offset: const Offset(14, 0),
       // child: 
-      Row(
-        children: [
-          // Checkbox(value: false, onChanged: (value){}),
-          CustomCheckBox(
-          onChecked: (value) {
-            isTermsAccepted = value;
+      Obx(() {
+        return Row(
+          children: [
+            // Checkbox(value: false, onChanged: (value){}),
+            CustomCheckBox(
+            onChecked: (value) {
+            setState(() {
+              isTermsAccepted = value;
+            });
             widget.onChanged(value);
-            setState(() {});
           },
-          isChecked: isTermsAccepted,
-        ),
-        const SizedBox(
-          width: 16,
-        ),
+            isChecked: isTermsAccepted,
+          ),
+          const SizedBox(
+            width: 16,
+          ),
 
-          Expanded(
-          child: Text.rich(
-            TextSpan(
-              children: [
-                TextSpan(
-                  text: S.of(context).termsAcceptancePrefix,
-                  style: TextStyles.semiBold13.copyWith(
-                    color: colors.onSurface.withValues(alpha: 0.6),
+            Expanded(
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: S.of(context).termsAcceptancePrefix,
+                    style: TextStyles.semiBold13.copyWith(
+                      color: colors.onSurface.withValues(alpha: 0.6),
+                    ),
                   ),
-                ),
-                TextSpan(
-                  recognizer: TapGestureRecognizer()..onTap = (){
-                        Get.toNamed(TermsAndConditionsView.routeName);
-                      },
-                  text: S.of(context).ourTermsAndConditions,
-                  style: TextStyles.semiBold13.copyWith(
-                    color: colors.primary,
+                  TextSpan(
+                    recognizer: _tapRecognizer,
+                    text: S.of(context).ourTermsAndConditions,
+                    style: TextStyles.semiBold13.copyWith(
+                      color: colors.primary,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          ),
-          
-        ],
+            ),
+            
+          ],
+        );
+      });
       // ),
-    );
   }
 }

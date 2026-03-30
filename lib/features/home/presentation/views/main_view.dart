@@ -6,6 +6,7 @@ import 'package:fruits_hub/features/home/presentation/views/widgets/custom_botto
 import 'package:fruits_hub/features/home/presentation/views/widgets/home_view.dart';
 import 'package:fruits_hub/core/controller/products_controller.dart';
 import 'package:fruits_hub/features/home/presentation/controller/main_controller.dart';
+import 'package:fruits_hub/features/home/presentation/controller/profile_controller.dart';
 import 'package:get/get.dart';
 
 class MainView extends StatefulWidget {
@@ -19,6 +20,7 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   final ProductsController controller = Get.find<ProductsController>();
   final MainController mainController = Get.find<MainController>();
+  final ProfileController profileController = Get.find<ProfileController>();
 
   final List<Widget> pages = const [
     HomeView(),
@@ -26,6 +28,12 @@ class _MainViewState extends State<MainView> {
     CartView(),
     ProfileView(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    profileController.loadFromLocal();
+  }
 
   void _handleTabChange(int index) {
     mainController.setIndex(index);

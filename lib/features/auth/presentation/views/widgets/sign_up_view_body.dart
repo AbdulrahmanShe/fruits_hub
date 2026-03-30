@@ -27,7 +27,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>(); 
 
-  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  final Rx<AutovalidateMode> autovalidateMode =
+      AutovalidateMode.disabled.obs;
 
   
 
@@ -36,11 +37,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kHorizintalPadding),
-        child: Form(
-          key: formKey,
-          autovalidateMode: autovalidateMode,
-          child: Column(
-            children: [
+        child: Obx(() {
+          return Form(
+            key: formKey,
+            autovalidateMode: autovalidateMode.value,
+            child: Column(
+              children: [
               SizedBox(height: 24,),
               CustomTextFormField(
                 hintText: S.of(context).fullName,
@@ -98,7 +100,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 ? (){return;}
                 : () async { 
                   if (!formKey.currentState!.validate()) {
-                      setState(() => autovalidateMode = AutovalidateMode.always);
+                      autovalidateMode.value = AutovalidateMode.always;
                       return;
                     }
 
@@ -131,7 +133,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             HaveAnAccountWidget(),
             ],
           ),
-        ),
+        );
+        }),
       ),
     );
   }

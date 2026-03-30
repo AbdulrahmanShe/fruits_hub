@@ -28,7 +28,8 @@ class _SignInViewBodyState extends State<SignInViewBody> {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>(); 
 
-  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  final Rx<AutovalidateMode> autovalidateMode =
+      AutovalidateMode.disabled.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -37,108 +38,110 @@ class _SignInViewBodyState extends State<SignInViewBody> {
         padding: const EdgeInsets.symmetric(
           horizontal: kHorizintalPadding
         ),
-        child: Form(
-          key: formKey,
-          autovalidateMode: autovalidateMode,
-          child: Column(
-            children: [
-              SizedBox(height: 24,),
+        child: Obx(() {
+          return Form(
+            key: formKey,
+            autovalidateMode: autovalidateMode.value,
+            child: Column(
+              children: [
+                SizedBox(height: 24,),
 
-              EmailField(
-                onChanged: (value) {
-                  email = value;
-                },
-                ),
-
-                SizedBox(height: 16,),
-
-              PasswordField(
-                obscureText: true,
-                onChanged: (value){
-                  password = value;
-                },
-              ),
-              
-                const SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        onPressed: (){
-                          Get.toNamed(ForgotPasswordView.routeName);
-                        },
-                        child: Text(
-                        S.of(context).forgotPasswordQuestion,
-                        style: TextStyles.semiBold13.copyWith(
-                          color: const Color.fromARGB(255, 51, 186, 107),
-                        ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 33,
-                  ),
-                  Obx((){
-                    return CustomBottom(
-                                  
-                      text: controller.isLoading.value 
-                      ? S.of(context).signingIn
-                      : S.of(context).signIn,
-                                  
-                      onPressed: controller.isLoading.value 
-                                  ? (){return;}
-                                  : () async { 
-                                    if (!formKey.currentState!.validate()) {
-                      setState(() => autovalidateMode = AutovalidateMode.always);
-                      return;
-                    }
-                    
-                    formKey.currentState!.save();
-                                  
-                    bool success = await controller.signInWithEmailAndPassword(
-                      email: email,
-                      password: password,
-                    );
-                                  
-                    if (success) {
-                      Get.toNamed(MainView.routeName);
-                    }
-                                    },
-                      
-                    );
-                  }
-                  ),
-                  const SizedBox(
-                    height: 33,
-                  ),
-                  
-                   DontHaveAccountWidget(),
-                  
-                  const SizedBox(
-                    height: 33,
-                  ),
-                  const OrDivider(),
-                  const SizedBox(
-                  height: 32,
-                  ),
-                  SocialLoginButton(
-                  onPressed: () async{
-                    bool success = await controller.signInWithGoogle();
-                                  
-                    if (success) {
-                      Get.toNamed(MainView.routeName);
-                    }
+                EmailField(
+                  onChanged: (value) {
+                    email = value;
                   },
-                  image: Assets.imagesGoogleIcon,
-                  title: S.of(context).signInWithGoogle,
+                  ),
+
+                  SizedBox(height: 16,),
+
+                PasswordField(
+                  obscureText: true,
+                  onChanged: (value){
+                    password = value;
+                  },
                 ),
                 
-            ],
-          ),
-        ),
+                  const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: (){
+                            Get.toNamed(ForgotPasswordView.routeName);
+                          },
+                          child: Text(
+                          S.of(context).forgotPasswordQuestion,
+                          style: TextStyles.semiBold13.copyWith(
+                            color: const Color.fromARGB(255, 51, 186, 107),
+                          ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 33,
+                    ),
+                    Obx((){
+                      return CustomBottom(
+                                    
+                        text: controller.isLoading.value 
+                        ? S.of(context).signingIn
+                        : S.of(context).signIn,
+                                    
+                        onPressed: controller.isLoading.value 
+                                    ? (){return;}
+                                    : () async { 
+                                      if (!formKey.currentState!.validate()) {
+                        autovalidateMode.value = AutovalidateMode.always;
+                        return;
+                      }
+                      
+                      formKey.currentState!.save();
+                                    
+                      bool success = await controller.signInWithEmailAndPassword(
+                        email: email,
+                        password: password,
+                      );
+                                    
+                      if (success) {
+                        Get.toNamed(MainView.routeName);
+                      }
+                                      },
+                        
+                      );
+                    }
+                    ),
+                    const SizedBox(
+                      height: 33,
+                    ),
+                    
+                     DontHaveAccountWidget(),
+                    
+                    const SizedBox(
+                      height: 33,
+                    ),
+                    const OrDivider(),
+                    const SizedBox(
+                    height: 32,
+                    ),
+                    SocialLoginButton(
+                    onPressed: () async{
+                      bool success = await controller.signInWithGoogle();
+                                    
+                      if (success) {
+                        Get.toNamed(MainView.routeName);
+                      }
+                    },
+                    image: Assets.imagesGoogleIcon,
+                    title: S.of(context).signInWithGoogle,
+                  ),
+                  
+              ],
+            ),
+          );
+        }),
       ),
     );
   }

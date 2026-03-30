@@ -33,9 +33,10 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
 
-  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-  bool isSaving = false;
-  String selectedGender = 'male';
+  final Rx<AutovalidateMode> autovalidateMode =
+      AutovalidateMode.disabled.obs;
+  final RxBool isSaving = false.obs;
+  final RxString selectedGender = 'male'.obs;
 
   @override
   void initState() {
@@ -52,10 +53,10 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
         emailController.text = (data['email'] ?? '').toString();
         phoneController.text = (data['phone'] ?? '').toString();
         final gender = (data['gender'] ?? '').toString();
-        selectedGender = gender == 'female' ? 'female' : 'male';
+        selectedGender.value = gender == 'female' ? 'female' : 'male';
         profileController.setProfile(
           name: nameController.text.trim(),
-          genderValue: selectedGender,
+          genderValue: selectedGender.value,
         );
         return;
       } catch (_) {}
@@ -65,10 +66,10 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
     nameController.text = user?.displayName ?? '';
     emailController.text = user?.email ?? '';
     phoneController.text = '';
-    selectedGender = 'male';
+    selectedGender.value = 'male';
     profileController.setProfile(
       name: nameController.text.trim(),
-      genderValue: selectedGender,
+      genderValue: selectedGender.value,
     );
   }
 
@@ -93,7 +94,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
         .doc(user.uid)
         .set({
           'name': trimmedName,
-          'gender': selectedGender,
+          'gender': selectedGender.value,
           'phone': phoneController.text.trim(),
         }, SetOptions(merge: true));
   }
@@ -106,7 +107,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
       'name': nameController.text.trim(),
       'email': emailController.text.trim(),
       'phone': phoneController.text.trim(),
-      'gender': selectedGender,
+      'gender': selectedGender.value,
       'uId': currentUid,
       'role': 'viewer',
     };
@@ -119,7 +120,7 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
           'name': nameController.text.trim(),
           'email': emailController.text.trim(),
           'phone': phoneController.text.trim(),
-          'gender': selectedGender,
+          'gender': selectedGender.value,
         };
       } catch (_) {}
     }
@@ -127,19 +128,19 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
     await Prefs.setString(kUserData, jsonEncode(userMap));
     profileController.setProfile(
       name: nameController.text.trim(),
-      genderValue: selectedGender,
+      genderValue: selectedGender.value,
     );
   }
 
   Future<void> _onSavePressed() async {
-    if (isSaving) return;
+    if (isSaving.value) return;
     final strings = S.of(context);
     if (!formKey.currentState!.validate()) {
-      setState(() => autovalidateMode = AutovalidateMode.always);
+      autovalidateMode.value = AutovalidateMode.always;
       return;
     }
 
-    setState(() => isSaving = true);
+    isSaving.value = true;
     try {
       await _updateProfileInFirebase();
       await _saveUserLocally();
@@ -153,177 +154,181 @@ class _ProfileInfoViewState extends State<ProfileInfoView> {
         strings.failedToUpdateData,
       );
     } finally {
-      if (mounted) setState(() => isSaving = false);
+      if (mounted) isSaving.value = false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-    final avatarPath =
-        selectedGender == 'female'
-            ? Assets.imagesProfileImageFemale
-            : Assets.imagesProfileImageMale;
+    return Obx(() {
+      final colors = Theme.of(context).colorScheme;
+      final avatarPath =
+          selectedGender.value == 'female'
+              ? Assets.imagesProfileImageFemale
+              : Assets.imagesProfileImageMale;
 
-    return Scaffold(
-      appBar: buildAppBar(context, title: S.of(context).profile),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Form(
-              key: formKey,
-              autovalidateMode: autovalidateMode,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(14),
-                            decoration: BoxDecoration(
-                              color: colors.primary.withValues(alpha: 0.12),
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: colors.outline.withValues(alpha: 0.4),
+      return Scaffold(
+        appBar: buildAppBar(context, title: S.of(context).profile),
+        body: SafeArea(
+          child: Stack(
+            children: [
+              Form(
+                key: formKey,
+                autovalidateMode: autovalidateMode.value,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(14),
+                              decoration: BoxDecoration(
+                                color: colors.primary.withValues(alpha: 0.12),
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: colors.outline.withValues(alpha: 0.4),
+                                ),
+                              ),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 22,
+                                    child: ClipOval(
+                                      child: Image.asset(avatarPath, fit: BoxFit.cover),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          S.of(context).profileInfo,
+                                          style: TextStyles.bold16.copyWith(
+                                            color: colors.onSurface,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 2),
+                                        Text(
+                                          S.of(context).updateDataHint,
+                                          style: TextStyles.regular13.copyWith(
+                                            color: colors.onSurface.withValues(alpha: 0.6),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            child: Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 22,
-                                  child: ClipOval(
-                                    child: Image.asset(avatarPath, fit: BoxFit.cover),
+                            const SizedBox(height: 14),
+                            _LabeledField(
+                              label: S.of(context).fullName,
+                              child: CustomTextFormField(
+                                controller: nameController,
+                                hintText: S.of(context).enterFullName,
+                                textInputType: TextInputType.name,
+                                validator: (value) {
+                                  if (value == null || value.trim().isEmpty) {
+                                    return S.of(context).nameRequired;
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            _LabeledField(
+                              label: S.of(context).email,
+                              child: CustomTextFormField(
+                                controller: emailController,
+                                hintText: S.of(context).emailExample,
+                                readOnly: true,
+                                textInputType: TextInputType.emailAddress,
+                                validator: (value) {
+                                  if (value == null || value.trim().isEmpty) {
+                                    return S.of(context).emailRequired;
+                                  }
+                                  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                                  if (!emailRegex.hasMatch(value.trim())) {
+                                    return S.of(context).invalidEmail;
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            _LabeledField(
+                              label: S.of(context).phoneNumber,
+                              child: CustomTextFormField(
+                                controller: phoneController,
+                                hintText: S.of(context).phoneExample,
+                                textInputType: TextInputType.phone,
+                                validator: (value) {
+                                  if (value == null || value.trim().isEmpty) {
+                                    return S.of(context).phoneRequired;
+                                  }
+                                  if (value.trim().length < 9) {
+                                    return S.of(context).phoneIncomplete;
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 14),
+                            _LabeledField(
+                              label: S.of(context).gender,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: _GenderButton(
+                                      title: S.of(context).male,
+                                      selected: selectedGender.value == 'male',
+                                      onTap: () => selectedGender.value = 'male',
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(width: 10),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        S.of(context).profileInfo,
-                                        style: TextStyles.bold16.copyWith(
-                                          color: colors.onSurface,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 2),
-                                      Text(
-                                        S.of(context).updateDataHint,
-                                        style: TextStyles.regular13.copyWith(
-                                          color: colors.onSurface.withValues(alpha: 0.6),
-                                        ),
-                                      ),
-                                    ],
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: _GenderButton(
+                                      title: S.of(context).female,
+                                      selected: selectedGender.value == 'female',
+                                      onTap: () => selectedGender.value = 'female',
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 14),
-                          _LabeledField(
-                            label: S.of(context).fullName,
-                            child: CustomTextFormField(
-                              controller: nameController,
-                              hintText: S.of(context).enterFullName,
-                              textInputType: TextInputType.name,
-                              validator: (value) {
-                                if (value == null || value.trim().isEmpty) {
-                                  return S.of(context).nameRequired;
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          _LabeledField(
-                            label: S.of(context).email,
-                            child: CustomTextFormField(
-                              controller: emailController,
-                              hintText: S.of(context).emailExample,
-                              readOnly: true,
-                              textInputType: TextInputType.emailAddress,
-                              validator: (value) {
-                                if (value == null || value.trim().isEmpty) {
-                                  return S.of(context).emailRequired;
-                                }
-                                final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                                if (!emailRegex.hasMatch(value.trim())) {
-                                  return S.of(context).invalidEmail;
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          _LabeledField(
-                            label: S.of(context).phoneNumber,
-                            child: CustomTextFormField(
-                              controller: phoneController,
-                              hintText: S.of(context).phoneExample,
-                              textInputType: TextInputType.phone,
-                              validator: (value) {
-                                if (value == null || value.trim().isEmpty) {
-                                  return S.of(context).phoneRequired;
-                                }
-                                if (value.trim().length < 9) {
-                                  return S.of(context).phoneIncomplete;
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          const SizedBox(height: 14),
-                          _LabeledField(
-                            label: S.of(context).gender,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: _GenderButton(
-                                    title: S.of(context).male,
-                                    selected: selectedGender == 'male',
-                                    onTap: () => setState(() => selectedGender = 'male'),
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: _GenderButton(
-                                    title: S.of(context).female,
-                                    selected: selectedGender == 'female',
-                                    onTap: () => setState(() => selectedGender = 'female'),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 32, 16, 16),
-                    child: CustomBottom(
-                      text: isSaving ? S.of(context).saving : S.of(context).saveChanges,
-                      onPressed: _onSavePressed,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 32, 16, 16),
+                      child: CustomBottom(
+                        text: isSaving.value
+                            ? S.of(context).saving
+                            : S.of(context).saveChanges,
+                        onPressed: _onSavePressed,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            if (isSaving)
-              Positioned.fill(
-                child: Container(
-                  color: colors.scrim.withValues(alpha: 0.2),
-                  alignment: Alignment.center,
-                  child: CircularProgressIndicator(color: colors.primary),
+                  ],
                 ),
               ),
-          ],
+              if (isSaving.value)
+                Positioned.fill(
+                  child: Container(
+                    color: colors.scrim.withValues(alpha: 0.2),
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator(color: colors.primary),
+                  ),
+                ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 
