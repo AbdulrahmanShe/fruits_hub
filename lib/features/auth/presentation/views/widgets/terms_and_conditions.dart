@@ -36,52 +36,50 @@ void dispose() {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    return  
+    return
     // Transform.translate(
     //   offset: const Offset(14, 0),
       // child: 
-      Obx(() {
-        return Row(
-          children: [
-            // Checkbox(value: false, onChanged: (value){}),
-            CustomCheckBox(
-            onChecked: (value) {
-            setState(() {
-              isTermsAccepted = value;
-            });
-            widget.onChanged(value);
-          },
-            isChecked: isTermsAccepted,
-          ),
-          const SizedBox(
-            width: 16,
-          ),
+      Row(
+        children: [
+          // Checkbox(value: false, onChanged: (value){}),
+          CustomCheckBox(
+          onChecked: (value) {
+          setState(() {
+            isTermsAccepted = value;
+          });
+          widget.onChanged(value);
+        },
+          isChecked: isTermsAccepted,
+        ),
+        const SizedBox(
+          width: 16,
+        ),
 
-            Expanded(
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: S.of(context).termsAcceptancePrefix,
-                    style: TextStyles.semiBold13.copyWith(
-                      color: colors.onSurface.withValues(alpha: 0.6),
-                    ),
+          Expanded(
+          child: Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: S.of(context).termsAcceptancePrefix,
+                  style: TextStyles.semiBold13.copyWith(
+                    color: colors.onSurface.withValues(alpha: 0.6),
                   ),
-                  TextSpan(
-                    recognizer: _tapRecognizer,
-                    text: S.of(context).ourTermsAndConditions,
-                    style: TextStyles.semiBold13.copyWith(
-                      color: colors.primary,
-                    ),
+                ),
+                TextSpan(
+                  recognizer: _tapRecognizer,
+                  text: S.of(context).ourTermsAndConditions,
+                  style: TextStyles.semiBold13.copyWith(
+                    color: colors.primary,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            ),
-            
-          ],
-        );
-      });
+          ),
+          ),
+          
+        ],
+      );
       // ),
   }
 }
