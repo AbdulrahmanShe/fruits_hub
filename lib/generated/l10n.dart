@@ -354,10 +354,10 @@ class S {
     return Intl.message('Delivery:', name: 'deliveryLabel', desc: '', args: []);
   }
 
-  /// `So we designed a clear purchase journey from product selection to delivery.`
+  /// `So we designed a clear shopping journey from product selection to delivery.`
   String get designedClearPurchaseExperience {
     return Intl.message(
-      'So we designed a clear purchase journey from product selection to delivery.',
+      'So we designed a clear shopping journey from product selection to delivery.',
       name: 'designedClearPurchaseExperience',
       desc: '',
       args: [],
@@ -394,10 +394,10 @@ class S {
     );
   }
 
-  /// `An easier way to buy fresh fruits`
+  /// `An easier way to shop for daily essentials`
   String get easierFreshFruitShoppingExperience {
     return Intl.message(
-      'An easier way to buy fresh fruits',
+      'An easier way to shop for daily essentials',
       name: 'easierFreshFruitShoppingExperience',
       desc: '',
       args: [],
@@ -959,10 +959,10 @@ class S {
     );
   }
 
-  /// `Discover a unique shopping experience with FruitHUB.`
+  /// `Discover a unique shopping experience with Salla Market.`
   String get onboardingSubtitle1 {
     return Intl.message(
-      'Discover a unique shopping experience with FruitHUB.',
+      'Discover a unique shopping experience with Salla Market.',
       name: 'onboardingSubtitle1',
       desc: '',
       args: [],
@@ -1664,10 +1664,10 @@ class S {
     );
   }
 
-  /// `Thank you for trusting FruitHub`
+  /// `Thank you for choosing Salla Market`
   String get thanksForTrustingFruitHub {
     return Intl.message(
-      'Thank you for trusting FruitHub',
+      'Thank you for choosing Salla Market',
       name: 'thanksForTrustingFruitHub',
       desc: '',
       args: [],
@@ -1719,10 +1719,10 @@ class S {
     );
   }
 
-  /// `We believe access to fresh high-quality products should be simple and fast for every home.`
+  /// `We believe access to everyday essentials should be simple and fast for every home.`
   String get weBelieveFreshProductsShouldBeSimpleAndFast {
     return Intl.message(
-      'We believe access to fresh high-quality products should be simple and fast for every home.',
+      'We believe access to everyday essentials should be simple and fast for every home.',
       name: 'weBelieveFreshProductsShouldBeSimpleAndFast',
       desc: '',
       args: [],
@@ -1794,10 +1794,10 @@ class S {
     );
   }
 
-  /// `Why FruitHub?`
+  /// `Why Salla Market?`
   String get whyFruitHub {
     return Intl.message(
-      'Why FruitHub?',
+      'Why Salla Market?',
       name: 'whyFruitHub',
       desc: '',
       args: [],

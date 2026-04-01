@@ -114,7 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "deliveryLabel": MessageLookupByLibrary.simpleMessage("Delivery:"),
     "designMode": MessageLookupByLibrary.simpleMessage("Mode"),
     "designedClearPurchaseExperience": MessageLookupByLibrary.simpleMessage(
-      "So we designed a clear purchase journey from product selection to delivery.",
+      "So we designed a clear shopping journey from product selection to delivery.",
     ),
     "discount25": MessageLookupByLibrary.simpleMessage("25% OFF"),
     "discount30": MessageLookupByLibrary.simpleMessage("30% OFF"),
@@ -123,7 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Don\'t have an account?",
     ),
     "easierFreshFruitShoppingExperience": MessageLookupByLibrary.simpleMessage(
-      "An easier way to buy fresh fruits",
+      "An easier way to shop for daily essentials",
     ),
     "edit": MessageLookupByLibrary.simpleMessage("Edit"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -250,7 +250,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
     "onboardingSubtitle1": MessageLookupByLibrary.simpleMessage(
-      "Discover a unique shopping experience with FruitHUB.",
+      "Discover a unique shopping experience with Salla Market.",
     ),
     "onboardingSubtitle2": MessageLookupByLibrary.simpleMessage(
       "We provide carefully selected premium fruits.",
@@ -396,7 +396,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Welcome to our app!\n\nPlease read the following terms and conditions carefully before using the app:\n\n1. Using the app means you agree to these terms.\n2. The app must not be used for illegal purposes.\n3. We are not responsible for any losses resulting from app use.\n4. Content in the app is protected by copyright.\n5. We may modify terms at any time.\n6. If you do not agree, please do not use the app.\n\nThank you for using our app!",
     ),
     "thanksForTrustingFruitHub": MessageLookupByLibrary.simpleMessage(
-      "Thank you for trusting FruitHub",
+      "Thank you for choosing Salla Market",
     ),
     "thisEmailIsNotRegistered": MessageLookupByLibrary.simpleMessage(
       "This email is not registered.",
@@ -417,7 +417,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "viewOrders": MessageLookupByLibrary.simpleMessage("View orders"),
     "weBelieveFreshProductsShouldBeSimpleAndFast":
         MessageLookupByLibrary.simpleMessage(
-          "We believe access to fresh high-quality products should be simple and fast for every home.",
+          "We believe access to everyday essentials should be simple and fast for every home.",
         ),
     "weContinuouslyImproveApp": MessageLookupByLibrary.simpleMessage(
       "We continuously improve the app based on your feedback.",
@@ -434,7 +434,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "What if I have a payment issue?",
     ),
     "whatWeCommitTo": MessageLookupByLibrary.simpleMessage("What We Commit To"),
-    "whyFruitHub": MessageLookupByLibrary.simpleMessage("Why FruitHub?"),
+    "whyFruitHub": MessageLookupByLibrary.simpleMessage("Why Salla Market?"),
     "yes": MessageLookupByLibrary.simpleMessage("Yes"),
     "youHaveItemsInCart": m9,
   };

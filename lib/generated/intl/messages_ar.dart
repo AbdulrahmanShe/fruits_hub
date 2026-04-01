@@ -113,14 +113,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "deliveryLabel": MessageLookupByLibrary.simpleMessage("التوصيل  :"),
     "designMode": MessageLookupByLibrary.simpleMessage("الوضع"),
     "designedClearPurchaseExperience": MessageLookupByLibrary.simpleMessage(
-      "لهذا صممنا تجربة شراء واضحة من اختيار المنتج حتى استلام الطلب.",
+      "لهذا صممنا رحلة تسوق واضحة من اختيار المنتج حتى استلام الطلب.",
     ),
     "discount25": MessageLookupByLibrary.simpleMessage("خصم 25%"),
     "discount30": MessageLookupByLibrary.simpleMessage("خصم 30%"),
     "done": MessageLookupByLibrary.simpleMessage("تم"),
     "dontHaveAccount": MessageLookupByLibrary.simpleMessage("لا تمتلك حساب؟ "),
     "easierFreshFruitShoppingExperience": MessageLookupByLibrary.simpleMessage(
-      "تجربة أسهل لشراء الفواكه الطازجة",
+      "تجربة أسهل لشراء احتياجاتك اليومية",
     ),
     "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
     "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
@@ -243,7 +243,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "notifications": MessageLookupByLibrary.simpleMessage("الإشعارات"),
     "onboardingSubtitle1": MessageLookupByLibrary.simpleMessage(
-      "اكتشف تجربة تسوق فريدة مع FruitHUB. استكشف مجموعتنا الواسعة من الفواكه الطازجة الممتازة واحصل على أفضل العروض والجودة العالية.",
+      "اكتشف تجربة تسوق فريدة مع Salla Market. استكشف مجموعتنا الواسعة من الفواكه الطازجة الممتازة واحصل على أفضل العروض والجودة العالية.",
     ),
     "onboardingSubtitle2": MessageLookupByLibrary.simpleMessage(
       "نقدم لك أفضل الفواكه المختارة بعناية. اطلع على التفاصيل والصور والتقييمات لتتأكد من اختيار الفاكهة المثالية",
@@ -395,7 +395,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "مرحبا بك في تطبيقنا!\n\nيرجى قراءة الشروط والأحكام التالية بعناية قبل استخدام التطبيق:\n\n1. استخدام التطبيق يعني موافقتك على هذه الشروط.\n2. لا يجوز استخدام التطبيق لأي أغراض غير قانونية.\n3. نحن غير مسؤولين عن أي خسائر ناتجة عن استخدام التطبيق.\n4. المحتوى المعروض في التطبيق محمي بحقوق الطبع والنشر.\n5. يحق لنا تعديل الشروط في أي وقت، ويكون التعديل ساري المفعول فور نشره.\n6. إذا لم توافق على هذه الشروط، يُرجى عدم استخدام التطبيق.\n\nشكرًا لاستخدامك تطبيقنا!",
     ),
     "thanksForTrustingFruitHub": MessageLookupByLibrary.simpleMessage(
-      "شكرًا لثقتك بـ FruitHub",
+      "شكرًا لاختيارك Salla Market",
     ),
     "thisEmailIsNotRegistered": MessageLookupByLibrary.simpleMessage(
       "هذا البريد غير مسجل.",
@@ -416,7 +416,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "viewOrders": MessageLookupByLibrary.simpleMessage("عرض الطلبات"),
     "weBelieveFreshProductsShouldBeSimpleAndFast":
         MessageLookupByLibrary.simpleMessage(
-          "نؤمن أن الوصول إلى منتجات طازجة بجودة عالية يجب أن يكون بسيطًا وسريعًا لكل بيت.",
+          "نؤمن أن الوصول إلى احتياجاتك اليومية يجب أن يكون بسيطًا وسريعًا لكل بيت.",
         ),
     "weContinuouslyImproveApp": MessageLookupByLibrary.simpleMessage(
       "نطوّر التطبيق باستمرار بناءً على ملاحظاتكم ونضيف مزايا جديدة لتحسين تجربة التسوق يومًا بعد يوم.",
@@ -433,7 +433,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "ماذا أفعل إذا واجهت مشكلة في الدفع؟",
     ),
     "whatWeCommitTo": MessageLookupByLibrary.simpleMessage("ما نلتزم به"),
-    "whyFruitHub": MessageLookupByLibrary.simpleMessage("لماذا FruitHub؟"),
+    "whyFruitHub": MessageLookupByLibrary.simpleMessage("لماذا Salla Market؟"),
     "yes": MessageLookupByLibrary.simpleMessage("نعم"),
     "youHaveItemsInCart": m9,
   };

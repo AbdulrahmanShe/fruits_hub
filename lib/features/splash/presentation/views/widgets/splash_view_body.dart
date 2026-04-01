@@ -27,22 +27,31 @@ class _SplashViewBodyState extends State<SplashViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Align(
-          alignment: Alignment.topLeft,
-          child: SvgPicture.asset(Assets.imagesPlant),
-        ),
-        SvgPicture.asset(Assets.imagesLogo),
-        SvgPicture.asset(Assets.imagesSplashBottom,
-        fit: BoxFit.fill,
-        ),
-      ],
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Spacer(),
+          const SizedBox(height: 100),
+          Center(
+            child: Image.asset(
+              Assets.imagesLogo,
+              width: screenWidth * 0.80,
+              fit: BoxFit.contain,
+            ),
+          ),
+          const Spacer(),
+          SvgPicture.asset(
+            Assets.imagesSplashBottom,
+            fit: BoxFit.fill,
+          ),
+        ],
+      ),
     );
   }
-  
+
   void executeNavigation() {
     bool  isOnBoardingViewSeen = Prefs.getBool(kIsOnBoardingViewSeen);
     Future.delayed(const Duration(seconds: 3),(){

@@ -78,12 +78,12 @@ class HelpView extends StatelessWidget {
                 const SizedBox(height: 8),
                 _ContactRow(
                   icon: Icons.email_outlined,
-                  text: 'support@fruithub.app',
+                  text: 'support@sallamaket.app',
                 ),
                 const SizedBox(height: 6),
                 _ContactRow(
                   icon: Icons.call_outlined,
-                  text: '+970 59 000 0000',
+                  text: '7844 980 059',
                 ),
                 const SizedBox(height: 6),
                 _ContactRow(

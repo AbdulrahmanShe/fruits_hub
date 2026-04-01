@@ -14,10 +14,10 @@ class AboutUsView extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(context, title: S.of(context).aboutUs),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
         children: [
           Container(
-            padding: const EdgeInsets.all(14),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: colors.primary.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(12),
@@ -26,8 +26,8 @@ class AboutUsView extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  width: 42,
-                  height: 42,
+                  width: 46,
+                  height: 46,
                   decoration: BoxDecoration(
                     color: colors.primary,
                     borderRadius: BorderRadius.circular(10),
@@ -35,7 +35,7 @@ class AboutUsView extends StatelessWidget {
                   child: const Icon(
                     Icons.eco_outlined,
                     color: Colors.white,
-                    size: 22,
+                    size: 24,
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -43,7 +43,7 @@ class AboutUsView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('FruitHub', style: TextStyles.bold16),
+                      Text('SallaMarket', style: TextStyles.bold16),
                       const SizedBox(height: 2),
                       Text(
                         S.of(context).easierFreshFruitShoppingExperience,
@@ -57,21 +57,21 @@ class AboutUsView extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 18),
           _SectionCard(
             title: S.of(context).ourMission,
             icon: Icons.flag_outlined,
             body:
                 '${S.of(context).weBelieveFreshProductsShouldBeSimpleAndFast} ${S.of(context).designedClearPurchaseExperience}',
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
           _SectionCard(
             title: S.of(context).whatWeCommitTo,
             icon: Icons.verified_outlined,
             body:
                 '${S.of(context).weWorkWithTrustedSuppliers} ${S.of(context).weFocusOnTransparentPricing}',
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
           _SectionCard(
             title: S.of(context).whyFruitHub,
             icon: Icons.lightbulb_outline,
@@ -118,18 +118,33 @@ class _SectionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: colors.surface,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: colors.outline.withValues(alpha: 0.4)),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: colors.outline.withValues(alpha: 0.35)),
+        boxShadow: [
+          BoxShadow(
+            color: colors.shadow.withValues(alpha: 0.06),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(icon, size: 18, color: colors.primary),
+              Container(
+                width: 28,
+                height: 28,
+                decoration: BoxDecoration(
+                  color: colors.primary.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(icon, size: 16, color: colors.primary),
+              ),
               const SizedBox(width: 6),
               Text(
                 title,
